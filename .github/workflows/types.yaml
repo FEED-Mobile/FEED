@@ -17,10 +17,11 @@ jobs:
             PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_ID }}
             PAT_EMAIL: ${{ secrets.PAT_EMAIL }}
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
               with:
-                  persist-credentials: false
-                  fetch-depth: 0
+                ref: ${{ github.head_ref }}
+                fetch-depth: 0
+                token: ${{ secrets.PAT }}
             - uses: actions/setup-node@v2.1.5
               with:
                   node-version: 16
