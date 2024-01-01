@@ -1,22 +1,42 @@
-name: Generate Supabase Types
+name: Update database types
 
 on:
     push:
         branches:
             - main
     schedule:
+        # sets the action to run daily. You can modify this to run the action more or less frequently
         - cron: "0 0 * * *"
 
 jobs:
-    generate_types:
+    Update:
         runs-on: ubuntu-latest
-        environment: Production
+        env:
+            SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+            PROJECT_REF: <your-project-id>
         steps:
             - uses: actions/checkout@v2
-            - name: Generate Supabase Types
-              uses: lyqht/generate-supabase-db-types-github-action@v1.0.0
               with:
-                  SUPABASE_REF_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
-                  SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-                  DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
-                  OUTPUT_PATH: types/supabase.ts
+                  persist-credentials: false
+                  fetch-depth: 0
+            - uses: actions/setup-node@v2.1.5
+              with:
+                  node-version: 16
+            - run: npm run update-types
+            - name: check for file changes
+              id: git_status
+              run: |
+                  echo "status=$(git status -s)" >> $GITHUB_OUTPUT
+            - name: Commit files
+              if: ${{contains(steps.git_status.outputs.status, ' ')}}
+              run: |
+                  git add types/database/index.ts
+                  git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git config --local user.name "github-actions[bot]"
+                  git commit -m "Update database types" -a
+            - name: Push changes
+              if: ${{contains(steps.git_status.outputs.status, ' ')}}
+              uses: ad-m/github-push-action@master
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  branch: ${{ github.ref }}
