@@ -1,0 +1,22 @@
+name: Generate Supabase Types
+
+on:
+    push:
+        branches:
+            - main
+    schedule:
+        - cron: "0 0 * * *"
+
+jobs:
+    generate_types:
+        runs-on: ubuntu-latest
+        environment: Production
+        steps:
+            - uses: actions/checkout@v2
+            - name: Generate Supabase Types
+              uses: lyqht/generate-supabase-db-types-github-action@v1.0.0
+              with:
+                  SUPABASE_REF_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+                  SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+                  DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+                  OUTPUT_PATH: types/supabase.ts
