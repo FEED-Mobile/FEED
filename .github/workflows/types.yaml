@@ -11,9 +11,10 @@ on:
 jobs:
     Update:
         runs-on: ubuntu-latest
+        environment: production
         env:
             SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-            PROJECT_REF: <your-project-id>
+            PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_ID }}
         steps:
             - uses: actions/checkout@v2
               with:
