@@ -16,7 +16,6 @@ jobs:
             SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
             PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_ID }}
             PAT_EMAIL: ${{ secrets.PAT_EMAIL }}
-            PAT_NAME: ${{ secrets.PAT_NAME }}
         steps:
             - uses: actions/checkout@v2
               with:
@@ -35,7 +34,7 @@ jobs:
               run: |
                   git add types/supabase.ts
                   git config --local user.email "$PAT_EMAIL"
-                  git config --local user.name "$PAT_NAME"
+                  git config --local user.name "hansonguyen"
                   git commit -m "Update database types" -a
             - name: Push changes
               if: ${{contains(steps.git_status.outputs.status, ' ')}}
