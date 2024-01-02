@@ -15,9 +15,9 @@ module.exports = function (api) {
                         "@constants": "./src/constants",
                         "@lib": "./src/lib",
                         "@type": "./src/types",
-                    }
-                }
-            ]
+                    },
+                },
+            ],
         ],
     };
 };
