@@ -25,7 +25,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
     const [loaded, error] = useFonts({
-        SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+        Katibeh: require("../assets/fonts/Katibeh-Regular.ttf"),
+        Mako: require("../assets/fonts/Mako-Regular.ttf"),
         ...FontAwesome.font,
     });
 
@@ -51,7 +52,6 @@ function RootLayoutNav() {
     const colorScheme = useColorScheme();
 
     useEffect(() => {
-        console.log("I RUNRUNRURN")
         supabase.auth.getSession().then(({ data: { session } }) => {
             if (session) {
                 router.replace("/");
@@ -72,7 +72,7 @@ function RootLayoutNav() {
             value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
             <Stack>
-                <Stack.Screen name="landing" options={{ headerTitle: "Landing Page" }} />
+                <Stack.Screen name="landing" options={{ headerTitle: "Landing Page", headerShown: false }} />
                 <Stack.Screen name="login" options={{ headerTitle: "Login Page" }} />
                 <Stack.Screen name="signup" options={{ headerTitle: "Sign Up Page" }} />
                 <Stack.Screen name="(app)" options={{ headerShown: false }} />

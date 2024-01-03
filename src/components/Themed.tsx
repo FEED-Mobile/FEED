@@ -8,6 +8,10 @@ import {
     Text as DefaultText,
     useColorScheme,
     View as DefaultView,
+    PressableProps as DefaultPressableProps,
+    StyleProp,
+    ViewStyle,
+    PressableStateCallbackType,
 } from "react-native";
 
 import Colors from "@constants/Colors";
@@ -19,6 +23,12 @@ type ThemeProps = {
 
 export type TextProps = ThemeProps & DefaultText["props"];
 export type ViewProps = ThemeProps & DefaultView["props"];
+export type PressableProps = ThemeProps &
+    DefaultPressableProps & {
+        style?:
+            | StyleProp<ViewStyle>
+            | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>);
+    };
 
 export function useThemeColor(
     props: { light?: string; dark?: string },
@@ -51,12 +61,20 @@ export function View(props: ViewProps) {
     return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
 
-export function Pressable(props: ViewProps) {
+export function Pressable(props: PressableProps) {
     const { style, lightColor, darkColor, ...otherProps } = props;
     const backgroundColor = useThemeColor(
         { light: lightColor, dark: darkColor },
-        "background"
+        "text"
     );
 
-    return <DefaultPressable style={[{ backgroundColor }, style]} {...otherProps} />;
+    return (
+        <DefaultPressable
+            style={(state) => [
+                { backgroundColor },
+                typeof style === "function" ? style(state) : style,
+            ]}
+            {...otherProps}
+        />
+    );
 }
