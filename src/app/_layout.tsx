@@ -1,11 +1,12 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { supabase } from "@lib/supabase";
 import {
     DarkTheme,
     DefaultTheme,
     ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import { SplashScreen, Stack, router } from "expo-router";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 
@@ -24,7 +25,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
     const [loaded, error] = useFonts({
-        SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+        Katibeh: require("../assets/fonts/Katibeh-Regular.ttf"),
+        Mako: require("../assets/fonts/Mako-Regular.ttf"),
         ...FontAwesome.font,
     });
 
@@ -49,16 +51,31 @@ export default function RootLayout() {
 function RootLayoutNav() {
     const colorScheme = useColorScheme();
 
+    useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                router.replace("/");
+            }
+        });
+
+        supabase.auth.onAuthStateChange((_event, session) => {
+            if (session) {
+                router.replace("/");
+            } else {
+                router.replace("/landing");
+            }
+        });
+    }, []);
+
     return (
         <ThemeProvider
             value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
             <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen
-                    name="modal"
-                    options={{ presentation: "modal" }}
-                />
+                <Stack.Screen name="landing" options={{ headerTitle: "Landing Page", headerShown: false }} />
+                <Stack.Screen name="login" options={{ headerTitle: "Login Page" }} />
+                <Stack.Screen name="signup" options={{ headerTitle: "Sign Up Page" }} />
+                <Stack.Screen name="(app)" options={{ headerShown: false }} />
             </Stack>
         </ThemeProvider>
     );
