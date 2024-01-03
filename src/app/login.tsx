@@ -8,8 +8,9 @@ import {
     View,
 } from "react-native";
 import { supabase } from "@lib/supabase";
+import { router } from "expo-router";
 
-export default function Auth() {
+export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -27,17 +28,7 @@ export default function Auth() {
 
     async function signUpWithEmail() {
         setLoading(true);
-        const {
-            data: { session },
-            error,
-        } = await supabase.auth.signUp({
-            email: email,
-            password: password,
-        });
-
-        if (error) Alert.alert(error.message);
-        if (!session)
-            Alert.alert("Please check your inbox for email verification!");
+        router.push("/signup")
         setLoading(false);
     }
 
@@ -49,6 +40,7 @@ export default function Auth() {
                     value={email}
                     placeholder="email@address.com"
                     autoCapitalize={"none"}
+                    style={styles.textInput}
                 />
             </View>
             <View style={styles.verticallySpaced}>
@@ -58,16 +50,17 @@ export default function Auth() {
                     secureTextEntry={true}
                     placeholder="Password"
                     autoCapitalize={"none"}
+                    style={styles.textInput}
                 />
             </View>
             <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Pressable disabled={loading} onPress={() => signInWithEmail()}>
-                    <Text>Sign In</Text>
+                <Pressable disabled={loading} onPress={() => signInWithEmail()} style={styles.pressable}>
+                    <Text style={styles.pressableText}>Login</Text>
                 </Pressable>
             </View>
             <View style={styles.verticallySpaced}>
-                <Pressable disabled={loading} onPress={() => signUpWithEmail()}>
-                    <Text>Sign Up</Text>
+                <Pressable disabled={loading} onPress={() => signUpWithEmail()} style={styles.pressable}>
+                    <Text style={styles.pressableText}>Sign Up</Text>
                 </Pressable>
             </View>
         </View>
@@ -87,4 +80,14 @@ const styles = StyleSheet.create({
     mt20: {
         marginTop: 20,
     },
+    textInput: {
+        color: "white"
+    },
+    pressable: {
+        backgroundColor: "purple",
+        padding: 10
+    },
+    pressableText: {
+        color: "white"
+    }
 });

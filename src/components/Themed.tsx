@@ -4,6 +4,7 @@
  */
 
 import {
+    Pressable as DefaultPressable,
     Text as DefaultText,
     useColorScheme,
     View as DefaultView,
@@ -48,4 +49,14 @@ export function View(props: ViewProps) {
     );
 
     return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+}
+
+export function Pressable(props: ViewProps) {
+    const { style, lightColor, darkColor, ...otherProps } = props;
+    const backgroundColor = useThemeColor(
+        { light: lightColor, dark: darkColor },
+        "background"
+    );
+
+    return <DefaultPressable style={[{ backgroundColor }, style]} {...otherProps} />;
 }
