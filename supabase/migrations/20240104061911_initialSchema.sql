@@ -45,13 +45,9 @@ alter table "public"."users" add column "avatar" text;
 
 alter table "public"."users" add column "bio" text;
 
-alter table "public"."users" add column "birthday" date not null;
-
-alter table "public"."users" add column "followers" text[];
+alter table "public"."users" add column "birthday" date;
 
 alter table "public"."users" add column "location" text;
-
-alter table "public"."users" add column "username" text not null;
 
 CREATE UNIQUE INDEX comments_pkey ON public.comments USING btree (id);
 
@@ -60,8 +56,6 @@ CREATE UNIQUE INDEX following_pkey ON public.following USING btree (id);
 CREATE UNIQUE INDEX likes_pkey ON public.likes USING btree (id);
 
 CREATE UNIQUE INDEX postings_pkey ON public.postings USING btree (id);
-
-CREATE UNIQUE INDEX users_username_key ON public.users USING btree (username);
 
 alter table "public"."comments" add constraint "comments_pkey" PRIMARY KEY using index "comments_pkey";
 
@@ -94,8 +88,6 @@ alter table "public"."likes" validate constraint "likes_user_id_fkey";
 alter table "public"."postings" add constraint "postings_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) not valid;
 
 alter table "public"."postings" validate constraint "postings_user_id_fkey";
-
-alter table "public"."users" add constraint "users_username_key" UNIQUE using index "users_username_key";
 
 grant delete on table "public"."comments" to "anon";
 
