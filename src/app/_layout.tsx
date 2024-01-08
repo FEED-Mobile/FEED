@@ -1,3 +1,4 @@
+import Fonts from "@constants/Fonts";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { supabase } from "@lib/supabase";
 import {
@@ -71,10 +72,16 @@ function RootLayoutNav() {
         <ThemeProvider
             value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
-            <Stack>
-                <Stack.Screen name="landing" options={{ headerTitle: "Landing Page", headerShown: false }} />
-                <Stack.Screen name="login" options={{ headerTitle: "Login Page" }} />
-                <Stack.Screen name="signup" options={{ headerTitle: "Sign Up Page" }} />
+            <Stack screenOptions={{
+                headerTitle: "Feed",
+                headerTitleStyle: {
+                    fontFamily: Fonts.title,
+                    fontSize: 48
+                }
+            }}>
+                <Stack.Screen name="landing" options={{ headerShown: false }} />
+                <Stack.Screen name="login" />
+                <Stack.Screen name="signup" />
                 <Stack.Screen name="(app)" options={{ headerShown: false }} />
             </Stack>
         </ThemeProvider>

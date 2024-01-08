@@ -3,6 +3,10 @@ import { Pressable, View } from "@components/Themed";
 import { router } from "expo-router";
 import { StyleSheet } from "react-native";
 
+/**
+ * Landing Page
+ * @returns 
+ */
 export default function LandingPage() {
     const onLoginPress = () => {
         router.push("/login");
