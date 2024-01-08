@@ -1,93 +1,120 @@
 import React, { useState } from "react";
-import {
-    Alert,
-    Pressable,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
-} from "react-native";
+import { Alert, StyleSheet } from "react-native";
+import { Pressable, TextInput, View } from "@components/Themed";
 import { supabase } from "@lib/supabase";
-import { router } from "expo-router";
+import { Link } from "expo-router";
+import { KatibehText, MakoText } from "@components/StyledText";
+import Fonts from "@constants/Fonts";
 
+/**
+ * Login Page
+ * @returns 
+ */
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
+    /**
+     * Attempt to login user via Supabase
+     */
     async function signInWithEmail() {
+        console.log("Trying to log in...");
         setLoading(true);
         const { error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password,
         });
 
-        if (error) Alert.alert(error.message);
-        setLoading(false);
-    }
-
-    async function signUpWithEmail() {
-        setLoading(true);
-        router.push("/signup")
+        if (error) {
+            Alert.alert(error.message);
+        }
+        console.log("Login Successful");
         setLoading(false);
     }
 
     return (
         <View style={styles.container}>
-            <View style={[styles.verticallySpaced, styles.mt20]}>
-                <TextInput
-                    onChangeText={(text) => setEmail(text)}
-                    value={email}
-                    placeholder="email@address.com"
-                    autoCapitalize={"none"}
-                    style={styles.textInput}
-                />
-            </View>
-            <View style={styles.verticallySpaced}>
-                <TextInput
-                    onChangeText={(text) => setPassword(text)}
-                    value={password}
-                    secureTextEntry={true}
-                    placeholder="Password"
-                    autoCapitalize={"none"}
-                    style={styles.textInput}
-                />
-            </View>
-            <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Pressable disabled={loading} onPress={() => signInWithEmail()} style={styles.pressable}>
-                    <Text style={styles.pressableText}>Login</Text>
-                </Pressable>
-            </View>
-            <View style={styles.verticallySpaced}>
-                <Pressable disabled={loading} onPress={() => signUpWithEmail()} style={styles.pressable}>
-                    <Text style={styles.pressableText}>Sign Up</Text>
-                </Pressable>
-            </View>
+            <KatibehText style={styles.titleText}>Welcome back!</KatibehText>
+            <TextInput
+                onChangeText={(text) => setEmail(text)}
+                value={email}
+                placeholder="Email"
+                autoCapitalize={"none"}
+                style={styles.textInput}
+            />
+            <TextInput
+                onChangeText={(text) => setPassword(text)}
+                value={password}
+                secureTextEntry={true}
+                placeholder="Password"
+                autoCapitalize={"none"}
+                style={[styles.textInput, { marginBottom: "10%" }]}
+            />
+            <Pressable
+                disabled={loading}
+                onPress={() => signInWithEmail()}
+                style={[styles.loginButton]}
+            >
+                <MakoText
+                    lightColor="#fff"
+                    darkColor="#000"
+                    style={styles.buttonText}
+                >
+                    Login
+                </MakoText>
+            </Pressable>
+
+            {/* TODO: Handle forgot password flow */}
+            <MakoText>Forgot password?</MakoText>
+
+            <KatibehText style={styles.bottomText}>
+                Don't have an account?{" "}
+                <Link
+                    href="/signup"
+                    replace={true}
+                    style={styles.loginRedirectText}
+                >
+                    Sign Up
+                </Link>
+            </KatibehText>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 40,
-        padding: 12,
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
     },
-    verticallySpaced: {
-        paddingTop: 4,
-        paddingBottom: 4,
-        alignSelf: "stretch",
-    },
-    mt20: {
-        marginTop: 20,
+    titleText: {
+        fontSize: 48,
+        width: "72.5%",
+        marginBottom: "10%",
     },
     textInput: {
-        color: "white"
+        width: "72.5%",
+        marginVertical: 10,
+        paddingVertical: 5,
+        fontFamily: Fonts.text,
+        fontSize: 16,
     },
-    pressable: {
-        backgroundColor: "purple",
-        padding: 10
+    loginButton: {
+        width: "72.5%",
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: "10%",
     },
-    pressableText: {
-        color: "white"
-    }
+    buttonText: {
+        textAlign: "center",
+    },
+    bottomText: {
+        position: "absolute",
+        bottom: "10%",
+        fontSize: 20,
+    },
+    loginRedirectText: {
+        textDecorationLine: "underline",
+    },
 });
