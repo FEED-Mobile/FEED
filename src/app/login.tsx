@@ -8,7 +8,7 @@ import Fonts from "@constants/Fonts";
 
 /**
  * Login Page
- * @returns 
+ * @returns
  */
 export default function Login() {
     const [email, setEmail] = useState("");

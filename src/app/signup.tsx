@@ -8,7 +8,7 @@ import Fonts from "@constants/Fonts";
 
 /**
  * Sign Up Page
- * @returns 
+ * @returns
  */
 export default function Signup() {
     const [username, setUsername] = useState("");
@@ -106,7 +106,11 @@ export default function Signup() {
             </Pressable>
             <KatibehText style={styles.bottomText}>
                 Already have an account?{" "}
-                <Link href="/login" replace={true} style={styles.loginRedirectText}>
+                <Link
+                    href="/login"
+                    replace={true}
+                    style={styles.loginRedirectText}
+                >
                     Login
                 </Link>
             </KatibehText>

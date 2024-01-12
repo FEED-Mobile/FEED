@@ -72,13 +72,15 @@ function RootLayoutNav() {
         <ThemeProvider
             value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
-            <Stack screenOptions={{
-                headerTitle: "Feed",
-                headerTitleStyle: {
-                    fontFamily: Fonts.title,
-                    fontSize: 48
-                }
-            }}>
+            <Stack
+                screenOptions={{
+                    headerTitle: "Feed",
+                    headerTitleStyle: {
+                        fontFamily: Fonts.title,
+                        fontSize: 48,
+                    },
+                }}
+            >
                 <Stack.Screen name="landing" options={{ headerShown: false }} />
                 <Stack.Screen name="login" />
                 <Stack.Screen name="signup" />

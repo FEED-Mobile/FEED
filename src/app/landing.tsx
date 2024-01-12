@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 
 /**
  * Landing Page
- * @returns 
+ * @returns
  */
 export default function LandingPage() {
     const onLoginPress = () => {
@@ -35,11 +35,7 @@ export default function LandingPage() {
                 onPress={() => onSignUpPress()}
                 style={[styles.button, styles.signUpButton]}
             >
-                <MakoText
-                    style={styles.buttonText}
-                >
-                    Sign Up
-                </MakoText>
+                <MakoText style={styles.buttonText}>Sign Up</MakoText>
             </Pressable>
             <KatibehText style={styles.descriptionText}>
                 Food for your phone begins here.
@@ -66,13 +62,13 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     loginButton: {
-        marginBottom: 30
+        marginBottom: 30,
     },
     signUpButton: {
         backgroundColor: "#ABABAB",
         marginBottom: 60,
         borderColor: "black",
-        borderWidth: 1
+        borderWidth: 1,
     },
     descriptionText: {
         fontSize: 20,
