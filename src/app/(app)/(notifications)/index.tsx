@@ -1,9 +1,9 @@
 import { Text, View } from "@components/Themed";
 
-export default function Home() {
+export default function NotificationsPage() {
     return (
         <View>
-            <Text>this is the main page</Text>
+            <Text>this is the notifications page</Text>
         </View>
     );
 }
