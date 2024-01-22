@@ -11,10 +11,10 @@ export default function MainLayout() {
                 }}
             />
             <Tabs.Screen
-                name="(collections)/index"
+                name="(explore)/index"
                 options={{
-                    title: "Collections",
-                    headerTitle: "Collections",
+                    title: "Explore",
+                    headerTitle: "Explore",
                 }}
             />
             <Tabs.Screen
