@@ -1,4 +1,4 @@
 export default {
-    title: "Katibeh",
-    text: "Mako",
+	title: "Katibeh",
+	text: "Mako",
 };
