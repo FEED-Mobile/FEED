@@ -55,13 +55,13 @@ function RootLayoutNav() {
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
             if (session) {
-                router.replace("/");
+                router.replace("/(app)/home");
             }
         });
 
         supabase.auth.onAuthStateChange((_event, session) => {
             if (session) {
-                router.replace("/");
+                router.replace("/(app)/home");
             } else {
                 router.replace("/landing");
             }

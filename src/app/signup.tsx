@@ -51,7 +51,7 @@ export default function Signup() {
             setLoading(false);
             return;
         }
-        router.replace("/(app)");
+        router.replace("/(app)/home");
         console.log("Sign Up Successful");
         setLoading(false);
     }
