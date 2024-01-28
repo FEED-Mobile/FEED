@@ -41,20 +41,20 @@ export default function Signup() {
 			},
 		});
 
-        if (error) {
-            Alert.alert(error.message);
-            setLoading(false);
-            return;
-        }
-        if (!session) {
-            Alert.alert("Please check your inbox for email verification!");
-            setLoading(false);
-            return;
-        }
-        router.replace("/(app)/home");
-        console.log("Sign Up Successful");
-        setLoading(false);
-    }
+		if (error) {
+			Alert.alert(error.message);
+			setLoading(false);
+			return;
+		}
+		if (!session) {
+			Alert.alert("Please check your inbox for email verification!");
+			setLoading(false);
+			return;
+		}
+		router.replace("/(app)/home");
+		console.log("Sign Up Successful");
+		setLoading(false);
+	}
 
 	return (
 		<View style={styles.container}>
