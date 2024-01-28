@@ -52,21 +52,21 @@ export default function RootLayout() {
 function RootLayoutNav() {
 	const colorScheme = useColorScheme();
 
-	useEffect(() => {
-		supabase.auth.getSession().then(({ data: { session } }) => {
-			if (session) {
-				router.replace("/");
-			}
-		});
+    useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                router.replace("/(app)/home");
+            }
+        });
 
-		supabase.auth.onAuthStateChange((_event, session) => {
-			if (session) {
-				router.replace("/");
-			} else {
-				router.replace("/landing");
-			}
-		});
-	}, []);
+        supabase.auth.onAuthStateChange((_event, session) => {
+            if (session) {
+                router.replace("/(app)/home");
+            } else {
+                router.replace("/landing");
+            }
+        });
+    }, []);
 
 	return (
 		<ThemeProvider
