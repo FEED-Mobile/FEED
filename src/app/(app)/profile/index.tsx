@@ -1,4 +1,5 @@
 import { Text, View } from "@components/Themed";
+<<<<<<< HEAD
 import { useState } from "react";
 import { Image, TouchableOpacity, useWindowDimensions, FlatList} from "react-native";
 
@@ -20,6 +21,13 @@ export default function ProfilePage() {
 					marginTop: -90,
 				}}
 				/>
+=======
+
+export default function ProfilePage() {
+	return (
+		<View>
+			<Text>this is the profile page</Text>
+>>>>>>> ba0e66f61d0ab597febbcfc4aeac752ba9c94b03
 		</View>
 	);
 }
