@@ -14,6 +14,7 @@ module.exports = function (api) {
 						"@components": "./src/components",
 						"@constants": "./src/constants",
 						"@lib": "./src/lib",
+						"@stores": "./src/stores",
 						"@type": "./src/types",
 					},
 				},

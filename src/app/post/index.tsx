@@ -2,14 +2,17 @@ import { Pressable, Text, View } from "@components/Themed";
 import { Camera, CameraType, FlashMode, PermissionStatus } from "expo-camera";
 import { useEffect, useRef, useState } from "react";
 import * as MediaLibrary from "expo-media-library";
-import { Alert, Image, StyleSheet } from "react-native";
-import { router } from "expo-router";
+import { Alert, StyleSheet } from "react-native";
+import { Link, router } from "expo-router";
+import useImagesStore from "@stores/useImagesStore";
 
 export default function PostPage() {
 	const [cameraPermissionStatus, setCameraPermissionStatus] = useState(
 		PermissionStatus.UNDETERMINED
 	);
-	const [image, setImage] = useState("");
+	const { images, addImage } = useImagesStore((state) => {
+		return { images: state.images, addImage: state.addImage };
+	});
 	const [type, setType] = useState(CameraType.back);
 	const [flash, setFlash] = useState(FlashMode.off);
 	const cameraRef = useRef<Camera | null>(null);
@@ -35,10 +38,12 @@ export default function PostPage() {
 	const takePicture = async () => {
 		if (cameraRef.current) {
 			try {
-				const data = await cameraRef.current.takePictureAsync();
-				console.log("DATA: ", data);
-				setImage(data.uri);
+				const image = await cameraRef.current.takePictureAsync();
+				addImage(image);
 			} catch (e) {
+				Alert.alert("Failed to take picture", "Please try again", [
+					{ text: "OK" },
+				]);
 				console.log(e);
 			}
 		}
@@ -58,36 +63,34 @@ export default function PostPage() {
 
 	return (
 		<View style={styles.container}>
-			{!image ? (
-				<>
-					<Camera
-						style={styles.camera}
-						ref={cameraRef}
-						type={type}
-						flashMode={flash}
-					>
-						<View style={styles.captureSettingsContainer}>
-							<Text onPress={() => router.back()}>Close</Text>
-							<Text onPress={toggleFlashMode}>Flash {flash}</Text>
-							<Text>Next</Text>
-						</View>
-						<Pressable
-							style={styles.takePictureButton}
-							onPress={takePicture}
-						/>
-					</Camera>
-					<View style={styles.bottomContainer}>
-						<Text>View</Text>
-						<View style={styles.captureTypeContainer}>
-							<Text>Normal</Text>
-							<Text>Video</Text>
-						</View>
-						<Text onPress={toggleCameraType}>Flip</Text>
+			<>
+				<Camera
+					style={styles.camera}
+					ref={cameraRef}
+					type={type}
+					flashMode={flash}
+				>
+					<View style={styles.captureSettingsContainer}>
+						<Text onPress={() => router.back()}>Close</Text>
+						<Text onPress={toggleFlashMode}>Flash {flash}</Text>
+						<Text>Next</Text>
 					</View>
-				</>
-			) : (
-				<Image source={{ uri: image }} style={styles.camera} />
-			)}
+					<Pressable
+						style={styles.takePictureButton}
+						onPress={takePicture}
+					/>
+				</Camera>
+				<View style={styles.bottomContainer}>
+					<Link href="/post/media">
+						<Text>View ({images.length})</Text>
+					</Link>
+					<View style={styles.captureTypeContainer}>
+						<Text>Normal</Text>
+						<Text>Video</Text>
+					</View>
+					<Text onPress={toggleCameraType}>Flip</Text>
+				</View>
+			</>
 		</View>
 	);
 }
@@ -117,7 +120,7 @@ const styles = StyleSheet.create({
 		display: "flex",
 		flexDirection: "row",
 		justifyContent: "space-around",
-		marginTop: "8%",
+		marginTop: "12%",
 	},
 	bottomContainer: {
 		width: "100%",
