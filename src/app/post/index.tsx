@@ -73,7 +73,9 @@ export default function PostPage() {
 					<View style={styles.captureSettingsContainer}>
 						<Text onPress={() => router.back()}>Close</Text>
 						<Text onPress={toggleFlashMode}>Flash {flash}</Text>
-						<Text>Next</Text>
+						<Link href="/post/create">
+							<Text>Next</Text>
+						</Link>
 					</View>
 					<Pressable
 						style={styles.takePictureButton}

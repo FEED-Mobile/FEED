@@ -1,6 +1,6 @@
 import { Pressable, Text, View } from "@components/Themed";
 import useImagesStore from "@stores/useImagesStore";
-import { Image, StyleSheet } from "react-native";
+import { Image, SafeAreaView, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 export default function MediaPage() {
@@ -9,7 +9,7 @@ export default function MediaPage() {
 	});
 
 	return (
-		<>
+		<SafeAreaView style={styles.container}>
 			{images && (
 				<ScrollView style={styles.imagesContainer}>
 					{images.map((image) => {
@@ -35,17 +35,21 @@ export default function MediaPage() {
 					})}
 				</ScrollView>
 			)}
-		</>
+		</SafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+	},
 	imagesContainer: {
 		flex: 1,
 		flexDirection: "row",
 		flexWrap: "wrap",
 		marginLeft: "auto",
 		marginRight: "auto",
+		width: "100%",
 	},
 	singleImageContainer: {},
 	image: {

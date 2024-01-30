@@ -5,6 +5,7 @@ type ImagesState = {
 	images: CameraCapturedPicture[];
 	addImage: (newImage: CameraCapturedPicture) => void;
 	removeImage: (imageToRemove: CameraCapturedPicture) => void;
+	resetImages: () => void;
 };
 
 const useImagesStore = create<ImagesState>((set) => ({
@@ -17,6 +18,7 @@ const useImagesStore = create<ImagesState>((set) => ({
 				return image.uri !== imageToRemove.uri;
 			}),
 		})),
+	resetImages: () => set({ images: [] }),
 }));
 
 export default useImagesStore;
