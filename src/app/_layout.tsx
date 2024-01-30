@@ -85,6 +85,14 @@ function RootLayoutNav() {
 				<Stack.Screen name="login" />
 				<Stack.Screen name="signup" />
 				<Stack.Screen name="(app)" options={{ headerShown: false }} />
+				<Stack.Screen
+					name="post"
+					options={{
+						headerShown: false,
+						presentation: "modal",
+						animation: "slide_from_bottom",
+					}}
+				/>
 			</Stack>
 		</ThemeProvider>
 	);

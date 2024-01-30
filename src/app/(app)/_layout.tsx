@@ -1,5 +1,7 @@
-import { Tabs } from "expo-router";
+import { View } from "@components/Themed";
+import { Tabs, router } from "expo-router";
 
+const CreatePostPlaceholder = () => <View></View>;
 export default function MainLayout() {
 	return (
 		<Tabs>
@@ -18,11 +20,17 @@ export default function MainLayout() {
 				}}
 			/>
 			<Tabs.Screen
-				name="post/index"
+				name="create/index"
 				options={{
 					title: "Post",
 					headerTitle: "Post",
 				}}
+				listeners={() => ({
+					tabPress: (e) => {
+						e.preventDefault();
+						router.push("/post/");
+					},
+				})}
 			/>
 			<Tabs.Screen
 				name="notifications/index"
