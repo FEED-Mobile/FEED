@@ -1,7 +1,6 @@
 import { Pressable, Text, View } from "@components/Themed";
 import { Camera, CameraType, FlashMode, PermissionStatus } from "expo-camera";
 import { useEffect, useRef, useState } from "react";
-import * as MediaLibrary from "expo-media-library";
 import { Alert, StyleSheet } from "react-native";
 import { Link, router } from "expo-router";
 import useImagesStore from "@stores/useImagesStore";
@@ -19,7 +18,6 @@ export default function PostPage() {
 
 	useEffect(() => {
 		const askPermissions = async () => {
-			MediaLibrary.requestPermissionsAsync();
 			const cameraStatus = await Camera.requestCameraPermissionsAsync();
 			setCameraPermissionStatus(cameraStatus.status);
 
