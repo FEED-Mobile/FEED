@@ -112,30 +112,33 @@ export interface Database {
 			};
 			postings: {
 				Row: {
-					caption: string | null;
 					created_at: string;
+					description: string | null;
 					id: number;
 					images: string[];
 					location: string | null;
 					rating: number | null;
+					title: string | null;
 					user_id: string;
 				};
 				Insert: {
-					caption?: string | null;
 					created_at?: string;
+					description?: string | null;
 					id?: number;
 					images: string[];
 					location?: string | null;
 					rating?: number | null;
+					title?: string | null;
 					user_id: string;
 				};
 				Update: {
-					caption?: string | null;
 					created_at?: string;
+					description?: string | null;
 					id?: number;
 					images?: string[];
 					location?: string | null;
 					rating?: number | null;
+					title?: string | null;
 					user_id?: string;
 				};
 				Relationships: [

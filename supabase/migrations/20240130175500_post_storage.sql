@@ -1,6 +1,3 @@
-INSERT INTO "storage"."buckets" ("id", "name", "created_at", "updated_at", "public", "avif_autodetection") VALUES
-	('posts', 'posts', '2024-01-30 17:56:20.348763+00', '2024-01-30 17:56:20.348763+00', FALSE, FALSE);
-
 create policy "Give users access to own folder 1rma4z_0"
 on "storage"."objects"
 as permissive

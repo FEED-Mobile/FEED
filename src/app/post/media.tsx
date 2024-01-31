@@ -14,9 +14,11 @@ export default function MediaPage() {
 				<ScrollView style={styles.imagesContainer}>
 					{images.map((image) => {
 						return (
-							<View style={styles.singleImageContainer}>
+							<View
+								key={image.uri}
+								style={styles.singleImageContainer}
+							>
 								<Image
-									key={image.uri}
 									source={{ uri: image.uri }}
 									width={175}
 									height={250}

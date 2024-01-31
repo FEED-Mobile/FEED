@@ -1,6 +1,7 @@
 import { Pressable, Text, TextInput, View } from "@components/Themed";
 import { supabase } from "@lib/supabase";
 import useImagesStore from "@stores/useImagesStore";
+import { router } from "expo-router";
 import { useState } from "react";
 import {
 	FlatList,
@@ -21,6 +22,17 @@ export default function CreatePostPage() {
 	const [location, setLocation] = useState("");
 
 	const handleCreate = async () => {
+		const imageUrls: string[] = [];
+
+		const {
+			data: { user },
+			error: getUserError,
+		} = await supabase.auth.getUser();
+		if (!user || getUserError) {
+			console.log("An error occurred: ", getUserError);
+			return;
+		}
+
 		for (const image of images) {
 			const fileName = image.uri.split("/").pop();
 			const fileExt = image.uri.split(".").pop();
@@ -32,26 +44,43 @@ export default function CreatePostPage() {
 			const form = new FormData();
 			form.append("photo", imageFile);
 
-			const {
-				data: { user },
-				error: getUserError,
-			} = await supabase.auth.getUser();
-			if (!user || getUserError) {
-				console.log("An error occurred: ", getUserError);
-				return;
-			}
-
 			const destinationPath = `${user.id}/${fileName}`;
-			const { data, error: storageError } = await supabase.storage
-				.from("posts")
-				.upload(destinationPath, form);
+			const { data: uploadResponse, error: storageError } =
+				await supabase.storage
+					.from("posts")
+					.upload(destinationPath, form);
 
-			if (!data || storageError) {
+			if (!uploadResponse || storageError) {
 				console.log("An error occurred: ", storageError);
 				return;
 			}
-			console.log(data);
+
+			const {
+				data: { publicUrl },
+			} = supabase.storage
+				.from("posts")
+				.getPublicUrl(uploadResponse.path);
+			imageUrls.push(publicUrl);
 		}
+
+		const { error: postCreationError } = await supabase
+			.from("postings")
+			.insert({
+				user_id: user.id,
+				title: title,
+				description: title,
+				location: location,
+				images: imageUrls,
+			});
+		if (postCreationError) {
+			console.log("An error occurred: ", postCreationError);
+			return;
+		}
+
+		resetImages();
+
+		console.log("Post successfully created!");
+		router.replace("/(app)/home");
 	};
 
 	return (
