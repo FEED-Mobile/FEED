@@ -1,9 +1,9 @@
 import { Text, View } from "@components/Themed";
 
-export default function PostPage() {
+export default function CreatePage() {
 	return (
 		<View>
-			<Text>this is the post page</Text>
+			<Text>this is the create page</Text>
 		</View>
 	);
 }
