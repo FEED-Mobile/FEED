@@ -1,4 +1,4 @@
-import { Pressable, Text, TextInput, View } from "@components/Themed";
+import { Pressable, Text, TextInput } from "@components/Themed";
 import { supabase } from "@lib/supabase";
 import useImagesStore from "@stores/useImagesStore";
 import { router } from "expo-router";
@@ -21,10 +21,15 @@ export default function CreatePostPage() {
 	const [description, setDescription] = useState("");
 	const [location, setLocation] = useState("");
 
+	/**
+	 * Upload images and create new post
+	 * @returns
+	 */
 	const handleCreate = async () => {
 		console.log("Creating new post...");
 		const imageUrls: string[] = [];
 
+		// Get user for user ID
 		const {
 			data: { user },
 			error: getUserError,
@@ -37,6 +42,7 @@ export default function CreatePostPage() {
 			return;
 		}
 
+		// Upload each picture and get its public URL
 		for (const image of images) {
 			const fileName = image.uri.split("/").pop();
 			const fileExt = image.uri.split(".").pop();
@@ -47,6 +53,10 @@ export default function CreatePostPage() {
 			};
 			const form = new FormData();
 
+			/**
+			 * Uploading images to Cloudinary when running development.
+			 * In production, images will be uploaded to Supabase Storage.
+			 */
 			if (__DEV__) {
 				form.append("file", imageFile);
 				form.append(
@@ -61,8 +71,9 @@ export default function CreatePostPage() {
 							body: form,
 						}
 					);
-
 					const resJSON = await res.json();
+
+					// Get URL for image
 					imageUrls.push(resJSON["secure_url"]);
 				} catch (e) {
 					console.log(
@@ -87,6 +98,7 @@ export default function CreatePostPage() {
 					return;
 				}
 
+				// Get URL for image
 				const {
 					data: { publicUrl },
 				} = supabase.storage
@@ -96,6 +108,7 @@ export default function CreatePostPage() {
 			}
 		}
 
+		// Insert new post
 		const { error: postCreationError } = await supabase
 			.from("postings")
 			.insert({
@@ -113,10 +126,12 @@ export default function CreatePostPage() {
 			return;
 		}
 
+		// Clear images from store
 		resetImages();
 
-		console.log("Post successfully created!");
+		// Navigate back to home page
 		router.replace("/(app)/home");
+		console.log("Post successfully created!");
 	};
 
 	return (

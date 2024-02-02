@@ -6,7 +6,7 @@ import { Link, router } from "expo-router";
 import useImagesStore from "@stores/useImagesStore";
 
 export default function PostPage() {
-	const [cameraPermissionStatus, setCameraPermissionStatus] = useState(
+	const [, setCameraPermissionStatus] = useState(
 		PermissionStatus.UNDETERMINED
 	);
 	const { images, addImage } = useImagesStore((state) => {
@@ -16,6 +16,9 @@ export default function PostPage() {
 	const [flash, setFlash] = useState(FlashMode.off);
 	const cameraRef = useRef<Camera | null>(null);
 
+	/**
+	 * Ask user for permission to use camera
+	 */
 	useEffect(() => {
 		const askPermissions = async () => {
 			const cameraStatus = await Camera.requestCameraPermissionsAsync();
@@ -33,6 +36,9 @@ export default function PostPage() {
 		askPermissions();
 	}, []);
 
+	/**
+	 * Capture picture function
+	 */
 	const takePicture = async () => {
 		if (cameraRef.current) {
 			try {
@@ -47,12 +53,18 @@ export default function PostPage() {
 		}
 	};
 
+	/**
+	 * Toggle flash mode (on/off)
+	 */
 	const toggleFlashMode = () => {
 		setFlash((current) =>
 			current === FlashMode.off ? FlashMode.on : FlashMode.off
 		);
 	};
 
+	/**
+	 * Toggle camera type (front/back)
+	 */
 	const toggleCameraType = () => {
 		setType((current) =>
 			current === CameraType.back ? CameraType.front : CameraType.back

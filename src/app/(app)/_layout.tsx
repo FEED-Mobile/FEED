@@ -1,7 +1,5 @@
-import { View } from "@components/Themed";
 import { Tabs, router } from "expo-router";
 
-const CreatePostPlaceholder = () => <View></View>;
 export default function MainLayout() {
 	return (
 		<Tabs>
@@ -27,6 +25,7 @@ export default function MainLayout() {
 				}}
 				listeners={() => ({
 					tabPress: (e) => {
+						// Navigate to post modal
 						e.preventDefault();
 						router.push("/post/");
 					},
