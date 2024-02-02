@@ -1,3 +1,7 @@
+/**
+ * Global store for images that are about to be posted
+ */
+
 import { CameraCapturedPicture } from "expo-camera";
 import { create } from "zustand";
 

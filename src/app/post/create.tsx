@@ -1,4 +1,4 @@
-import { Pressable, Text, TextInput, View } from "@components/Themed";
+import { Pressable, Text, TextInput } from "@components/Themed";
 import { supabase } from "@lib/supabase";
 import useImagesStore from "@stores/useImagesStore";
 import { router } from "expo-router";
@@ -21,18 +21,28 @@ export default function CreatePostPage() {
 	const [description, setDescription] = useState("");
 	const [location, setLocation] = useState("");
 
+	/**
+	 * Upload images and create new post
+	 * @returns
+	 */
 	const handleCreate = async () => {
+		console.log("Creating new post...");
 		const imageUrls: string[] = [];
 
+		// Get user for user ID
 		const {
 			data: { user },
 			error: getUserError,
 		} = await supabase.auth.getUser();
 		if (!user || getUserError) {
-			console.log("An error occurred: ", getUserError);
+			console.log(
+				"An error occurred in getting the user: ",
+				getUserError
+			);
 			return;
 		}
 
+		// Upload each picture and get its public URL
 		for (const image of images) {
 			const fileName = image.uri.split("/").pop();
 			const fileExt = image.uri.split(".").pop();
@@ -42,27 +52,63 @@ export default function CreatePostPage() {
 				name: fileName ?? "",
 			};
 			const form = new FormData();
-			form.append("photo", imageFile);
 
-			const destinationPath = `${user.id}/${fileName}`;
-			const { data: uploadResponse, error: storageError } =
-				await supabase.storage
+			/**
+			 * Uploading images to Cloudinary when running development.
+			 * In production, images will be uploaded to Supabase Storage.
+			 */
+			if (__DEV__) {
+				form.append("file", imageFile);
+				form.append(
+					"upload_preset",
+					process.env.EXPO_PUBLIC_CLOUDINARY_UPLOAD_PRESET ?? ""
+				);
+				try {
+					const res = await fetch(
+						`${process.env.EXPO_PUBLIC_CLOUDINARY_URL}/image/upload`,
+						{
+							method: "post",
+							body: form,
+						}
+					);
+					const resJSON = await res.json();
+
+					// Get URL for image
+					imageUrls.push(resJSON["secure_url"]);
+				} catch (e) {
+					console.log(
+						"An error occurred in uploading the image: ",
+						e
+					);
+					return;
+				}
+			} else {
+				form.append("photo", imageFile);
+				const destinationPath = `${user.id}/${fileName}`;
+				const { data: uploadResponse, error: storageError } =
+					await supabase.storage
+						.from("posts")
+						.upload(destinationPath, form);
+
+				if (!uploadResponse || storageError) {
+					console.log(
+						"An error occurred in uploading the image: ",
+						storageError
+					);
+					return;
+				}
+
+				// Get URL for image
+				const {
+					data: { publicUrl },
+				} = supabase.storage
 					.from("posts")
-					.upload(destinationPath, form);
-
-			if (!uploadResponse || storageError) {
-				console.log("An error occurred: ", storageError);
-				return;
+					.getPublicUrl(uploadResponse.path);
+				imageUrls.push(publicUrl);
 			}
-
-			const {
-				data: { publicUrl },
-			} = supabase.storage
-				.from("posts")
-				.getPublicUrl(uploadResponse.path);
-			imageUrls.push(publicUrl);
 		}
 
+		// Insert new post
 		const { error: postCreationError } = await supabase
 			.from("postings")
 			.insert({
@@ -73,14 +119,19 @@ export default function CreatePostPage() {
 				images: imageUrls,
 			});
 		if (postCreationError) {
-			console.log("An error occurred: ", postCreationError);
+			console.log(
+				"An error occurred in creating the post: ",
+				postCreationError
+			);
 			return;
 		}
 
+		// Clear images from store
 		resetImages();
 
-		console.log("Post successfully created!");
+		// Navigate back to home page
 		router.replace("/(app)/home");
+		console.log("Post successfully created!");
 	};
 
 	return (
