@@ -167,7 +167,7 @@ INSERT INTO "auth"."refresh_tokens" ("instance_id", "id", "token", "user_id", "r
 --
 
 INSERT INTO "public"."postings" ("id", "created_at", "images", "title", "description", "location", "rating", "user_id") VALUES
-	(1, '2024-01-31 18:43:49.426231+00', '{http://10.0.0.132:54321/storage/v1/object/public/posts/0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc/F11871FC-14E8-4F5E-AC1F-CB7BC50761C4.jpg,http://10.0.0.132:54321/storage/v1/object/public/posts/0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc/33675066-17C4-4440-BFFE-9E083F563936.jpg}', 'im cooking rn', 'im cooking rn', 'davis', NULL, '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc');
+	(2, '2024-02-02 06:11:04.602129+00', '{https://res.cloudinary.com/dgqxfulav/image/upload/v1706854257/txc1nbywym3vkwgbjci9.jpg,https://res.cloudinary.com/dgqxfulav/image/upload/v1706854263/yggbvckzpwo2kgacgg0j.jpg}', 'Good eats right here', 'Good eats right here', 'Davis, CA', NULL, '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc');
 
 
 --
@@ -188,9 +188,6 @@ INSERT INTO "storage"."buckets" ("id", "name", "owner", "created_at", "updated_a
 -- Data for Name: objects; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
 --
 
-INSERT INTO "storage"."objects" ("id", "bucket_id", "name", "owner", "created_at", "updated_at", "last_accessed_at", "metadata", "version", "owner_id") VALUES
-	('057ea38b-a3c2-4d5c-b63b-e31633f1d519', 'posts', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc/F11871FC-14E8-4F5E-AC1F-CB7BC50761C4.jpg', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-01-31 18:43:48.657927+00', '2024-01-31 18:43:48.657927+00', '2024-01-31 18:43:48.657927+00', '{"eTag": "\"7c97dc637ffc6466e428f60f355be7c2\"", "size": 6154459, "mimetype": "image/jpeg", "cacheControl": "no-cache", "lastModified": "2024-01-31T18:43:48.613Z", "contentLength": 6154459, "httpStatusCode": 200}', '00c6d835-f636-4711-9529-c178aad5f48f', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc'),
-	('29dc1669-d0ae-4366-b42f-238a2d3eb67a', 'posts', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc/33675066-17C4-4440-BFFE-9E083F563936.jpg', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-01-31 18:43:49.339503+00', '2024-01-31 18:43:49.339503+00', '2024-01-31 18:43:49.339503+00', '{"eTag": "\"5dbec76dc9d20e307e5e650c15d336dc\"", "size": 4175442, "mimetype": "image/jpeg", "cacheControl": "no-cache", "lastModified": "2024-01-31T18:43:49.303Z", "contentLength": 4175442, "httpStatusCode": 200}', 'ecd70bd1-1810-4513-b5dd-53ddad24ed15', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc');
 
 
 --
@@ -244,7 +241,7 @@ SELECT pg_catalog.setval('"public"."likes_id_seq"', 1, false);
 -- Name: postings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"public"."postings_id_seq"', 1, true);
+SELECT pg_catalog.setval('"public"."postings_id_seq"', 2, true);
 
 
 --

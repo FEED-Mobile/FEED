@@ -22,6 +22,7 @@ export default function CreatePostPage() {
 	const [location, setLocation] = useState("");
 
 	const handleCreate = async () => {
+		console.log("Creating new post...");
 		const imageUrls: string[] = [];
 
 		const {
@@ -29,7 +30,10 @@ export default function CreatePostPage() {
 			error: getUserError,
 		} = await supabase.auth.getUser();
 		if (!user || getUserError) {
-			console.log("An error occurred: ", getUserError);
+			console.log(
+				"An error occurred in getting the user: ",
+				getUserError
+			);
 			return;
 		}
 
@@ -42,25 +46,54 @@ export default function CreatePostPage() {
 				name: fileName ?? "",
 			};
 			const form = new FormData();
-			form.append("photo", imageFile);
 
-			const destinationPath = `${user.id}/${fileName}`;
-			const { data: uploadResponse, error: storageError } =
-				await supabase.storage
+			if (__DEV__) {
+				form.append("file", imageFile);
+				form.append(
+					"upload_preset",
+					process.env.EXPO_PUBLIC_CLOUDINARY_UPLOAD_PRESET ?? ""
+				);
+				try {
+					const res = await fetch(
+						`${process.env.EXPO_PUBLIC_CLOUDINARY_URL}/image/upload`,
+						{
+							method: "post",
+							body: form,
+						}
+					);
+
+					const resJSON = await res.json();
+					imageUrls.push(resJSON["secure_url"]);
+				} catch (e) {
+					console.log(
+						"An error occurred in uploading the image: ",
+						e
+					);
+					return;
+				}
+			} else {
+				form.append("photo", imageFile);
+				const destinationPath = `${user.id}/${fileName}`;
+				const { data: uploadResponse, error: storageError } =
+					await supabase.storage
+						.from("posts")
+						.upload(destinationPath, form);
+
+				if (!uploadResponse || storageError) {
+					console.log(
+						"An error occurred in uploading the image: ",
+						storageError
+					);
+					return;
+				}
+
+				const {
+					data: { publicUrl },
+				} = supabase.storage
 					.from("posts")
-					.upload(destinationPath, form);
-
-			if (!uploadResponse || storageError) {
-				console.log("An error occurred: ", storageError);
-				return;
+					.getPublicUrl(uploadResponse.path);
+				imageUrls.push(publicUrl);
 			}
-
-			const {
-				data: { publicUrl },
-			} = supabase.storage
-				.from("posts")
-				.getPublicUrl(uploadResponse.path);
-			imageUrls.push(publicUrl);
 		}
 
 		const { error: postCreationError } = await supabase
@@ -73,7 +106,10 @@ export default function CreatePostPage() {
 				images: imageUrls,
 			});
 		if (postCreationError) {
-			console.log("An error occurred: ", postCreationError);
+			console.log(
+				"An error occurred in creating the post: ",
+				postCreationError
+			);
 			return;
 		}
 
