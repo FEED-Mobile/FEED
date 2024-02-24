@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from "@components/Themed";
+import { Pressable, Text, View } from "react-native";
 import useImagesStore from "@stores/useImagesStore";
 import { Image, SafeAreaView, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -28,9 +28,7 @@ export default function MediaPage() {
 									onPress={() => removeImage(image)}
 									style={styles.removeImageButton}
 								>
-									<Text lightColor="#fff" darkColor="#000">
-										X
-									</Text>
+									<Text>X</Text>
 								</Pressable>
 							</View>
 						);
