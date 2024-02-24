@@ -56,7 +56,7 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-	const colorScheme = useColorScheme();
+	// const colorScheme = useColorScheme();
 
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
@@ -75,31 +75,31 @@ function RootLayoutNav() {
 	}, []);
 
 	return (
-		<ThemeProvider
-			value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+		// <ThemeProvider
+		// 	value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+		// >
+		<Stack
+			screenOptions={{
+				headerStyle: {
+					backgroundColor: Styles.colors.white.primary,
+				},
+				headerTitle: () => <HeaderTitle />,
+				headerLeft: () => <HeaderBack />,
+			}}
 		>
-			<Stack
-				screenOptions={{
-					headerStyle: {
-						backgroundColor: Styles.colors.white.primary,
-					},
-					headerTitle: () => <HeaderTitle />,
-					headerLeft: () => <HeaderBack />,
+			<Stack.Screen name="landing" options={{ headerShown: false }} />
+			<Stack.Screen name="login" />
+			<Stack.Screen name="signup" />
+			<Stack.Screen name="(app)" options={{ headerShown: false }} />
+			<Stack.Screen
+				name="post"
+				options={{
+					headerShown: false,
+					presentation: "fullScreenModal",
+					animation: "slide_from_bottom",
 				}}
-			>
-				<Stack.Screen name="landing" options={{ headerShown: false }} />
-				<Stack.Screen name="login" />
-				<Stack.Screen name="signup" />
-				<Stack.Screen name="(app)" options={{ headerShown: false }} />
-				<Stack.Screen
-					name="post"
-					options={{
-						headerShown: false,
-						presentation: "fullScreenModal",
-						animation: "slide_from_bottom",
-					}}
-				/>
-			</Stack>
-		</ThemeProvider>
+			/>
+		</Stack>
+		// </ThemeProvider>
 	);
 }
