@@ -62,6 +62,7 @@ export default function Signup() {
 				onChangeText={(text) => setUsername(text)}
 				value={username}
 				placeholder="User"
+				placeholderTextColor={Styles.colors.gray.primary}
 				autoCapitalize={"none"}
 				style={styles.textInput}
 			/>
@@ -69,6 +70,7 @@ export default function Signup() {
 				onChangeText={(text) => setEmail(text)}
 				value={email}
 				placeholder="Email"
+				placeholderTextColor={Styles.colors.gray.primary}
 				autoCapitalize={"none"}
 				style={styles.textInput}
 			/>
@@ -77,6 +79,7 @@ export default function Signup() {
 				value={password}
 				secureTextEntry={true}
 				placeholder="Password"
+				placeholderTextColor={Styles.colors.gray.primary}
 				autoCapitalize={"none"}
 				style={styles.textInput}
 			/>
@@ -85,6 +88,7 @@ export default function Signup() {
 				value={confirmPassword}
 				secureTextEntry={true}
 				placeholder="Confirm Password"
+				placeholderTextColor={Styles.colors.gray.primary}
 				autoCapitalize={"none"}
 				style={[styles.textInput, { marginBottom: "10%" }]}
 			/>
@@ -93,7 +97,7 @@ export default function Signup() {
 				onPress={() => signUpWithEmail()}
 				style={[styles.signUpButton]}
 			>
-				<Text style={styles.buttonText}>Sign Up</Text>
+				<Text style={styles.signUpButtonText}>Sign Up</Text>
 			</Pressable>
 
 			{/* TODO: OAUTH PROVIDERS SIGN IN */}
@@ -140,7 +144,7 @@ const styles = StyleSheet.create({
 		padding: 10,
 		backgroundColor: Styles.colors.brown.primary,
 	},
-	buttonText: {
+	signUpButtonText: {
 		textAlign: "center",
 		color: Styles.colors.white.primary,
 	},

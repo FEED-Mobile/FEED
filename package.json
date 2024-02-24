@@ -10,7 +10,7 @@
 		"test": "jest --watchAll",
 		"format": "prettier --write .",
 		"db:start": "supabase start",
-		"db:stop": "supabase stop --no-backup",
+		"db:stop": "supabase stop",
 		"db:reset": "supabase db reset",
 		"update-types": "supabase gen types typescript --project-id \"$PROJECT_REF\" > types/supabase.ts"
 	},

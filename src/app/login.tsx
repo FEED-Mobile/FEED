@@ -39,6 +39,7 @@ export default function Login() {
 				onChangeText={(text) => setEmail(text)}
 				value={email}
 				placeholder="Email"
+				placeholderTextColor={Styles.colors.gray.primary}
 				autoCapitalize={"none"}
 				style={styles.textInput}
 			/>
@@ -47,6 +48,7 @@ export default function Login() {
 				value={password}
 				secureTextEntry={true}
 				placeholder="Password"
+				placeholderTextColor={Styles.colors.gray.primary}
 				autoCapitalize={"none"}
 				style={[styles.textInput, { marginBottom: "10%" }]}
 			/>
@@ -78,6 +80,7 @@ export default function Login() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: Styles.colors.white.primary,
 		alignItems: "center",
 		justifyContent: "center",
 	},

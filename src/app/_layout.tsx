@@ -1,3 +1,5 @@
+import HeaderBack from "@components/Header/HeaderBack";
+import HeaderTitle from "@components/Header/HeaderTitle";
 import Styles from "@constants/Styles";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { supabase } from "@lib/supabase";
@@ -78,11 +80,11 @@ function RootLayoutNav() {
 		>
 			<Stack
 				screenOptions={{
-					headerTitle: "Feed",
-					headerTitleStyle: {
-						fontFamily: Styles.fonts.title,
-						fontSize: 48,
+					headerStyle: {
+						backgroundColor: Styles.colors.white.primary,
 					},
+					headerTitle: () => <HeaderTitle />,
+					headerLeft: () => <HeaderBack />,
 				}}
 			>
 				<Stack.Screen name="landing" options={{ headerShown: false }} />
