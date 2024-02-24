@@ -8,8 +8,11 @@
 		"ios": "expo start --ios",
 		"web": "expo start --web",
 		"test": "jest --watchAll",
-		"format": "npx prettier --write .",
-		"update-types": "npx supabase gen types typescript --project-id \"$PROJECT_REF\" > types/supabase.ts"
+		"format": "prettier --write .",
+		"db:start": "supabase start",
+		"db:stop": "supabase stop --no-backup",
+		"db:reset": "supabase db reset",
+		"update-types": "supabase gen types typescript --project-id \"$PROJECT_REF\" > types/supabase.ts"
 	},
 	"jest": {
 		"preset": "jest-expo"

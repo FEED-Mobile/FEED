@@ -1,7 +1,7 @@
-import { KatibehText, MakoText } from "@components/StyledText";
-import { Pressable, View } from "@components/Themed";
+import { View, Text, Pressable } from "react-native";
 import { router } from "expo-router";
 import { StyleSheet } from "react-native";
+import Styles from "@constants/Styles";
 
 /**
  * Landing Page
@@ -18,28 +18,22 @@ export default function LandingPage() {
 
 	return (
 		<View style={styles.container}>
-			<KatibehText style={styles.titleText}>Feed.</KatibehText>
+			<Text style={styles.titleText}>Feed.</Text>
 			<Pressable
 				onPress={() => onLoginPress()}
 				style={[styles.button, styles.loginButton]}
 			>
-				<MakoText
-					lightColor="#fff"
-					darkColor="#000"
-					style={styles.buttonText}
-				>
-					Login
-				</MakoText>
+				<Text style={styles.loginButtonText}>Login</Text>
 			</Pressable>
 			<Pressable
 				onPress={() => onSignUpPress()}
 				style={[styles.button, styles.signUpButton]}
 			>
-				<MakoText style={styles.buttonText}>Sign Up</MakoText>
+				<Text style={styles.signUpButtonText}>Sign Up</Text>
 			</Pressable>
-			<KatibehText style={styles.descriptionText}>
+			<Text style={styles.descriptionText}>
 				Food for your phone begins here.
-			</KatibehText>
+			</Text>
 		</View>
 	);
 }
@@ -47,30 +41,49 @@ export default function LandingPage() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: Styles.colors.white.primary,
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	titleText: {
 		fontSize: 128,
+		fontFamily: Styles.fonts.title,
+		color: Styles.colors.green.primary,
 	},
 	button: {
 		width: "72.5%",
 		borderRadius: 5,
 		padding: 10,
+		backgroundColor: Styles.colors.brown.primary,
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 3,
+		},
+		shadowOpacity: 0.27,
+		shadowRadius: 4.65,
+
+		elevation: 6,
 	},
-	buttonText: {
+	loginButtonText: {
 		textAlign: "center",
+		fontFamily: Styles.fonts.text,
+		color: Styles.colors.white.primary,
 	},
 	loginButton: {
 		marginBottom: 30,
 	},
+	signUpButtonText: {
+		textAlign: "center",
+		fontFamily: Styles.fonts.text,
+		color: Styles.colors.black.primary,
+	},
 	signUpButton: {
-		backgroundColor: "#ABABAB",
+		backgroundColor: Styles.colors.white.primary,
 		marginBottom: 60,
-		borderColor: "black",
-		borderWidth: 1,
 	},
 	descriptionText: {
 		fontSize: 20,
+		fontFamily: Styles.fonts.title,
 	},
 });

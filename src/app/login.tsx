@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Alert, StyleSheet } from "react-native";
-import { Pressable, TextInput, View } from "@components/Themed";
+import { Pressable, TextInput, View, Text } from "react-native";
 import { supabase } from "@lib/supabase";
 import { Link } from "expo-router";
-import { KatibehText, MakoText } from "@components/StyledText";
-import Fonts from "@constants/Fonts";
+import Styles from "@constants/Styles";
 
 /**
  * Login Page
@@ -35,7 +34,7 @@ export default function Login() {
 
 	return (
 		<View style={styles.container}>
-			<KatibehText style={styles.titleText}>Welcome back!</KatibehText>
+			<Text style={styles.titleText}>Welcome back!</Text>
 			<TextInput
 				onChangeText={(text) => setEmail(text)}
 				value={email}
@@ -56,19 +55,13 @@ export default function Login() {
 				onPress={() => signInWithEmail()}
 				style={[styles.loginButton]}
 			>
-				<MakoText
-					lightColor="#fff"
-					darkColor="#000"
-					style={styles.buttonText}
-				>
-					Login
-				</MakoText>
+				<Text style={styles.buttonText}>Login</Text>
 			</Pressable>
 
 			{/* TODO: Handle forgot password flow */}
-			<MakoText>Forgot password?</MakoText>
+			<Text style={styles.forgotPasswordText}>Forgot password?</Text>
 
-			<KatibehText style={styles.bottomText}>
+			<Text style={styles.bottomText}>
 				Don't have an account?{" "}
 				<Link
 					href="/signup"
@@ -77,7 +70,7 @@ export default function Login() {
 				>
 					Sign Up
 				</Link>
-			</KatibehText>
+			</Text>
 		</View>
 	);
 }
@@ -92,27 +85,38 @@ const styles = StyleSheet.create({
 		fontSize: 48,
 		width: "72.5%",
 		marginBottom: "10%",
+		fontFamily: Styles.fonts.title,
 	},
 	textInput: {
 		width: "72.5%",
 		marginVertical: 10,
 		paddingVertical: 5,
-		fontFamily: Fonts.text,
+		fontFamily: Styles.fonts.text,
 		fontSize: 16,
+		borderBottomColor: Styles.colors.black.primary,
+		borderBottomWidth: 1,
 	},
 	loginButton: {
 		width: "72.5%",
 		borderRadius: 5,
 		padding: 10,
 		marginBottom: "10%",
+		backgroundColor: Styles.colors.brown.primary,
 	},
 	buttonText: {
 		textAlign: "center",
+		color: Styles.colors.white.primary,
+		fontFamily: Styles.fonts.text,
+	},
+	forgotPasswordText: {
+		fontFamily: Styles.fonts.text,
+		textDecorationLine: "underline",
 	},
 	bottomText: {
 		position: "absolute",
 		bottom: "10%",
 		fontSize: 20,
+		fontFamily: Styles.fonts.title,
 	},
 	loginRedirectText: {
 		textDecorationLine: "underline",

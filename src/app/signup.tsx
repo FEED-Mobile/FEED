@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Alert, StyleSheet } from "react-native";
-import { Pressable, TextInput, View } from "@components/Themed";
+import { Pressable, TextInput, View, Text } from "react-native";
 import { supabase } from "@lib/supabase";
 import { Link, router } from "expo-router";
-import { KatibehText, MakoText } from "@components/StyledText";
-import Fonts from "@constants/Fonts";
+import Styles from "@constants/Styles";
 
 /**
  * Sign Up Page
@@ -58,9 +57,7 @@ export default function Signup() {
 
 	return (
 		<View style={styles.container}>
-			<KatibehText style={styles.titleText}>
-				Let's get you signed up!
-			</KatibehText>
+			<Text style={styles.titleText}>Let's get you signed up!</Text>
 			<TextInput
 				onChangeText={(text) => setUsername(text)}
 				value={username}
@@ -96,15 +93,12 @@ export default function Signup() {
 				onPress={() => signUpWithEmail()}
 				style={[styles.signUpButton]}
 			>
-				<MakoText
-					lightColor="#fff"
-					darkColor="#000"
-					style={styles.buttonText}
-				>
-					Sign Up
-				</MakoText>
+				<Text style={styles.buttonText}>Sign Up</Text>
 			</Pressable>
-			<KatibehText style={styles.bottomText}>
+
+			{/* TODO: OAUTH PROVIDERS SIGN IN */}
+
+			<Text style={styles.bottomText}>
 				Already have an account?{" "}
 				<Link
 					href="/login"
@@ -113,7 +107,7 @@ export default function Signup() {
 				>
 					Login
 				</Link>
-			</KatibehText>
+			</Text>
 		</View>
 	);
 }
@@ -121,34 +115,40 @@ export default function Signup() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: Styles.colors.white.primary,
 		alignItems: "center",
-		justifyContent: "center",
+		paddingTop: "20%",
 	},
 	titleText: {
-		fontSize: 48,
-		width: "72.5%",
-		paddingRight: "25%",
+		fontSize: 43,
+		textAlign: "center",
 		marginBottom: "10%",
+		fontFamily: Styles.fonts.title,
 	},
 	textInput: {
 		width: "72.5%",
 		marginVertical: 10,
 		paddingVertical: 5,
-		fontFamily: Fonts.text,
+		fontFamily: Styles.fonts.text,
 		fontSize: 16,
+		borderBottomColor: Styles.colors.black.primary,
+		borderBottomWidth: 1,
 	},
 	signUpButton: {
 		width: "72.5%",
 		borderRadius: 5,
 		padding: 10,
+		backgroundColor: Styles.colors.brown.primary,
 	},
 	buttonText: {
 		textAlign: "center",
+		color: Styles.colors.white.primary,
 	},
 	bottomText: {
 		position: "absolute",
 		bottom: "10%",
 		fontSize: 20,
+		fontFamily: Styles.fonts.title,
 	},
 	loginRedirectText: {
 		textDecorationLine: "underline",

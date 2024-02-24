@@ -1,9 +1,10 @@
-import { Pressable, Text, View } from "@components/Themed";
+import { Pressable, Text, View } from "react-native";
 import { Camera, CameraType, FlashMode, PermissionStatus } from "expo-camera";
 import { useEffect, useRef, useState } from "react";
 import { Alert, StyleSheet } from "react-native";
 import { Link, router } from "expo-router";
 import useImagesStore from "@stores/useImagesStore";
+import Styles from "@constants/Styles";
 
 export default function PostPage() {
 	const [, setCameraPermissionStatus] = useState(
@@ -126,6 +127,7 @@ const styles = StyleSheet.create({
 		marginBottom: "8%",
 		marginLeft: "auto",
 		marginRight: "auto",
+		backgroundColor: Styles.colors.white.primary,
 	},
 	captureSettingsContainer: {
 		backgroundColor: "transparent",

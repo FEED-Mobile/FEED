@@ -1,4 +1,4 @@
-import { Pressable, Text, TextInput } from "@components/Themed";
+import { Pressable, Text, TextInput } from "react-native";
 import { supabase } from "@lib/supabase";
 import useImagesStore from "@stores/useImagesStore";
 import { router } from "expo-router";
@@ -180,13 +180,7 @@ export default function CreatePostPage() {
 						style={styles.createButton}
 						onPress={handleCreate}
 					>
-						<Text
-							lightColor="#fff"
-							darkColor="#000"
-							style={styles.createButtonText}
-						>
-							CREATE
-						</Text>
+						<Text style={styles.createButtonText}>CREATE</Text>
 					</Pressable>
 				</>
 			</TouchableWithoutFeedback>

@@ -1,4 +1,4 @@
-import Fonts from "@constants/Fonts";
+import Styles from "@constants/Styles";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { supabase } from "@lib/supabase";
 import {
@@ -28,6 +28,10 @@ export default function RootLayout() {
 	const [loaded, error] = useFonts({
 		Katibeh: require("../assets/fonts/Katibeh-Regular.ttf"),
 		Mako: require("../assets/fonts/Mako-Regular.ttf"),
+		"IBMPlexSans-Regular": require("../assets/fonts/IBMPlexSans-Regular.ttf"),
+		"IBMPlexSans-Light": require("../assets/fonts/IBMPlexSans-Light.ttf"),
+		"IBMPlexSans-SemiBold": require("../assets/fonts/IBMPlexSans-SemiBold.ttf"),
+		"IBMPlexSans-Bold": require("../assets/fonts/IBMPlexSans-Bold.ttf"),
 		...FontAwesome.font,
 	});
 
@@ -76,7 +80,7 @@ function RootLayoutNav() {
 				screenOptions={{
 					headerTitle: "Feed",
 					headerTitleStyle: {
-						fontFamily: Fonts.title,
+						fontFamily: Styles.fonts.title,
 						fontSize: 48,
 					},
 				}}
