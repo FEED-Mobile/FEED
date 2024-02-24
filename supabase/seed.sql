@@ -38,7 +38,9 @@ INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created
 	('00000000-0000-0000-0000-000000000000', 'a667bb99-9054-40ca-8459-e06184e55fd5', '{"action":"login","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-01-22 07:14:48.030354+00', ''),
 	('00000000-0000-0000-0000-000000000000', '0d79fce2-8a75-4b29-836e-a94929703947', '{"action":"login","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-01-22 07:19:00.260768+00', ''),
 	('00000000-0000-0000-0000-000000000000', '1310a807-a8f4-4f67-80bd-cfd55630eb22', '{"action":"login","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-01-22 07:20:33.186011+00', ''),
-	('00000000-0000-0000-0000-000000000000', 'ddbe32ae-2e30-4849-aa2c-6e1bae6ae55a', '{"action":"login","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-01-31 07:04:40.257736+00', '');
+	('00000000-0000-0000-0000-000000000000', 'ddbe32ae-2e30-4849-aa2c-6e1bae6ae55a', '{"action":"login","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-01-31 07:04:40.257736+00', ''),
+	('00000000-0000-0000-0000-000000000000', '305baa40-72e3-492a-89a1-8a0ed584f285', '{"action":"user_signedup","actor_id":"3f716c7c-9df6-4586-846f-18f230dd6c8c","actor_username":"leluens25@gmail.com","actor_via_sso":false,"log_type":"team","traits":{"provider":"email"}}', '2024-02-24 05:49:53.528817+00', ''),
+	('00000000-0000-0000-0000-000000000000', '76222034-e760-4352-9705-f95925d3e9d2', '{"action":"login","actor_id":"3f716c7c-9df6-4586-846f-18f230dd6c8c","actor_username":"leluens25@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-02-24 05:49:53.540328+00', '');
 
 
 --
@@ -52,7 +54,8 @@ INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created
 --
 
 INSERT INTO "auth"."users" ("instance_id", "id", "aud", "role", "email", "encrypted_password", "email_confirmed_at", "invited_at", "confirmation_token", "confirmation_sent_at", "recovery_token", "recovery_sent_at", "email_change_token_new", "email_change", "email_change_sent_at", "last_sign_in_at", "raw_app_meta_data", "raw_user_meta_data", "is_super_admin", "created_at", "updated_at", "phone", "phone_confirmed_at", "phone_change", "phone_change_token", "phone_change_sent_at", "email_change_token_current", "email_change_confirm_status", "banned_until", "reauthentication_token", "reauthentication_sent_at", "is_sso_user", "deleted_at") VALUES
-	('00000000-0000-0000-0000-000000000000', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', 'authenticated', 'authenticated', 'hansonhn369@gmail.com', '$2a$10$UKtzvGU5sV3Ai.lz//eCG.iklNPnrUuGP9qGfCcnbVnTRMc6wOmZG', '2024-01-22 07:14:48.02853+00', NULL, '', NULL, '', NULL, '', '', NULL, '2024-01-31 07:04:40.258525+00', '{"provider": "email", "providers": ["email"]}', '{"username": "hanson"}', NULL, '2024-01-22 07:14:48.023579+00', '2024-01-31 07:04:40.260708+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL);
+	('00000000-0000-0000-0000-000000000000', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', 'authenticated', 'authenticated', 'hansonhn369@gmail.com', '$2a$10$UKtzvGU5sV3Ai.lz//eCG.iklNPnrUuGP9qGfCcnbVnTRMc6wOmZG', '2024-01-22 07:14:48.02853+00', NULL, '', NULL, '', NULL, '', '', NULL, '2024-01-31 07:04:40.258525+00', '{"provider": "email", "providers": ["email"]}', '{"username": "hanson"}', NULL, '2024-01-22 07:14:48.023579+00', '2024-01-31 07:04:40.260708+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL),
+	('00000000-0000-0000-0000-000000000000', '3f716c7c-9df6-4586-846f-18f230dd6c8c', 'authenticated', 'authenticated', 'leluens25@gmail.com', '$2a$10$CM6JJBRyiIFs6WBeXR/1suFKIqm7eAdYozE7iFu095hyrPhO//rrW', '2024-02-24 05:49:53.529475+00', NULL, '', NULL, '', NULL, '', '', NULL, '2024-02-24 05:49:53.540789+00', '{"provider": "email", "providers": ["email"]}', '{"username": "lawrence"}', NULL, '2024-02-24 05:49:53.523346+00', '2024-02-24 05:49:53.543483+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL);
 
 
 --
@@ -60,7 +63,8 @@ INSERT INTO "auth"."users" ("instance_id", "id", "aud", "role", "email", "encryp
 --
 
 INSERT INTO "auth"."identities" ("provider_id", "user_id", "identity_data", "provider", "last_sign_in_at", "created_at", "updated_at", "id") VALUES
-	('0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '{"sub": "0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc", "email": "hansonhn369@gmail.com", "email_verified": false, "phone_verified": false}', 'email', '2024-01-22 07:14:48.027504+00', '2024-01-22 07:14:48.027525+00', '2024-01-22 07:14:48.027525+00', '34c5e596-09f1-4fdf-8bf9-fd91a66ab7d7');
+	('0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '{"sub": "0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc", "email": "hansonhn369@gmail.com", "email_verified": false, "phone_verified": false}', 'email', '2024-01-22 07:14:48.027504+00', '2024-01-22 07:14:48.027525+00', '2024-01-22 07:14:48.027525+00', '34c5e596-09f1-4fdf-8bf9-fd91a66ab7d7'),
+	('3f716c7c-9df6-4586-846f-18f230dd6c8c', '3f716c7c-9df6-4586-846f-18f230dd6c8c', '{"sub": "3f716c7c-9df6-4586-846f-18f230dd6c8c", "email": "leluens25@gmail.com", "email_verified": false, "phone_verified": false}', 'email', '2024-02-24 05:49:53.528047+00', '2024-02-24 05:49:53.528102+00', '2024-02-24 05:49:53.528102+00', 'b1c5f4b1-5eb7-4579-91d3-e27a5bcb715c');
 
 
 --
@@ -77,7 +81,8 @@ INSERT INTO "auth"."sessions" ("id", "user_id", "created_at", "updated_at", "fac
 	('4bde6720-0154-4ea4-97a6-b4e06bcb1b16', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-01-22 07:14:48.03081+00', '2024-01-22 07:14:48.03081+00', NULL, 'aal1', NULL, NULL, 'Expo/1017593 CFNetwork/1410.0.3 Darwin/22.6.0', '172.18.0.1', NULL),
 	('1cedc3a9-74bb-4241-ad57-1cffffe9e917', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-01-22 07:19:00.26155+00', '2024-01-22 07:19:00.26155+00', NULL, 'aal1', NULL, NULL, 'Expo/1017593 CFNetwork/1410.0.3 Darwin/22.6.0', '172.18.0.1', NULL),
 	('8e993f70-ae12-4aad-ae80-d99a8450edda', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-01-22 07:20:33.186604+00', '2024-01-22 07:20:33.186604+00', NULL, 'aal1', NULL, NULL, 'Expo/1017593 CFNetwork/1410.0.3 Darwin/22.6.0', '172.18.0.1', NULL),
-	('c9367da0-720e-4872-8e21-c70b5d48230e', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-01-31 07:04:40.258568+00', '2024-01-31 07:04:40.258568+00', NULL, 'aal1', NULL, NULL, 'Expo/1017597 CFNetwork/1410.0.3 Darwin/22.6.0', '172.18.0.1', NULL);
+	('c9367da0-720e-4872-8e21-c70b5d48230e', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-01-31 07:04:40.258568+00', '2024-01-31 07:04:40.258568+00', NULL, 'aal1', NULL, NULL, 'Expo/1017597 CFNetwork/1410.0.3 Darwin/22.6.0', '172.18.0.1', NULL),
+	('1357857b-b4c6-4bb1-a397-16c6c8367ba6', '3f716c7c-9df6-4586-846f-18f230dd6c8c', '2024-02-24 05:49:53.54088+00', '2024-02-24 05:49:53.54088+00', NULL, 'aal1', NULL, NULL, 'Expo/1017599 CFNetwork/1490.0.4 Darwin/23.2.0', '10.240.4.161', NULL);
 
 
 --
@@ -88,7 +93,8 @@ INSERT INTO "auth"."mfa_amr_claims" ("session_id", "created_at", "updated_at", "
 	('4bde6720-0154-4ea4-97a6-b4e06bcb1b16', '2024-01-22 07:14:48.032056+00', '2024-01-22 07:14:48.032056+00', 'password', '04991669-aaec-4c62-96a9-674ad3b4b38a'),
 	('1cedc3a9-74bb-4241-ad57-1cffffe9e917', '2024-01-22 07:19:00.263402+00', '2024-01-22 07:19:00.263402+00', 'password', '31d94c6f-7ba5-45d7-aaae-c4c7a8a9878c'),
 	('8e993f70-ae12-4aad-ae80-d99a8450edda', '2024-01-22 07:20:33.188168+00', '2024-01-22 07:20:33.188168+00', 'password', '6aee493e-8188-498e-8c82-3949f4a82a8e'),
-	('c9367da0-720e-4872-8e21-c70b5d48230e', '2024-01-31 07:04:40.26128+00', '2024-01-31 07:04:40.26128+00', 'password', 'ea7455cc-d66d-4110-8e29-c788121fa635');
+	('c9367da0-720e-4872-8e21-c70b5d48230e', '2024-01-31 07:04:40.26128+00', '2024-01-31 07:04:40.26128+00', 'password', 'ea7455cc-d66d-4110-8e29-c788121fa635'),
+	('1357857b-b4c6-4bb1-a397-16c6c8367ba6', '2024-02-24 05:49:53.543892+00', '2024-02-24 05:49:53.543892+00', 'password', '940ba319-553c-4627-bd25-84e61c9a277d');
 
 
 --
@@ -111,7 +117,8 @@ INSERT INTO "auth"."refresh_tokens" ("instance_id", "id", "token", "user_id", "r
 	('00000000-0000-0000-0000-000000000000', 8, 'hhB88wtnKODa9Yl2Er97Fw', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', false, '2024-01-22 07:14:48.03129+00', '2024-01-22 07:14:48.03129+00', NULL, '4bde6720-0154-4ea4-97a6-b4e06bcb1b16'),
 	('00000000-0000-0000-0000-000000000000', 9, 'tGD9nbljAAINF_QwhvomaA', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', false, '2024-01-22 07:19:00.262184+00', '2024-01-22 07:19:00.262184+00', NULL, '1cedc3a9-74bb-4241-ad57-1cffffe9e917'),
 	('00000000-0000-0000-0000-000000000000', 10, 'vm5MGkuwP3q9p6n3h5BJ7Q', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', false, '2024-01-22 07:20:33.187436+00', '2024-01-22 07:20:33.187436+00', NULL, '8e993f70-ae12-4aad-ae80-d99a8450edda'),
-	('00000000-0000-0000-0000-000000000000', 11, 'wA63qrl1nku9k7A_FWkrMw', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', false, '2024-01-31 07:04:40.259648+00', '2024-01-31 07:04:40.259648+00', NULL, 'c9367da0-720e-4872-8e21-c70b5d48230e');
+	('00000000-0000-0000-0000-000000000000', 11, 'wA63qrl1nku9k7A_FWkrMw', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', false, '2024-01-31 07:04:40.259648+00', '2024-01-31 07:04:40.259648+00', NULL, 'c9367da0-720e-4872-8e21-c70b5d48230e'),
+	('00000000-0000-0000-0000-000000000000', 12, '_RmLEyi7bpkOn-AE3p36Bg', '3f716c7c-9df6-4586-846f-18f230dd6c8c', false, '2024-02-24 05:49:53.542103+00', '2024-02-24 05:49:53.542103+00', NULL, '1357857b-b4c6-4bb1-a397-16c6c8367ba6');
 
 
 --
@@ -206,7 +213,7 @@ INSERT INTO "storage"."buckets" ("id", "name", "owner", "created_at", "updated_a
 -- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: supabase_auth_admin
 --
 
-SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 11, true);
+SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 12, true);
 
 
 --
