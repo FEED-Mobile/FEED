@@ -14,6 +14,8 @@
 		"db:start": "supabase start",
 		"db:stop": "supabase stop",
 		"db:reset": "supabase db reset",
+		"db:lint": "supabase db lint",
+		"db:test": "supabase test db",
 		"update-types": "supabase gen types typescript --project-id \"$PROJECT_REF\" > types/supabase.ts"
 	},
 	"jest": {
