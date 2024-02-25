@@ -1,9 +1,9 @@
-import { Pressable, Text, View } from "react-native";
-import useImagesStore from "@stores/useImagesStore";
-import { Image, SafeAreaView, StyleSheet, Dimensions } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { AntDesign } from "@expo/vector-icons";
 import Styles from "@constants/Styles";
+import { AntDesign } from "@expo/vector-icons";
+import useImagesStore from "@stores/useImagesStore";
+import { Pressable, View } from "react-native";
+import { Image, SafeAreaView, StyleSheet } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function MediaPage() {
 	const { images, removeImage } = useImagesStore((state) => {

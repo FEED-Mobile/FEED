@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Alert, StyleSheet } from "react-native";
-import { Pressable, TextInput, View, Text } from "react-native";
+import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
 import { Link } from "expo-router";
-import Styles from "@constants/Styles";
+import React, { useState } from "react";
+import { Alert, StyleSheet } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 
 /**
  * Login Page
@@ -64,7 +64,7 @@ export default function Login() {
 			<Text style={styles.forgotPasswordText}>Forgot password?</Text>
 
 			<Text style={styles.bottomText}>
-				Don't have an account?{" "}
+				Don&apos;t have an account?{" "}
 				<Link
 					href="/signup"
 					replace={true}

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Alert, StyleSheet } from "react-native";
-import { Pressable, TextInput, View, Text } from "react-native";
+import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
 import { Link, router } from "expo-router";
-import Styles from "@constants/Styles";
+import React, { useState } from "react";
+import { Alert, StyleSheet } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 
 /**
  * Sign Up Page
@@ -57,7 +57,7 @@ export default function Signup() {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.titleText}>Let's get you signed up!</Text>
+			<Text style={styles.titleText}>Let&apos;s get you signed up!</Text>
 			<TextInput
 				onChangeText={(text) => setUsername(text)}
 				value={username}

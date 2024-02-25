@@ -1,18 +1,17 @@
-import { Pressable, Text, TextInput, View } from "react-native";
+import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
 import useImagesStore from "@stores/useImagesStore";
 import { router } from "expo-router";
 import { useState } from "react";
+import { Pressable, Text, TextInput, View } from "react-native";
 import {
 	FlatList,
 	Image,
 	Keyboard,
 	KeyboardAvoidingView,
-	Platform,
 	StyleSheet,
 	TouchableWithoutFeedback,
 } from "react-native";
-import Styles from "@constants/Styles";
 
 export default function CreatePostPage() {
 	const { images, resetImages } = useImagesStore((state) => {

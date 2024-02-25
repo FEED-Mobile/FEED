@@ -1,12 +1,12 @@
-import { Pressable, Text, View } from "react-native";
-import { Camera, CameraType, FlashMode, PermissionStatus } from "expo-camera";
-import { useEffect, useRef, useState } from "react";
-import { Alert, StyleSheet } from "react-native";
-import { Link, router } from "expo-router";
-import useImagesStore from "@stores/useImagesStore";
 import Styles from "@constants/Styles";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import useImagesStore from "@stores/useImagesStore";
+import { Camera, CameraType, FlashMode, PermissionStatus } from "expo-camera";
+import { Link, router } from "expo-router";
+import { useEffect, useRef, useState } from "react";
+import { Pressable, Text, View } from "react-native";
+import { Alert, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function PostPage() {
 	const [, setCameraPermissionStatus] = useState(

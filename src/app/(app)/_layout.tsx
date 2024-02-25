@@ -1,6 +1,6 @@
 import Styles from "@constants/Styles";
-import { AntDesign, FontAwesome5, Ionicons } from "@expo/vector-icons";
-import { Tabs, router } from "expo-router";
+import { FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { router, Tabs } from "expo-router";
 
 export default function MainLayout() {
 	return (
@@ -32,7 +32,7 @@ export default function MainLayout() {
 					title: "Explore",
 					headerTitle: "Explore",
 					tabBarIcon: ({ color, size }) => (
-						<AntDesign name="search1" size={size} color={color} />
+						<FontAwesome5 name="search" size={size} color={color} />
 					),
 				}}
 			/>

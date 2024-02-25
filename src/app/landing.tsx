@@ -1,7 +1,7 @@
-import { View, Text, Pressable } from "react-native";
-import { router } from "expo-router";
-import { StyleSheet } from "react-native";
 import Styles from "@constants/Styles";
+import { router } from "expo-router";
+import { Pressable, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 /**
  * Landing Page
