@@ -1,5 +1,7 @@
-import { Pressable, Text, View } from "react-native";
+import Styles from "@constants/Styles";
+import { AntDesign } from "@expo/vector-icons";
 import useImagesStore from "@stores/useImagesStore";
+import { Pressable, View } from "react-native";
 import { Image, SafeAreaView, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -11,28 +13,37 @@ export default function MediaPage() {
 	return (
 		<SafeAreaView style={styles.container}>
 			{images && (
-				<ScrollView style={styles.imagesContainer}>
-					{images.map((image) => {
-						return (
-							<View
-								key={image.uri}
-								style={styles.singleImageContainer}
-							>
-								<Image
-									source={{ uri: image.uri }}
-									width={175}
-									height={250}
-									style={styles.image}
-								/>
-								<Pressable
-									onPress={() => removeImage(image)}
-									style={styles.removeImageButton}
+				<ScrollView>
+					<View style={styles.imagesContainer}>
+						{images.map((image) => {
+							return (
+								<View
+									key={image.uri}
+									style={styles.singleImageContainer}
 								>
-									<Text>X</Text>
-								</Pressable>
-							</View>
-						);
-					})}
+									<Image
+										source={{ uri: image.uri }}
+										width={150}
+										height={225}
+										style={styles.image}
+									/>
+									<Pressable
+										onPress={() => removeImage(image)}
+										style={styles.removeImageButton}
+									>
+										<AntDesign
+											name="closecircleo"
+											size={24}
+											color="black"
+										/>
+									</Pressable>
+								</View>
+							);
+						})}
+						{images.length % 2 == 1 && (
+							<View style={styles.singleImageContainer}></View>
+						)}
+					</View>
 				</ScrollView>
 			)}
 		</SafeAreaView>
@@ -44,20 +55,30 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	imagesContainer: {
-		flex: 1,
+		display: "flex",
 		flexDirection: "row",
+		justifyContent: "space-around",
 		flexWrap: "wrap",
+		rowGap: 32,
+		marginTop: "4%",
+		width: "100%",
+		paddingHorizontal: 16,
+		overflow: "visible",
+	},
+	singleImageContainer: {
+		position: "relative",
+		width: 175,
+	},
+	image: {
 		marginLeft: "auto",
 		marginRight: "auto",
-		width: "100%",
-	},
-	singleImageContainer: {},
-	image: {
-		position: "relative",
+		aspectRatio: 0.7, // Set aspect ratio to maintain the original image proportions
 	},
 	removeImageButton: {
 		position: "absolute",
-		top: 4,
-		right: 4,
+		top: -6,
+		right: 0,
+		backgroundColor: Styles.colors.white.primary,
+		borderRadius: 12,
 	},
 });
