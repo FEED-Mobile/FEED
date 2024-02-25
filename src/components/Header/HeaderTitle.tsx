@@ -1,13 +1,21 @@
 import Styles from "@constants/Styles";
-import { StyleSheet, Text } from "react-native";
+import { StyleProp, StyleSheet, Text, TextStyle } from "react-native";
 
-export default function HeaderTitle() {
-	return <Text style={styles.headerTitle}>Feed</Text>;
+type HeaderTitleProps = {
+	children?: string;
+	tintColor?: string;
+	style?: StyleProp<TextStyle>;
+};
+
+export default function HeaderTitle({
+	children = "Feed",
+	style,
+}: HeaderTitleProps) {
+	return <Text style={[styles.headerTitle, style]}>{children}</Text>;
 }
 
 const styles = StyleSheet.create({
 	headerTitle: {
-		marginTop: 4,
 		fontFamily: Styles.fonts.title,
 		fontSize: 48,
 	},

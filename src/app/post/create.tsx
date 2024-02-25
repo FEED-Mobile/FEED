@@ -1,4 +1,4 @@
-import { Pressable, Text, TextInput } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import { supabase } from "@lib/supabase";
 import useImagesStore from "@stores/useImagesStore";
 import { router } from "expo-router";
@@ -12,6 +12,7 @@ import {
 	StyleSheet,
 	TouchableWithoutFeedback,
 } from "react-native";
+import Styles from "@constants/Styles";
 
 export default function CreatePostPage() {
 	const { images, resetImages } = useImagesStore((state) => {
@@ -135,9 +136,7 @@ export default function CreatePostPage() {
 	};
 
 	return (
-		<KeyboardAvoidingView
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
-		>
+		<KeyboardAvoidingView behavior="position" style={styles.container}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<>
 					<FlatList
@@ -148,40 +147,43 @@ export default function CreatePostPage() {
 								source={{ uri: item.item.uri }}
 								width={350}
 								height={450}
-								style={{ margin: 4 }}
+								style={{ marginHorizontal: 4 }}
 							/>
 						)}
 						keyExtractor={(item) => item.uri}
-						style={{ flexGrow: 0 }}
 					/>
-					<Text>Title</Text>
-					<TextInput
-						onChangeText={(text) => setTitle(text)}
-						value={title}
-						placeholder="Tell everyone what's cooking"
-						style={styles.textInput}
-					/>
-					<Text>Description</Text>
-					<TextInput
-						onChangeText={(text) => setDescription(text)}
-						value={description}
-						placeholder="Add a description to your snap"
-						style={styles.textInput}
-					/>
-					<Text>Location</Text>
-					<TextInput
-						onChangeText={(text) => setLocation(text)}
-						value={location}
-						placeholder="Tell everyone where this was taken"
-						style={styles.textInput}
-					/>
-					<Text>Tag related topics (TODO)</Text>
-					<Pressable
-						style={styles.createButton}
-						onPress={handleCreate}
-					>
-						<Text style={styles.createButtonText}>CREATE</Text>
-					</Pressable>
+					<View style={styles.contentContainer}>
+						<Text style={styles.labelText}>Title</Text>
+						<TextInput
+							onChangeText={(text) => setTitle(text)}
+							value={title}
+							placeholder="Tell everyone what's cooking"
+							style={styles.textInput}
+						/>
+						<Text style={styles.labelText}>Description</Text>
+						<TextInput
+							onChangeText={(text) => setDescription(text)}
+							value={description}
+							placeholder="Add a description to your snap"
+							style={styles.textInput}
+						/>
+						<Text style={styles.labelText}>Location</Text>
+						<TextInput
+							onChangeText={(text) => setLocation(text)}
+							value={location}
+							placeholder="Tell everyone where this was taken"
+							style={styles.textInput}
+						/>
+						<Text style={styles.labelText}>
+							Tag related topics (TODO)
+						</Text>
+						<Pressable
+							style={styles.createButton}
+							onPress={handleCreate}
+						>
+							<Text style={styles.createButtonText}>Create</Text>
+						</Pressable>
+					</View>
 				</>
 			</TouchableWithoutFeedback>
 		</KeyboardAvoidingView>
@@ -189,18 +191,42 @@ export default function CreatePostPage() {
 }
 
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		padding: 16,
+	},
+	contentContainer: {
+		width: "95%",
+		marginTop: "8%",
+		marginLeft: "auto",
+		marginRight: "auto",
+	},
+	labelText: {
+		fontFamily: Styles.fonts.text,
+		fontSize: 12,
+	},
 	textInput: {
-		width: "72.5%",
-		marginVertical: 10,
+		marginTop: 4,
+		marginBottom: 16,
 		paddingVertical: 5,
+		fontFamily: Styles.fonts.text,
 		fontSize: 16,
+		borderBottomColor: Styles.colors.black.primary,
+		borderBottomWidth: 1,
 	},
 	createButton: {
-		width: "20%",
-		padding: 4,
+		width: 100,
+		paddingHorizontal: 12,
+		paddingVertical: 12,
 		borderRadius: 20,
+		backgroundColor: Styles.colors.brown.primary,
+		marginLeft: "auto",
 	},
 	createButtonText: {
 		textAlign: "center",
+		fontFamily: Styles.fonts.text,
+		fontSize: 12,
+		color: Styles.colors.white.primary,
+		textTransform: "uppercase",
 	},
 });

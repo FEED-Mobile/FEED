@@ -56,7 +56,7 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-	// const colorScheme = useColorScheme();
+	const colorScheme = useColorScheme();
 
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
@@ -83,7 +83,7 @@ function RootLayoutNav() {
 				headerStyle: {
 					backgroundColor: Styles.colors.white.primary,
 				},
-				headerTitle: () => <HeaderTitle />,
+				headerTitle: () => <HeaderTitle style={{ marginTop: 4 }} />,
 				headerLeft: () => <HeaderBack />,
 			}}
 		>
@@ -100,6 +100,6 @@ function RootLayoutNav() {
 				}}
 			/>
 		</Stack>
-		// </ThemeProvider>
+		// {/* </ThemeProvider> */}
 	);
 }

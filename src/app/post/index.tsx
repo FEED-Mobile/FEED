@@ -5,6 +5,8 @@ import { Alert, StyleSheet } from "react-native";
 import { Link, router } from "expo-router";
 import useImagesStore from "@stores/useImagesStore";
 import Styles from "@constants/Styles";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function PostPage() {
 	const [, setCameraPermissionStatus] = useState(
@@ -73,7 +75,7 @@ export default function PostPage() {
 	};
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<>
 				<Camera
 					style={styles.camera}
@@ -82,29 +84,72 @@ export default function PostPage() {
 					flashMode={flash}
 				>
 					<View style={styles.captureSettingsContainer}>
-						<Text onPress={() => router.back()}>Close</Text>
-						<Text onPress={toggleFlashMode}>Flash {flash}</Text>
-						<Link href="/post/create">
-							<Text>Next</Text>
-						</Link>
+						<Pressable onPress={() => router.back()}>
+							<Ionicons
+								name="close"
+								size={32}
+								color={Styles.colors.white.primary}
+							/>
+						</Pressable>
+						<Pressable onPress={toggleFlashMode}>
+							<Ionicons
+								name={flash === "on" ? "flash" : "flash-off"}
+								size={32}
+								color={Styles.colors.white.primary}
+							/>
+						</Pressable>
+						<Pressable onPress={() => router.push("/post/create")}>
+							<Ionicons
+								name="chevron-forward"
+								size={32}
+								color={Styles.colors.white.primary}
+							/>
+						</Pressable>
 					</View>
 					<Pressable
 						style={styles.takePictureButton}
 						onPress={takePicture}
-					/>
+					>
+						<View style={styles.circle1}>
+							<View style={styles.circle2}>
+								<View style={styles.circle3}></View>
+							</View>
+						</View>
+					</Pressable>
 				</Camera>
 				<View style={styles.bottomContainer}>
 					<Link href="/post/media">
-						<Text>View ({images.length})</Text>
+						<View style={styles.viewMediaContainer}>
+							<MaterialCommunityIcons
+								name="cards-outline"
+								size={36}
+								color={Styles.colors.black.primary}
+							/>
+							{images.length > 0 && (
+								<View style={styles.imageCountBadge}>
+									<Text style={styles.imageCountText}>
+										{images.length}
+									</Text>
+								</View>
+							)}
+						</View>
 					</Link>
+
+					{/* TODO: VIDEO RECORDING FUNCTIONALITY */}
 					<View style={styles.captureTypeContainer}>
-						<Text>Normal</Text>
-						<Text>Video</Text>
+						<Text style={styles.captureTypeText}>Normal</Text>
+						<Text style={styles.captureTypeText}>Video</Text>
 					</View>
-					<Text onPress={toggleCameraType}>Flip</Text>
+					<Pressable onPress={toggleCameraType}>
+						<Ionicons
+							name="camera-reverse-outline"
+							size={36}
+							color={Styles.colors.black.primary}
+						/>
+					</Pressable>
 				</View>
 			</>
-		</View>
+		</SafeAreaView>
 	);
 }
 
@@ -117,35 +162,77 @@ const styles = StyleSheet.create({
 	camera: {
 		flex: 1,
 		justifyContent: "space-between",
-		width: "100%",
-		borderRadius: 20,
-	},
-	takePictureButton: {
-		borderRadius: 40,
-		width: 80,
-		height: 80,
-		marginBottom: "8%",
-		marginLeft: "auto",
-		marginRight: "auto",
-		backgroundColor: Styles.colors.white.primary,
+		width: "90%",
+		overflow: "hidden",
+		borderRadius: 16,
 	},
 	captureSettingsContainer: {
 		backgroundColor: "transparent",
 		display: "flex",
 		flexDirection: "row",
-		justifyContent: "space-around",
-		marginTop: "12%",
+		justifyContent: "space-between",
+		width: "90%",
+		marginLeft: "auto",
+		marginRight: "auto",
+		marginTop: "6%",
 	},
+	takePictureButton: {
+		marginBottom: "8%",
+		marginLeft: "auto",
+		marginRight: "auto",
+	},
+	circle1: {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+		borderRadius: 37.5,
+		width: 75,
+		height: 75,
+		backgroundColor: "rgba(255, 255, 255, 0.3)",
+	},
+	circle2: {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+		borderRadius: 30,
+		width: 60,
+		height: 60,
+		backgroundColor: "rgba(255, 255, 255, 0.3)",
+	},
+	circle3: {
+		borderRadius: 27.5,
+		width: 55,
+		height: 55,
+		backgroundColor: Styles.colors.white.primary,
+	},
+	viewMediaContainer: {},
 	bottomContainer: {
 		width: "100%",
 		paddingVertical: 48,
 		display: "flex",
 		flexDirection: "row",
+		alignItems: "center",
 		justifyContent: "space-around",
+	},
+	imageCountBadge: {
+		position: "absolute",
+		top: -12,
+		right: -12,
+		width: 20,
+		height: 20,
+		borderRadius: 10,
+		backgroundColor: Styles.colors.green.primary,
+	},
+	imageCountText: {
+		textAlign: "center",
+		color: Styles.colors.white.primary,
 	},
 	captureTypeContainer: {
 		display: "flex",
 		flexDirection: "row",
 		gap: 16,
+	},
+	captureTypeText: {
+		textTransform: "uppercase",
 	},
 });
