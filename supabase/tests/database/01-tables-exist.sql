@@ -1,11 +1,27 @@
+/*
+Test that public schema should have all the correct tables
+*/
 begin;
-select plan( 5 );
 
-select has_table( 'users' );
-select has_table( 'comments' );
-select has_table( 'following' );
-select has_table( 'likes' );
-select has_table( 'postings' );
+select
+	plan(1);
 
-select * from finish();
+select
+	tables_are(
+		'public',
+		ARRAY [
+			'users',
+			'comments',
+			'following',
+			'likes',
+			'postings'
+		],
+		'Public schema should have correct tables'
+	);
+
+select
+	*
+from
+	finish();
+
 rollback;
