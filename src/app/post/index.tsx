@@ -1,7 +1,13 @@
 import Styles from "@constants/Styles";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import useImagesStore from "@stores/useImagesStore";
-import { Camera, CameraType, FlashMode, PermissionStatus } from "expo-camera";
+import {
+	Camera,
+	CameraRecordingOptions,
+	CameraType,
+	FlashMode,
+	PermissionStatus,
+} from "expo-camera";
 import { Link, router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Pressable, Text, View } from "react-native";
@@ -12,21 +18,27 @@ export default function PostPage() {
 	const [, setCameraPermissionStatus] = useState(
 		PermissionStatus.UNDETERMINED
 	);
+	const [, setMicrophonePermissionStatus] = useState(
+		PermissionStatus.UNDETERMINED
+	);
 	const { images, addImage } = useImagesStore((state) => {
 		return { images: state.images, addImage: state.addImage };
 	});
 	const [type, setType] = useState(CameraType.back);
 	const [flash, setFlash] = useState(FlashMode.off);
+	const [captureMode, setCaptureMode] = useState<"camera" | "video">(
+		"camera"
+	);
+	const [isRecording, setIsRecording] = useState(false);
 	const cameraRef = useRef<Camera | null>(null);
 
 	/**
-	 * Ask user for permission to use camera
+	 * Ask user for permission to use camera and microphone
 	 */
 	useEffect(() => {
 		const askPermissions = async () => {
+			// Camera permissions
 			const cameraStatus = await Camera.requestCameraPermissionsAsync();
-			setCameraPermissionStatus(cameraStatus.status);
-
 			if (cameraStatus.status !== PermissionStatus.GRANTED) {
 				Alert.alert(
 					"No Permission",
@@ -35,6 +47,21 @@ export default function PostPage() {
 				);
 				return <></>;
 			}
+
+			// Microphone permissions
+			const microphoneStatus =
+				await Camera.requestMicrophonePermissionsAsync();
+			if (microphoneStatus.status !== PermissionStatus.GRANTED) {
+				Alert.alert(
+					"No Permission",
+					"You need microphone permissions to continue.",
+					[{ text: "OK", onPress: () => router.back() }]
+				);
+				return <></>;
+			}
+
+			setCameraPermissionStatus(cameraStatus.status);
+			setMicrophonePermissionStatus(microphoneStatus.status);
 		};
 		askPermissions();
 	}, []);
@@ -53,6 +80,38 @@ export default function PostPage() {
 				]);
 				console.log(e);
 			}
+		}
+	};
+
+	/**
+	 * Start recording video
+	 */
+	const startRecording = async () => {
+		setIsRecording(true);
+		if (cameraRef.current) {
+			try {
+				const options: CameraRecordingOptions = {
+					quality: "1080p",
+					maxDuration: 10,
+					mute: false,
+				};
+				const video = await cameraRef.current.recordAsync(options);
+			} catch (e) {
+				Alert.alert("Failed to take video", "Please try again", [
+					{ text: "OK" },
+				]);
+				console.log(e);
+			}
+		}
+	};
+
+	/**
+	 * Stop recording video
+	 */
+	const stopRecording = async () => {
+		if (cameraRef.current) {
+			cameraRef.current.stopRecording();
+			setIsRecording(false);
 		}
 	};
 
@@ -108,11 +167,31 @@ export default function PostPage() {
 					</View>
 					<Pressable
 						style={styles.takePictureButton}
-						onPress={takePicture}
+						onPress={
+							captureMode === "camera"
+								? takePicture
+								: isRecording
+									? stopRecording
+									: startRecording
+						}
 					>
 						<View style={styles.circle1}>
 							<View style={styles.circle2}>
-								<View style={styles.circle3}></View>
+								<View
+									style={[
+										styles.circle3,
+										{
+											backgroundColor:
+												captureMode === "camera"
+													? Styles.colors.white
+															.primary
+													: "red",
+											borderRadius: isRecording
+												? 10
+												: 27.5,
+										},
+									]}
+								></View>
 							</View>
 						</View>
 					</Pressable>
@@ -137,8 +216,36 @@ export default function PostPage() {
 
 					{/* TODO: VIDEO RECORDING FUNCTIONALITY */}
 					<View style={styles.captureTypeContainer}>
-						<Text style={styles.captureTypeText}>Normal</Text>
-						<Text style={styles.captureTypeText}>Video</Text>
+						<Pressable onPress={() => setCaptureMode("camera")}>
+							<Text
+								style={[
+									styles.captureTypeText,
+									{
+										fontWeight:
+											captureMode === "camera"
+												? "bold"
+												: "normal",
+									},
+								]}
+							>
+								Normal
+							</Text>
+						</Pressable>
+						<Pressable onPress={() => setCaptureMode("video")}>
+							<Text
+								style={[
+									styles.captureTypeText,
+									{
+										fontWeight:
+											captureMode === "video"
+												? "bold"
+												: "normal",
+									},
+								]}
+							>
+								Video
+							</Text>
+						</Pressable>
 					</View>
 					<Pressable onPress={toggleCameraType}>
 						<Ionicons
@@ -200,10 +307,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "rgba(255, 255, 255, 0.3)",
 	},
 	circle3: {
-		borderRadius: 27.5,
 		width: 55,
 		height: 55,
-		backgroundColor: Styles.colors.white.primary,
 	},
 	viewMediaContainer: {},
 	bottomContainer: {
