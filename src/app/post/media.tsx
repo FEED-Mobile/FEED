@@ -1,35 +1,46 @@
 import Styles from "@constants/Styles";
 import { AntDesign } from "@expo/vector-icons";
-import useImagesStore from "@stores/useImagesStore";
+import { isCameraCapturedPicture } from "@lib/utils";
+import useMediaStore from "@stores/useMediaStore";
+import { ResizeMode, Video } from "expo-av";
 import { Pressable, View } from "react-native";
 import { Image, SafeAreaView, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 export default function MediaPage() {
-	const { images, removeImage } = useImagesStore((state) => {
-		return { images: state.images, removeImage: state.removeImage };
+	const { media, removeMedia } = useMediaStore((state) => {
+		return { media: state.media, removeMedia: state.removeMedia };
 	});
 
 	return (
 		<SafeAreaView style={styles.container}>
-			{images && (
+			{media && (
 				<ScrollView>
-					<View style={styles.imagesContainer}>
-						{images.map((image) => {
+					<View style={styles.mediaContainer}>
+						{media.map((file) => {
 							return (
 								<View
-									key={image.uri}
-									style={styles.singleImageContainer}
+									key={file.uri}
+									style={styles.singleMediaContainer}
 								>
-									<Image
-										source={{ uri: image.uri }}
-										width={150}
-										height={225}
-										style={styles.image}
-									/>
+									{isCameraCapturedPicture(file) ? (
+										<Image
+											source={{ uri: file.uri }}
+											width={150}
+											height={225}
+											style={styles.image}
+										/>
+									) : (
+										<Video
+											source={{ uri: file.uri }}
+											useNativeControls
+											resizeMode={ResizeMode.COVER}
+											style={styles.video}
+										/>
+									)}
 									<Pressable
-										onPress={() => removeImage(image)}
-										style={styles.removeImageButton}
+										onPress={() => removeMedia(file)}
+										style={styles.removeMediaButton}
 									>
 										<AntDesign
 											name="closecircleo"
@@ -40,8 +51,8 @@ export default function MediaPage() {
 								</View>
 							);
 						})}
-						{images.length % 2 == 1 && (
-							<View style={styles.singleImageContainer}></View>
+						{media.length % 2 == 1 && (
+							<View style={styles.singleMediaContainer}></View>
 						)}
 					</View>
 				</ScrollView>
@@ -54,7 +65,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
-	imagesContainer: {
+	mediaContainer: {
 		display: "flex",
 		flexDirection: "row",
 		justifyContent: "space-around",
@@ -65,7 +76,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 16,
 		overflow: "visible",
 	},
-	singleImageContainer: {
+	singleMediaContainer: {
 		position: "relative",
 		width: 175,
 	},
@@ -74,7 +85,13 @@ const styles = StyleSheet.create({
 		marginRight: "auto",
 		aspectRatio: 0.7, // Set aspect ratio to maintain the original image proportions
 	},
-	removeImageButton: {
+	video: {
+		marginLeft: "auto",
+		marginRight: "auto",
+		width: 150,
+		height: 225,
+	},
+	removeMediaButton: {
 		position: "absolute",
 		top: -6,
 		right: 0,

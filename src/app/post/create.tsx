@@ -1,6 +1,12 @@
 import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
-import useImagesStore from "@stores/useImagesStore";
+import {
+	isCameraCapturedPicture,
+	uploadToCloudinary,
+	uploadToSupabase,
+} from "@lib/utils";
+import useMediaStore from "@stores/useMediaStore";
+import { ResizeMode, Video } from "expo-av";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
@@ -14,8 +20,8 @@ import {
 } from "react-native";
 
 export default function CreatePostPage() {
-	const { images, resetImages } = useImagesStore((state) => {
-		return { images: state.images, resetImages: state.resetImages };
+	const { media, resetMedia } = useMediaStore((state) => {
+		return { media: state.media, resetMedia: state.resetMedia };
 	});
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
@@ -27,7 +33,7 @@ export default function CreatePostPage() {
 	 */
 	const handleCreate = async () => {
 		console.log("Creating new post...");
-		const imageUrls: string[] = [];
+		const mediaUrls: string[] = [];
 
 		// Get user for user ID
 		const {
@@ -43,69 +49,39 @@ export default function CreatePostPage() {
 		}
 
 		// Upload each picture and get its public URL
-		for (const image of images) {
-			const fileName = image.uri.split("/").pop();
-			const fileExt = image.uri.split(".").pop();
-			const imageFile = {
-				uri: image.uri,
-				type: `image/${fileExt}`,
-				name: fileName ?? "",
-			};
-			const form = new FormData();
+		for (const mediaFile of media) {
+			const fileName = mediaFile.uri.split("/").pop() ?? "";
+			const fileExt = mediaFile.uri.split(".").pop() ?? "";
+			const mediaType = isCameraCapturedPicture(mediaFile)
+				? "image"
+				: "video";
 
 			/**
 			 * Uploading images to Cloudinary when running development.
 			 * In production, images will be uploaded to Supabase Storage.
 			 */
+			let publicUrl;
 			if (__DEV__) {
-				form.append("file", imageFile);
-				form.append(
-					"upload_preset",
-					process.env.EXPO_PUBLIC_CLOUDINARY_UPLOAD_PRESET ?? ""
+				publicUrl = await uploadToCloudinary(
+					fileName,
+					fileExt,
+					mediaType,
+					mediaFile
 				);
-				try {
-					const res = await fetch(
-						`${process.env.EXPO_PUBLIC_CLOUDINARY_URL}/image/upload`,
-						{
-							method: "post",
-							body: form,
-						}
-					);
-					const resJSON = await res.json();
-
-					// Get URL for image
-					imageUrls.push(resJSON["secure_url"]);
-				} catch (e) {
-					console.log(
-						"An error occurred in uploading the image: ",
-						e
-					);
-					return;
-				}
 			} else {
-				form.append("photo", imageFile);
-				const destinationPath = `${user.id}/${fileName}`;
-				const { data: uploadResponse, error: storageError } =
-					await supabase.storage
-						.from("posts")
-						.upload(destinationPath, form);
-
-				if (!uploadResponse || storageError) {
-					console.log(
-						"An error occurred in uploading the image: ",
-						storageError
-					);
-					return;
-				}
-
-				// Get URL for image
-				const {
-					data: { publicUrl },
-				} = supabase.storage
-					.from("posts")
-					.getPublicUrl(uploadResponse.path);
-				imageUrls.push(publicUrl);
+				publicUrl = await uploadToSupabase(
+					user.id,
+					fileName,
+					fileExt,
+					mediaType,
+					mediaFile
+				);
 			}
+			if (!publicUrl) {
+				console.log("An error occurred in uploading the media file. ");
+				return;
+			}
+			mediaUrls.push(publicUrl);
 		}
 
 		// Insert new post
@@ -116,7 +92,7 @@ export default function CreatePostPage() {
 				title: title,
 				description: title,
 				location: location,
-				images: imageUrls,
+				images: mediaUrls,
 			});
 		if (postCreationError) {
 			console.log(
@@ -127,7 +103,7 @@ export default function CreatePostPage() {
 		}
 
 		// Clear images from store
-		resetImages();
+		resetMedia();
 
 		// Navigate back to home page
 		router.replace("/(app)/home");
@@ -140,15 +116,33 @@ export default function CreatePostPage() {
 				<>
 					<FlatList
 						horizontal
-						data={images}
-						renderItem={(item) => (
-							<Image
-								source={{ uri: item.item.uri }}
-								width={350}
-								height={450}
-								style={{ marginHorizontal: 4 }}
-							/>
-						)}
+						data={media}
+						renderItem={(item) => {
+							const mediaWidth = 350,
+								mediaHeight = 450;
+							if (isCameraCapturedPicture(item.item)) {
+								return (
+									<Image
+										source={{ uri: item.item.uri }}
+										width={mediaWidth}
+										height={mediaHeight}
+										style={{ marginHorizontal: 4 }}
+									/>
+								);
+							}
+							return (
+								<Video
+									source={{ uri: item.item.uri }}
+									useNativeControls
+									resizeMode={ResizeMode.COVER}
+									style={{
+										marginHorizontal: 4,
+										width: mediaWidth,
+										height: mediaHeight,
+									}}
+								/>
+							);
+						}}
 						keyExtractor={(item) => item.uri}
 					/>
 					<View style={styles.contentContainer}>

@@ -1,8 +1,9 @@
 import Styles from "@constants/Styles";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import useImagesStore from "@stores/useImagesStore";
+import useMediaStore from "@stores/useMediaStore";
 import {
 	Camera,
+	CameraPictureOptions,
 	CameraRecordingOptions,
 	CameraType,
 	FlashMode,
@@ -21,8 +22,8 @@ export default function PostPage() {
 	const [, setMicrophonePermissionStatus] = useState(
 		PermissionStatus.UNDETERMINED
 	);
-	const { images, addImage } = useImagesStore((state) => {
-		return { images: state.images, addImage: state.addImage };
+	const { media, addMedia } = useMediaStore((state) => {
+		return { media: state.media, addMedia: state.addMedia };
 	});
 	const [type, setType] = useState(CameraType.back);
 	const [flash, setFlash] = useState(FlashMode.off);
@@ -73,7 +74,7 @@ export default function PostPage() {
 		if (cameraRef.current) {
 			try {
 				const image = await cameraRef.current.takePictureAsync();
-				addImage(image);
+				addMedia(image);
 			} catch (e) {
 				Alert.alert("Failed to take picture", "Please try again", [
 					{ text: "OK" },
@@ -92,10 +93,12 @@ export default function PostPage() {
 			try {
 				const options: CameraRecordingOptions = {
 					quality: "1080p",
-					maxDuration: 10,
+					maxDuration: 5,
 					mute: false,
 				};
 				const video = await cameraRef.current.recordAsync(options);
+				addMedia(video);
+				setIsRecording(false);
 			} catch (e) {
 				Alert.alert("Failed to take video", "Please try again", [
 					{ text: "OK" },
@@ -204,10 +207,10 @@ export default function PostPage() {
 								size={36}
 								color={Styles.colors.black.primary}
 							/>
-							{images.length > 0 && (
+							{media.length > 0 && (
 								<View style={styles.imageCountBadge}>
 									<Text style={styles.imageCountText}>
-										{images.length}
+										{media.length}
 									</Text>
 								</View>
 							)}
