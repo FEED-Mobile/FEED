@@ -3,7 +3,6 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import useMediaStore from "@stores/useMediaStore";
 import {
 	Camera,
-	CameraPictureOptions,
 	CameraRecordingOptions,
 	CameraType,
 	FlashMode,
