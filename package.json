@@ -16,7 +16,7 @@
     "db:reset": "supabase db reset",
     "db:lint": "supabase db lint",
     "db:test": "supabase test db",
-    "update-types": "supabase gen types typescript --project-id \"$PROJECT_REF\" > types/supabase.ts"
+    "update-types": "supabase gen types typescript --local > src/types/supabase.ts"
   },
   "jest": {
     "preset": "jest-expo"
