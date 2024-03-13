@@ -13,7 +13,7 @@ import { supabase } from "./supabase";
 export const isCameraCapturedPicture = (
 	media: ImageVideo
 ): media is CameraCapturedPicture => {
-	if ("width" in media && "height" in media && "base64" in media) {
+	if ("width" in media && "height" in media) {
 		return true;
 	}
 	return false;

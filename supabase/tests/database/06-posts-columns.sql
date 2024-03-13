@@ -9,10 +9,10 @@ select
 select
 	columns_are(
 		'public',
-		'postings',
+		'posts',
 		ARRAY [
 			'id',
-			'images',
+			'media',
 			'title',
 			'description',
 			'location',
@@ -20,7 +20,7 @@ select
 			'user_id',
 			'created_at'
 		],
-		'Table public.postings should have correct columns'
+		'Table public.posts should have correct columns'
 	);
 
 select

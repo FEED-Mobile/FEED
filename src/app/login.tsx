@@ -1,9 +1,10 @@
+import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import { Alert, StyleSheet } from "react-native";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 
 /**
  * Login Page
@@ -52,13 +53,13 @@ export default function Login() {
 				autoCapitalize={"none"}
 				style={[styles.textInput, { marginBottom: "10%" }]}
 			/>
-			<Pressable
+			<Button
 				disabled={loading}
 				onPress={() => signInWithEmail()}
 				style={[styles.loginButton]}
 			>
 				<Text style={styles.buttonText}>Login</Text>
-			</Pressable>
+			</Button>
 
 			{/* TODO: Handle forgot password flow */}
 			<Text style={styles.forgotPasswordText}>Forgot password?</Text>

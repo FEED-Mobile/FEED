@@ -148,6 +148,8 @@ INSERT INTO "auth"."refresh_tokens" ("instance_id", "id", "token", "user_id", "r
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO "public"."users" ("id", "created_at", "email", "username", "avatar", "bio", "birthday", "location") VALUES
+	('0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-03-13 18:16:31.44369+00', 'hansonhn369@gmail.com', 'hanson', NULL, NULL, NULL, NULL);
 
 
 --

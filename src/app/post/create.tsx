@@ -1,3 +1,4 @@
+import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
 import {
@@ -9,7 +10,7 @@ import useMediaStore from "@stores/useMediaStore";
 import { ResizeMode, Video } from "expo-av";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 import {
 	FlatList,
 	Image,
@@ -170,12 +171,12 @@ export default function CreatePostPage() {
 						<Text style={styles.labelText}>
 							Tag related topics (TODO)
 						</Text>
-						<Pressable
+						<Button
 							style={styles.createButton}
 							onPress={handleCreate}
 						>
 							<Text style={styles.createButtonText}>Create</Text>
-						</Pressable>
+						</Button>
 					</View>
 				</>
 			</TouchableWithoutFeedback>

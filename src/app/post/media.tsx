@@ -1,9 +1,10 @@
+import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { AntDesign } from "@expo/vector-icons";
 import { isCameraCapturedPicture } from "@lib/utils";
 import useMediaStore from "@stores/useMediaStore";
 import { ResizeMode, Video } from "expo-av";
-import { Pressable, View } from "react-native";
+import { View } from "react-native";
 import { Image, SafeAreaView, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -38,7 +39,7 @@ export default function MediaPage() {
 											style={styles.video}
 										/>
 									)}
-									<Pressable
+									<Button
 										onPress={() => removeMedia(file)}
 										style={styles.removeMediaButton}
 									>
@@ -47,7 +48,7 @@ export default function MediaPage() {
 											size={24}
 											color="black"
 										/>
-									</Pressable>
+									</Button>
 								</View>
 							);
 						})}

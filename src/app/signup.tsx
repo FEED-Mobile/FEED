@@ -1,9 +1,10 @@
+import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
 import { Link, router } from "expo-router";
 import React, { useState } from "react";
 import { Alert, StyleSheet } from "react-native";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 
 /**
  * Sign Up Page
@@ -92,13 +93,13 @@ export default function Signup() {
 				autoCapitalize={"none"}
 				style={[styles.textInput, { marginBottom: "10%" }]}
 			/>
-			<Pressable
+			<Button
 				disabled={loading}
 				onPress={() => signUpWithEmail()}
 				style={[styles.signUpButton]}
 			>
 				<Text style={styles.signUpButtonText}>Sign Up</Text>
-			</Pressable>
+			</Button>
 
 			{/* TODO: OAUTH PROVIDERS SIGN IN */}
 
