@@ -14,7 +14,7 @@ select
 			'comments',
 			'following',
 			'likes',
-			'postings'
+			'posts'
 		],
 		'Public schema should have correct tables'
 	);

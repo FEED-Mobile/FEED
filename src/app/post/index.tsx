@@ -74,9 +74,7 @@ export default function PostPage() {
 		if (cameraRef.current) {
 			try {
 				const image = await cameraRef.current.takePictureAsync();
-				console.log("Adding image...");
 				addMedia(image);
-				console.log("Added image: ", image);
 			} catch (e) {
 				Alert.alert("Failed to take picture", "Please try again", [
 					{ text: "OK" },

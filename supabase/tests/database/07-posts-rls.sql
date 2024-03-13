@@ -9,14 +9,14 @@ select
 select
 	policies_are(
 		'public',
-		'postings',
+		'posts',
 		ARRAY [
     'Enable delete for users based on user_id',
     'Enable insert for users based on user_id',
 	'Enable read access for all users',
 	'Enable update for users based on user_id'
   ],
-		'Table public.postings should have correct policies'
+		'Table public.posts should have correct policies'
 	);
 
 select
