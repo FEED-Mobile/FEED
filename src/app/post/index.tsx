@@ -1,3 +1,4 @@
+import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import useMediaStore from "@stores/useMediaStore";
@@ -10,7 +11,7 @@ import {
 } from "expo-camera";
 import { Link, router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { Alert, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -73,7 +74,9 @@ export default function PostPage() {
 		if (cameraRef.current) {
 			try {
 				const image = await cameraRef.current.takePictureAsync();
+				console.log("Adding image...");
 				addMedia(image);
+				console.log("Added image: ", image);
 			} catch (e) {
 				Alert.alert("Failed to take picture", "Please try again", [
 					{ text: "OK" },
@@ -145,29 +148,29 @@ export default function PostPage() {
 					flashMode={flash}
 				>
 					<View style={styles.captureSettingsContainer}>
-						<Pressable onPress={() => router.back()}>
+						<Button onPress={() => router.back()}>
 							<Ionicons
 								name="close"
 								size={32}
 								color={Styles.colors.white.primary}
 							/>
-						</Pressable>
-						<Pressable onPress={toggleFlashMode}>
+						</Button>
+						<Button onPress={toggleFlashMode}>
 							<Ionicons
 								name={flash === "on" ? "flash" : "flash-off"}
 								size={32}
 								color={Styles.colors.white.primary}
 							/>
-						</Pressable>
-						<Pressable onPress={() => router.push("/post/create")}>
+						</Button>
+						<Button onPress={() => router.push("/post/create")}>
 							<Ionicons
 								name="chevron-forward"
 								size={32}
 								color={Styles.colors.white.primary}
 							/>
-						</Pressable>
+						</Button>
 					</View>
-					<Pressable
+					<Button
 						style={styles.takePictureButton}
 						onPress={
 							captureMode === "camera"
@@ -196,11 +199,11 @@ export default function PostPage() {
 								></View>
 							</View>
 						</View>
-					</Pressable>
+					</Button>
 				</Camera>
 				<View style={styles.bottomContainer}>
-					<Link href="/post/media">
-						<View style={styles.viewMediaContainer}>
+					<Link href="/post/media" asChild>
+						<Button style={styles.viewMediaContainer}>
 							<MaterialCommunityIcons
 								name="cards-outline"
 								size={36}
@@ -213,12 +216,12 @@ export default function PostPage() {
 									</Text>
 								</View>
 							)}
-						</View>
+						</Button>
 					</Link>
 
 					{/* TODO: VIDEO RECORDING FUNCTIONALITY */}
 					<View style={styles.captureTypeContainer}>
-						<Pressable onPress={() => setCaptureMode("camera")}>
+						<Button onPress={() => setCaptureMode("camera")}>
 							<Text
 								style={[
 									styles.captureTypeText,
@@ -232,8 +235,8 @@ export default function PostPage() {
 							>
 								Normal
 							</Text>
-						</Pressable>
-						<Pressable onPress={() => setCaptureMode("video")}>
+						</Button>
+						<Button onPress={() => setCaptureMode("video")}>
 							<Text
 								style={[
 									styles.captureTypeText,
@@ -247,15 +250,15 @@ export default function PostPage() {
 							>
 								Video
 							</Text>
-						</Pressable>
+						</Button>
 					</View>
-					<Pressable onPress={toggleCameraType}>
+					<Button onPress={toggleCameraType}>
 						<Ionicons
 							name="camera-reverse-outline"
 							size={36}
 							color={Styles.colors.black.primary}
 						/>
-					</Pressable>
+					</Button>
 				</View>
 			</>
 		</SafeAreaView>
