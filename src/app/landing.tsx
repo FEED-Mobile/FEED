@@ -1,7 +1,8 @@
-import { View, Text, Pressable } from "react-native";
-import { router } from "expo-router";
-import { StyleSheet } from "react-native";
+import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
+import { router } from "expo-router";
+import { Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 /**
  * Landing Page
@@ -19,18 +20,18 @@ export default function LandingPage() {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.titleText}>Feed.</Text>
-			<Pressable
+			<Button
 				onPress={() => onLoginPress()}
 				style={[styles.button, styles.loginButton]}
 			>
 				<Text style={styles.loginButtonText}>Login</Text>
-			</Pressable>
-			<Pressable
+			</Button>
+			<Button
 				onPress={() => onSignUpPress()}
 				style={[styles.button, styles.signUpButton]}
 			>
 				<Text style={styles.signUpButtonText}>Sign Up</Text>
-			</Pressable>
+			</Button>
 			<Text style={styles.descriptionText}>
 				Food for your phone begins here.
 			</Text>

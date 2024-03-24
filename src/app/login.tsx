@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { Alert, StyleSheet } from "react-native";
-import { Pressable, TextInput, View, Text } from "react-native";
+import Button from "@components/ui/Button";
+import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
 import { Link } from "expo-router";
-import Styles from "@constants/Styles";
+import React, { useState } from "react";
+import { Alert, StyleSheet } from "react-native";
+import { Text, TextInput, View } from "react-native";
 
 /**
  * Login Page
@@ -39,6 +40,7 @@ export default function Login() {
 				onChangeText={(text) => setEmail(text)}
 				value={email}
 				placeholder="Email"
+				placeholderTextColor={Styles.colors.gray.primary}
 				autoCapitalize={"none"}
 				style={styles.textInput}
 			/>
@@ -47,22 +49,23 @@ export default function Login() {
 				value={password}
 				secureTextEntry={true}
 				placeholder="Password"
+				placeholderTextColor={Styles.colors.gray.primary}
 				autoCapitalize={"none"}
 				style={[styles.textInput, { marginBottom: "10%" }]}
 			/>
-			<Pressable
+			<Button
 				disabled={loading}
 				onPress={() => signInWithEmail()}
 				style={[styles.loginButton]}
 			>
 				<Text style={styles.buttonText}>Login</Text>
-			</Pressable>
+			</Button>
 
 			{/* TODO: Handle forgot password flow */}
 			<Text style={styles.forgotPasswordText}>Forgot password?</Text>
 
 			<Text style={styles.bottomText}>
-				Don't have an account?{" "}
+				Don&apos;t have an account?{" "}
 				<Link
 					href="/signup"
 					replace={true}
@@ -78,6 +81,7 @@ export default function Login() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: Styles.colors.white.primary,
 		alignItems: "center",
 		justifyContent: "center",
 	},

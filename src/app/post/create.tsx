@@ -1,21 +1,28 @@
-import { Pressable, Text, TextInput } from "react-native";
+import Button from "@components/ui/Button";
+import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
-import useImagesStore from "@stores/useImagesStore";
+import {
+	isCameraCapturedPicture,
+	uploadToCloudinary,
+	uploadToSupabase,
+} from "@lib/utils";
+import useMediaStore from "@stores/useMediaStore";
+import { ResizeMode, Video } from "expo-av";
 import { router } from "expo-router";
 import { useState } from "react";
+import { Text, TextInput, View } from "react-native";
 import {
 	FlatList,
 	Image,
 	Keyboard,
 	KeyboardAvoidingView,
-	Platform,
 	StyleSheet,
 	TouchableWithoutFeedback,
 } from "react-native";
 
 export default function CreatePostPage() {
-	const { images, resetImages } = useImagesStore((state) => {
-		return { images: state.images, resetImages: state.resetImages };
+	const { media, resetMedia } = useMediaStore((state) => {
+		return { media: state.media, resetMedia: state.resetMedia };
 	});
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
@@ -27,7 +34,7 @@ export default function CreatePostPage() {
 	 */
 	const handleCreate = async () => {
 		console.log("Creating new post...");
-		const imageUrls: string[] = [];
+		const mediaUrls: string[] = [];
 
 		// Get user for user ID
 		const {
@@ -43,69 +50,39 @@ export default function CreatePostPage() {
 		}
 
 		// Upload each picture and get its public URL
-		for (const image of images) {
-			const fileName = image.uri.split("/").pop();
-			const fileExt = image.uri.split(".").pop();
-			const imageFile = {
-				uri: image.uri,
-				type: `image/${fileExt}`,
-				name: fileName ?? "",
-			};
-			const form = new FormData();
+		for (const mediaFile of media) {
+			const fileName = mediaFile.uri.split("/").pop() ?? "";
+			const fileExt = mediaFile.uri.split(".").pop() ?? "";
+			const mediaType = isCameraCapturedPicture(mediaFile)
+				? "image"
+				: "video";
 
 			/**
 			 * Uploading images to Cloudinary when running development.
 			 * In production, images will be uploaded to Supabase Storage.
 			 */
+			let publicUrl;
 			if (__DEV__) {
-				form.append("file", imageFile);
-				form.append(
-					"upload_preset",
-					process.env.EXPO_PUBLIC_CLOUDINARY_UPLOAD_PRESET ?? ""
+				publicUrl = await uploadToCloudinary(
+					fileName,
+					fileExt,
+					mediaType,
+					mediaFile
 				);
-				try {
-					const res = await fetch(
-						`${process.env.EXPO_PUBLIC_CLOUDINARY_URL}/image/upload`,
-						{
-							method: "post",
-							body: form,
-						}
-					);
-					const resJSON = await res.json();
-
-					// Get URL for image
-					imageUrls.push(resJSON["secure_url"]);
-				} catch (e) {
-					console.log(
-						"An error occurred in uploading the image: ",
-						e
-					);
-					return;
-				}
 			} else {
-				form.append("photo", imageFile);
-				const destinationPath = `${user.id}/${fileName}`;
-				const { data: uploadResponse, error: storageError } =
-					await supabase.storage
-						.from("posts")
-						.upload(destinationPath, form);
-
-				if (!uploadResponse || storageError) {
-					console.log(
-						"An error occurred in uploading the image: ",
-						storageError
-					);
-					return;
-				}
-
-				// Get URL for image
-				const {
-					data: { publicUrl },
-				} = supabase.storage
-					.from("posts")
-					.getPublicUrl(uploadResponse.path);
-				imageUrls.push(publicUrl);
+				publicUrl = await uploadToSupabase(
+					user.id,
+					fileName,
+					fileExt,
+					mediaType,
+					mediaFile
+				);
 			}
+			if (!publicUrl) {
+				console.log("An error occurred in uploading the media file. ");
+				return;
+			}
+			mediaUrls.push(publicUrl);
 		}
 
 		// Insert new post
@@ -116,7 +93,7 @@ export default function CreatePostPage() {
 				title: title,
 				description: title,
 				location: location,
-				images: imageUrls,
+				images: mediaUrls,
 			});
 		if (postCreationError) {
 			console.log(
@@ -127,7 +104,7 @@ export default function CreatePostPage() {
 		}
 
 		// Clear images from store
-		resetImages();
+		resetMedia();
 
 		// Navigate back to home page
 		router.replace("/(app)/home");
@@ -135,53 +112,72 @@ export default function CreatePostPage() {
 	};
 
 	return (
-		<KeyboardAvoidingView
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
-		>
+		<KeyboardAvoidingView behavior="position" style={styles.container}>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<>
 					<FlatList
 						horizontal
-						data={images}
-						renderItem={(item) => (
-							<Image
-								source={{ uri: item.item.uri }}
-								width={350}
-								height={450}
-								style={{ margin: 4 }}
-							/>
-						)}
+						data={media}
+						renderItem={(item) => {
+							const mediaWidth = 350,
+								mediaHeight = 450;
+							if (isCameraCapturedPicture(item.item)) {
+								return (
+									<Image
+										source={{ uri: item.item.uri }}
+										width={mediaWidth}
+										height={mediaHeight}
+										style={{ marginHorizontal: 4 }}
+									/>
+								);
+							}
+							return (
+								<Video
+									source={{ uri: item.item.uri }}
+									useNativeControls
+									resizeMode={ResizeMode.COVER}
+									style={{
+										marginHorizontal: 4,
+										width: mediaWidth,
+										height: mediaHeight,
+									}}
+								/>
+							);
+						}}
 						keyExtractor={(item) => item.uri}
-						style={{ flexGrow: 0 }}
 					/>
-					<Text>Title</Text>
-					<TextInput
-						onChangeText={(text) => setTitle(text)}
-						value={title}
-						placeholder="Tell everyone what's cooking"
-						style={styles.textInput}
-					/>
-					<Text>Description</Text>
-					<TextInput
-						onChangeText={(text) => setDescription(text)}
-						value={description}
-						placeholder="Add a description to your snap"
-						style={styles.textInput}
-					/>
-					<Text>Location</Text>
-					<TextInput
-						onChangeText={(text) => setLocation(text)}
-						value={location}
-						placeholder="Tell everyone where this was taken"
-						style={styles.textInput}
-					/>
-					<Text>Tag related topics (TODO)</Text>
-					<Pressable
-						style={styles.createButton}
-						onPress={handleCreate}
-					>
-						<Text style={styles.createButtonText}>CREATE</Text>
-					</Pressable>
+					<View style={styles.contentContainer}>
+						<Text style={styles.labelText}>Title</Text>
+						<TextInput
+							onChangeText={(text) => setTitle(text)}
+							value={title}
+							placeholder="Tell everyone what's cooking"
+							style={styles.textInput}
+						/>
+						<Text style={styles.labelText}>Description</Text>
+						<TextInput
+							onChangeText={(text) => setDescription(text)}
+							value={description}
+							placeholder="Add a description to your snap"
+							style={styles.textInput}
+						/>
+						<Text style={styles.labelText}>Location</Text>
+						<TextInput
+							onChangeText={(text) => setLocation(text)}
+							value={location}
+							placeholder="Tell everyone where this was taken"
+							style={styles.textInput}
+						/>
+						<Text style={styles.labelText}>
+							Tag related topics (TODO)
+						</Text>
+						<Button
+							style={styles.createButton}
+							onPress={handleCreate}
+						>
+							<Text style={styles.createButtonText}>Create</Text>
+						</Button>
+					</View>
 				</>
 			</TouchableWithoutFeedback>
 		</KeyboardAvoidingView>
@@ -189,18 +185,42 @@ export default function CreatePostPage() {
 }
 
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		padding: 16,
+	},
+	contentContainer: {
+		width: "95%",
+		marginTop: "8%",
+		marginLeft: "auto",
+		marginRight: "auto",
+	},
+	labelText: {
+		fontFamily: Styles.fonts.text,
+		fontSize: 12,
+	},
 	textInput: {
-		width: "72.5%",
-		marginVertical: 10,
+		marginTop: 4,
+		marginBottom: 16,
 		paddingVertical: 5,
+		fontFamily: Styles.fonts.text,
 		fontSize: 16,
+		borderBottomColor: Styles.colors.black.primary,
+		borderBottomWidth: 1,
 	},
 	createButton: {
-		width: "20%",
-		padding: 4,
+		width: 100,
+		paddingHorizontal: 12,
+		paddingVertical: 12,
 		borderRadius: 20,
+		backgroundColor: Styles.colors.brown.primary,
+		marginLeft: "auto",
 	},
 	createButtonText: {
 		textAlign: "center",
+		fontFamily: Styles.fonts.text,
+		fontSize: 12,
+		color: Styles.colors.white.primary,
+		textTransform: "uppercase",
 	},
 });

@@ -1,15 +1,17 @@
+import HeaderBack from "@components/Header/HeaderBack";
+import HeaderTitle from "@components/Header/HeaderTitle";
 import Styles from "@constants/Styles";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { supabase } from "@lib/supabase";
-import {
-	DarkTheme,
-	DefaultTheme,
-	ThemeProvider,
-} from "@react-navigation/native";
+// import {
+// 	DarkTheme,
+// 	DefaultTheme,
+// 	ThemeProvider,
+// } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack, router } from "expo-router";
+import { router, SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
+// import { useColorScheme } from "react-native";
 
 export {
 	// Catch any errors thrown by the Layout component.
@@ -54,7 +56,7 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-	const colorScheme = useColorScheme();
+	// const colorScheme = useColorScheme();
 
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
@@ -73,31 +75,31 @@ function RootLayoutNav() {
 	}, []);
 
 	return (
-		<ThemeProvider
-			value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+		// <ThemeProvider
+		// 	value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+		// >
+		<Stack
+			screenOptions={{
+				headerStyle: {
+					backgroundColor: Styles.colors.white.primary,
+				},
+				headerTitle: () => <HeaderTitle style={{ marginTop: 4 }} />,
+				headerLeft: () => <HeaderBack />,
+			}}
 		>
-			<Stack
-				screenOptions={{
-					headerTitle: "Feed",
-					headerTitleStyle: {
-						fontFamily: Styles.fonts.title,
-						fontSize: 48,
-					},
+			<Stack.Screen name="landing" options={{ headerShown: false }} />
+			<Stack.Screen name="login" />
+			<Stack.Screen name="signup" />
+			<Stack.Screen name="(app)" options={{ headerShown: false }} />
+			<Stack.Screen
+				name="post"
+				options={{
+					headerShown: false,
+					presentation: "fullScreenModal",
+					animation: "slide_from_bottom",
 				}}
-			>
-				<Stack.Screen name="landing" options={{ headerShown: false }} />
-				<Stack.Screen name="login" />
-				<Stack.Screen name="signup" />
-				<Stack.Screen name="(app)" options={{ headerShown: false }} />
-				<Stack.Screen
-					name="post"
-					options={{
-						headerShown: false,
-						presentation: "fullScreenModal",
-						animation: "slide_from_bottom",
-					}}
-				/>
-			</Stack>
-		</ThemeProvider>
+			/>
+		</Stack>
+		// {/* </ThemeProvider> */}
 	);
 }
