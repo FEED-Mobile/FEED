@@ -70,7 +70,7 @@ export default function Signup() {
 				value={email}
 				placeholder="Email"
 				autoCapitalize={"none"}
-				style={styles.textInput}
+				style={styles.textInput }
 			/>
 			<TextInput
 				onChangeText={(text) => setPassword(text)}
