@@ -1,5 +1,5 @@
 import Styles from "@constants/Styles";
-import { Image, StyleSheet, Text, TouchableOpacity,View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
 	return (
@@ -42,7 +42,8 @@ export default function ProfilePage() {
 				</View>
 				<View style={styles.bioThing}>
 					<Text style={styles.bio}>
-						hi my names hanson and my last name is pronounced N-Guy-En
+						hi my names hanson and my last name is pronounced
+						N-Guy-En
 					</Text>
 				</View>
 			</View>
