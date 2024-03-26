@@ -11,10 +11,10 @@ select
 		'public',
 		'posts',
 		ARRAY [
-    'Enable delete for users based on user_id',
-    'Enable insert for users based on user_id',
-	'Enable read access for all users',
-	'Enable update for users based on user_id'
+    'Enable delete for posts based on user_id',
+    'Enable insert for posts based on user_id',
+	'Enable read access for all posts',
+	'Enable update for posts based on user_id'
   ],
 		'Table public.posts should have correct policies'
 	);
