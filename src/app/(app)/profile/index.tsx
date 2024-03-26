@@ -1,12 +1,10 @@
+import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
 	return (
 		<View style={styles.container}>
-			{/* add other tings/settings and arrow button etc */}
-			<Text style={styles.username}>hanson</Text>
-
 			<View style={styles.content}>
 				<Image
 					source={{
@@ -47,12 +45,20 @@ export default function ProfilePage() {
 					</Text>
 				</View>
 			</View>
-			<TouchableOpacity
-				style={styles.editButton}
-				onPress={() => console.log("wyd")}
-			>
-				<Text style={styles.editButtonText}>Edit Profile</Text>
-			</TouchableOpacity>
+			<View style={styles.buttonContainer}>
+				<Button
+					style={[styles.button, styles.editButton]}
+					onPress={() => console.log("wyd")}
+				>
+					<Text style={styles.buttonText}>Edit Profile</Text>
+				</Button>
+				<Button
+					style={[styles.button, styles.shareButton]}
+					onPress={() => console.log("wyd")}
+				>
+					<Text style={styles.buttonText}>Share</Text>
+				</Button>
+			</View>
 		</View>
 	);
 }
@@ -103,9 +109,8 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	actualName: {
-		fontSize: 24,
 		fontWeight: "bold",
-		fontFamily: Styles.fonts.title,
+		fontFamily: Styles.fonts.text,
 	},
 	bioThing: {
 		marginTop: 5,
@@ -113,20 +118,26 @@ const styles = StyleSheet.create({
 	bio: {
 		fontFamily: Styles.fonts.text,
 	},
-	editButtonContainer: {
-		alignSelf: "stretch",
-		marginTop: 25,
-		marginBottom: 15,
+	buttonContainer: {
+		flex: 1,
+		flexDirection: "row",
+		justifyContent: "space-between",
 	},
-	editButton: {
-		borderWidth: 2,
-		borderColor: Styles.colors.black.primary,
+	button: {
 		borderRadius: 5,
 		paddingVertical: 8,
 		alignItems: "center",
+		width: 180,
+		height: 36,
 	},
-	editButtonText: {
-		color: Styles.colors.black.primary,
+	buttonText: {
+		color: Styles.colors.white.primary,
 		fontFamily: Styles.fonts.text,
+	},
+	editButton: {
+		backgroundColor: Styles.colors.black.primary,
+	},
+	shareButton: {
+		backgroundColor: Styles.colors.gray.primary,
 	},
 });

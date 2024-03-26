@@ -1,8 +1,41 @@
+import HeaderSettings from "@components/Header/HeaderSettings";
+import HeaderTitle from "@components/Header/HeaderTitle";
 import Styles from "@constants/Styles";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { supabase } from "@lib/supabase";
+import { Database } from "@type/supabase";
 import { router, Tabs } from "expo-router";
+import { useEffect, useState } from "react";
 
 export default function MainLayout() {
+	const [user, setUser] = useState<
+		Database["public"]["Tables"]["users"]["Row"] | null
+	>(null);
+
+	useEffect(() => {
+		// Get user information
+		const getUser = async () => {
+			const {
+				data: { user: authUser },
+			} = await supabase.auth.getUser();
+
+			const { data: user, error } = await supabase
+				.from("users")
+				.select()
+				.eq("id", authUser?.id ?? "")
+				.limit(1)
+				.single();
+
+			if (!user || error) {
+				return;
+			}
+
+			setUser(user);
+		};
+
+		getUser();
+	}, []);
+
 	return (
 		<Tabs
 			screenOptions={{
@@ -77,11 +110,20 @@ export default function MainLayout() {
 			<Tabs.Screen
 				name="profile/index"
 				options={{
-					title: "Profile",
-					headerTitle: "Profile",
+					title: user?.username,
+					headerTitle: ({ children }) => (
+						<HeaderTitle
+							children={children}
+							style={{
+								fontFamily: Styles.fonts.text,
+								fontSize: 24,
+							}}
+						/>
+					),
 					tabBarIcon: ({ color, size }) => (
 						<FontAwesome5 name="user" size={size} color={color} />
 					),
+					headerRight: () => <HeaderSettings />,
 				}}
 			/>
 		</Tabs>
