@@ -80,12 +80,6 @@ const styles = StyleSheet.create({
 		borderColor: "purple",
 		marginRight: 30,
 	},
-	username: {
-		fontSize: 32,
-		fontWeight: "bold",
-		marginBottom: 10,
-		fontFamily: Styles.fonts.title,
-	},
 	statsContainer: {
 		flex: 1,
 		flexDirection: "row",
@@ -97,26 +91,24 @@ const styles = StyleSheet.create({
 	},
 	statNum: {
 		fontSize: 22,
-		fontWeight: "bold",
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.semibold,
 	},
 	statTitle: {
 		color: Styles.colors.gray.primary,
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.regular,
 	},
 	bioContainer: {
 		marginTop: 10,
 		marginBottom: 10,
 	},
 	actualName: {
-		fontWeight: "bold",
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.semibold,
 	},
 	bioThing: {
 		marginTop: 5,
 	},
 	bio: {
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.regular,
 	},
 	buttonContainer: {
 		flex: 1,
@@ -132,7 +124,7 @@ const styles = StyleSheet.create({
 	},
 	buttonText: {
 		color: Styles.colors.white.primary,
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.regular,
 	},
 	editButton: {
 		backgroundColor: Styles.colors.black.primary,

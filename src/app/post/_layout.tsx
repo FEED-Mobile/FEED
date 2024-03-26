@@ -19,7 +19,7 @@ export default function PostLayout() {
 						<HeaderTitle
 							children={children}
 							style={{
-								fontFamily: Styles.fonts.text,
+								fontFamily: Styles.fonts.text.regular,
 								fontSize: 16,
 								textTransform: "uppercase",
 							}}
@@ -35,7 +35,7 @@ export default function PostLayout() {
 						<HeaderTitle
 							children={children}
 							style={{
-								fontFamily: Styles.fonts.text,
+								fontFamily: Styles.fonts.text.regular,
 								fontSize: 16,
 								textTransform: "uppercase",
 							}}

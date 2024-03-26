@@ -115,7 +115,7 @@ export default function MainLayout() {
 						<HeaderTitle
 							children={children}
 							style={{
-								fontFamily: Styles.fonts.text,
+								fontFamily: Styles.fonts.text.semibold,
 								fontSize: 24,
 							}}
 						/>

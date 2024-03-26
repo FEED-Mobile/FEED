@@ -28,12 +28,11 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 	const [loaded, error] = useFonts({
-		Katibeh: require("../assets/fonts/Katibeh-Regular.ttf"),
-		Mako: require("../assets/fonts/Mako-Regular.ttf"),
-		"IBMPlexSans-Regular": require("../assets/fonts/IBMPlexSans-Regular.ttf"),
-		"IBMPlexSans-Light": require("../assets/fonts/IBMPlexSans-Light.ttf"),
-		"IBMPlexSans-SemiBold": require("../assets/fonts/IBMPlexSans-SemiBold.ttf"),
-		"IBMPlexSans-Bold": require("../assets/fonts/IBMPlexSans-Bold.ttf"),
+		Katibeh: require("../assets/fonts/Katibeh/Katibeh-Regular.ttf"),
+		"IBMPlexSans-Regular": require("../assets/fonts/IBMPlexSans/IBMPlexSans-Regular.ttf"),
+		"IBMPlexSans-Light": require("../assets/fonts/IBMPlexSans/IBMPlexSans-Light.ttf"),
+		"IBMPlexSans-SemiBold": require("../assets/fonts/IBMPlexSans/IBMPlexSans-SemiBold.ttf"),
+		"IBMPlexSans-Bold": require("../assets/fonts/IBMPlexSans/IBMPlexSans-Bold.ttf"),
 		...FontAwesome.font,
 	});
 

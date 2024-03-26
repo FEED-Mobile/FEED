@@ -89,13 +89,13 @@ const styles = StyleSheet.create({
 		fontSize: 48,
 		width: "72.5%",
 		marginBottom: "10%",
-		fontFamily: Styles.fonts.title,
+		fontFamily: Styles.fonts.title.regular,
 	},
 	textInput: {
 		width: "72.5%",
 		marginVertical: 10,
 		paddingVertical: 5,
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.regular,
 		fontSize: 16,
 		borderBottomColor: Styles.colors.black.primary,
 		borderBottomWidth: 1,
@@ -110,17 +110,17 @@ const styles = StyleSheet.create({
 	buttonText: {
 		textAlign: "center",
 		color: Styles.colors.white.primary,
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.regular,
 	},
 	forgotPasswordText: {
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.regular,
 		textDecorationLine: "underline",
 	},
 	bottomText: {
 		position: "absolute",
 		bottom: "10%",
 		fontSize: 20,
-		fontFamily: Styles.fonts.title,
+		fontFamily: Styles.fonts.title.regular,
 	},
 	loginRedirectText: {
 		textDecorationLine: "underline",
