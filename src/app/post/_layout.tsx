@@ -1,5 +1,5 @@
-import HeaderBack from "@components/Header/HeaderBack";
-import HeaderTitle from "@components/Header/HeaderTitle";
+import HeaderBack from "@components/header/HeaderBack";
+import HeaderTitle from "@components/header/HeaderTitle";
 import Styles from "@constants/Styles";
 import { Stack } from "expo-router";
 

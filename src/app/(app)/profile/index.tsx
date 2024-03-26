@@ -1,3 +1,4 @@
+import ProfileTabs from "@components/profile/ProfileTabs";
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -5,60 +6,65 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 export default function ProfilePage() {
 	return (
 		<View style={styles.container}>
-			<View style={styles.content}>
-				<Image
-					source={{
-						uri: "https://hansonn.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fprofile_pic.6b4f19f1.jpg&w=1920&q=75",
-					}}
-					style={styles.profilePic}
-				/>
+			<View style={styles.headerContainer}>
+				<View style={styles.content}>
+					<Image
+						source={{
+							uri: "https://hansonn.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fprofile_pic.6b4f19f1.jpg&w=1920&q=75",
+						}}
+						style={styles.profilePic}
+					/>
 
-				<View style={styles.statsContainer}>
-					<TouchableOpacity onPress={() => console.log("hi")}>
-						<View style={styles.stat}>
-							<Text style={styles.statNum}>90</Text>
-							<Text style={styles.statTitle}>Posts</Text>
-						</View>
-					</TouchableOpacity>
-					<TouchableOpacity onPress={() => console.log("hey")}>
-						<View style={styles.stat}>
-							<Text style={styles.statNum}>987</Text>
-							<Text style={styles.statTitle}>Followers</Text>
-						</View>
-					</TouchableOpacity>
-					<TouchableOpacity onPress={() => console.log("hyd")}>
-						<View style={styles.stat}>
-							<Text style={styles.statNum}>560</Text>
-							<Text style={styles.statTitle}>Following</Text>
-						</View>
-					</TouchableOpacity>
+					<View style={styles.statsContainer}>
+						<TouchableOpacity
+							onPress={() => console.log("Num posts pressed...")}
+						>
+							<View style={styles.statContainer}>
+								<Text style={styles.statNum}>90</Text>
+								<Text style={styles.statTitle}>Posts</Text>
+							</View>
+						</TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => console.log("Followers pressed...")}
+						>
+							<View style={styles.statContainer}>
+								<Text style={styles.statNum}>987</Text>
+								<Text style={styles.statTitle}>Followers</Text>
+							</View>
+						</TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => console.log("Following pressed...")}
+						>
+							<View style={styles.statContainer}>
+								<Text style={styles.statNum}>560</Text>
+								<Text style={styles.statTitle}>Following</Text>
+							</View>
+						</TouchableOpacity>
+					</View>
 				</View>
-			</View>
-			<View style={styles.bioContainer}>
-				<View>
+				<View style={styles.bioContainer}>
 					<Text style={styles.actualName}>Hanson Nguyen</Text>
-				</View>
-				<View style={styles.bioThing}>
 					<Text style={styles.bio}>
 						hi my names hanson and my last name is pronounced
 						N-Guy-En
 					</Text>
 				</View>
+				<View style={styles.buttonContainer}>
+					<Button
+						style={[styles.button, styles.editButton]}
+						onPress={() => console.log("Edit profile pressed...")}
+					>
+						<Text style={styles.buttonText}>Edit Profile</Text>
+					</Button>
+					<Button
+						style={[styles.button, styles.shareButton]}
+						onPress={() => console.log("Share pressed...")}
+					>
+						<Text style={styles.buttonText}>Share</Text>
+					</Button>
+				</View>
 			</View>
-			<View style={styles.buttonContainer}>
-				<Button
-					style={[styles.button, styles.editButton]}
-					onPress={() => console.log("wyd")}
-				>
-					<Text style={styles.buttonText}>Edit Profile</Text>
-				</Button>
-				<Button
-					style={[styles.button, styles.shareButton]}
-					onPress={() => console.log("wyd")}
-				>
-					<Text style={styles.buttonText}>Share</Text>
-				</Button>
-			</View>
+			<ProfileTabs />
 		</View>
 	);
 }
@@ -66,6 +72,8 @@ export default function ProfilePage() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+	},
+	headerContainer: {
 		padding: 30,
 	},
 	content: {
@@ -85,7 +93,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-around",
 	},
-	stat: {
+	statContainer: {
 		alignItems: "center",
 		marginRight: 20,
 	},
@@ -98,33 +106,31 @@ const styles = StyleSheet.create({
 		fontFamily: Styles.fonts.text.regular,
 	},
 	bioContainer: {
-		marginTop: 10,
-		marginBottom: 10,
+		marginVertical: 10,
 	},
 	actualName: {
 		fontFamily: Styles.fonts.text.semibold,
 	},
-	bioThing: {
-		marginTop: 5,
-	},
 	bio: {
+		marginTop: 5,
 		fontFamily: Styles.fonts.text.regular,
 	},
 	buttonContainer: {
 		flex: 1,
 		flexDirection: "row",
 		justifyContent: "space-between",
+		marginVertical: 12,
 	},
 	button: {
 		borderRadius: 5,
-		paddingVertical: 8,
-		alignItems: "center",
+		padding: 8,
 		width: 180,
 		height: 36,
 	},
 	buttonText: {
 		color: Styles.colors.white.primary,
 		fontFamily: Styles.fonts.text.regular,
+		textAlign: "center",
 	},
 	editButton: {
 		backgroundColor: Styles.colors.black.primary,

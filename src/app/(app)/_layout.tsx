@@ -1,5 +1,5 @@
-import HeaderSettings from "@components/Header/HeaderSettings";
-import HeaderTitle from "@components/Header/HeaderTitle";
+import HeaderSettings from "@components/header/HeaderSettings";
+import HeaderTitle from "@components/header/HeaderTitle";
 import Styles from "@constants/Styles";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { supabase } from "@lib/supabase";
