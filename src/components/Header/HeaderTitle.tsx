@@ -16,7 +16,7 @@ export default function HeaderTitle({
 
 const styles = StyleSheet.create({
 	headerTitle: {
-		fontFamily: Styles.fonts.title,
+		fontFamily: Styles.fonts.title.regular,
 		fontSize: 48,
 	},
 });

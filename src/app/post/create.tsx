@@ -196,14 +196,14 @@ const styles = StyleSheet.create({
 		marginRight: "auto",
 	},
 	labelText: {
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.regular,
 		fontSize: 12,
 	},
 	textInput: {
 		marginTop: 4,
 		marginBottom: 16,
 		paddingVertical: 5,
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.regular,
 		fontSize: 16,
 		borderBottomColor: Styles.colors.black.primary,
 		borderBottomWidth: 1,
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
 	},
 	createButtonText: {
 		textAlign: "center",
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.regular,
 		fontSize: 12,
 		color: Styles.colors.white.primary,
 		textTransform: "uppercase",

@@ -7,7 +7,12 @@ export default {
 		green: { primary: "#91BE6D" },
 	},
 	fonts: {
-		title: "Katibeh",
-		text: "IBMPlexSans-Regular",
+		title: { regular: "Katibeh" },
+		text: {
+			light: "IBMPlexSans-Light",
+			regular: "IBMPlexSans-Regular",
+			semibold: "IBMPlexSans-SemiBold",
+			bold: "IBMPlexSans-Bold",
+		},
 	},
 };

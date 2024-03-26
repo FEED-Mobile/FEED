@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 	},
 	titleText: {
 		fontSize: 128,
-		fontFamily: Styles.fonts.title,
+		fontFamily: Styles.fonts.title.regular,
 		color: Styles.colors.green.primary,
 	},
 	button: {
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 	},
 	loginButtonText: {
 		textAlign: "center",
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.regular,
 		color: Styles.colors.white.primary,
 	},
 	loginButton: {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
 	},
 	signUpButtonText: {
 		textAlign: "center",
-		fontFamily: Styles.fonts.text,
+		fontFamily: Styles.fonts.text.regular,
 		color: Styles.colors.black.primary,
 	},
 	signUpButton: {
@@ -85,6 +85,6 @@ const styles = StyleSheet.create({
 	},
 	descriptionText: {
 		fontSize: 20,
-		fontFamily: Styles.fonts.title,
+		fontFamily: Styles.fonts.title.regular,
 	},
 });
