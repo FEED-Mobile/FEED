@@ -1,7 +1,7 @@
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import useMediaStore from "@stores/useMediaStore";
+import { useMedia, useMediaActions } from "@stores/mediaStore";
 import {
 	Camera,
 	CameraRecordingOptions,
@@ -22,9 +22,8 @@ export default function PostPage() {
 	const [, setMicrophonePermissionStatus] = useState(
 		PermissionStatus.UNDETERMINED
 	);
-	const { media, addMedia } = useMediaStore((state) => {
-		return { media: state.media, addMedia: state.addMedia };
-	});
+	const media = useMedia();
+	const { addMedia } = useMediaActions();
 	const [type, setType] = useState(CameraType.back);
 	const [flash, setFlash] = useState(FlashMode.off);
 	const [captureMode, setCaptureMode] = useState<"camera" | "video">(

@@ -6,7 +6,7 @@ import {
 	uploadToCloudinary,
 	uploadToSupabase,
 } from "@lib/utils";
-import useMediaStore from "@stores/useMediaStore";
+import { useMedia, useMediaActions } from "@stores/mediaStore";
 import { ResizeMode, Video } from "expo-av";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -21,9 +21,8 @@ import {
 } from "react-native";
 
 export default function CreatePostPage() {
-	const { media, resetMedia } = useMediaStore((state) => {
-		return { media: state.media, resetMedia: state.resetMedia };
-	});
+	const media = useMedia();
+	const { resetMedia } = useMediaActions();
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [location, setLocation] = useState("");
