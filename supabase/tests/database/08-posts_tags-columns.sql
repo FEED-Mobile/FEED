@@ -1,5 +1,5 @@
 /*
-Test that public.comments table should have correct columns
+Test that public.posts_tags table should have correct columns
 */
 begin;
 
@@ -9,15 +9,13 @@ select
 select
 	columns_are(
 		'public',
-		'comments',
+		'posts_tags',
 		ARRAY [
-			'id',
-			'content',
-			'user_id',
 			'post_id',
+			'tag_id',
 			'created_at'
 		],
-		'Table public.comments should have correct columns'
+		'Table public.posts_tags should have correct columns'
 	);
 
 select

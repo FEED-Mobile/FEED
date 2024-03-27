@@ -18,7 +18,8 @@ select
 			'avatar',
 			'bio',
 			'birthday',
-			'location'
+			'location',
+			'full_name'
 		],
 		'Table public.users should have correct columns'
 	);

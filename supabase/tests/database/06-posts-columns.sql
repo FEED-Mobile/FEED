@@ -1,5 +1,5 @@
 /*
-Test that public.postings table should have correct columns
+Test that public.posts table should have correct columns
 */
 begin;
 
