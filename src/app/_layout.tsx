@@ -101,6 +101,7 @@ function RootLayoutNav() {
 					animation: "slide_from_bottom",
 				}}
 			/>
+			<Stack.Screen name="settings/index" />
 		</Stack>
 		// {/* </ThemeProvider> */}
 	);
