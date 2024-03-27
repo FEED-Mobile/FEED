@@ -39,21 +39,31 @@ export interface Database {
 					content: string;
 					created_at: string;
 					id: number;
+					post_id: number;
 					user_id: string;
 				};
 				Insert: {
 					content: string;
 					created_at?: string;
 					id?: number;
+					post_id: number;
 					user_id: string;
 				};
 				Update: {
 					content?: string;
 					created_at?: string;
 					id?: number;
+					post_id?: number;
 					user_id?: string;
 				};
 				Relationships: [
+					{
+						foreignKeyName: "comments_post_id_fkey";
+						columns: ["post_id"];
+						isOneToOne: false;
+						referencedRelation: "posts";
+						referencedColumns: ["id"];
+					},
 					{
 						foreignKeyName: "comments_user_id_fkey";
 						columns: ["user_id"];
@@ -176,6 +186,68 @@ export interface Database {
 					},
 				];
 			};
+			posts_tags: {
+				Row: {
+					created_at: string;
+					post_id: number;
+					tag_id: number;
+				};
+				Insert: {
+					created_at?: string;
+					post_id: number;
+					tag_id: number;
+				};
+				Update: {
+					created_at?: string;
+					post_id?: number;
+					tag_id?: number;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "posts_tags_post_id_fkey";
+						columns: ["post_id"];
+						isOneToOne: false;
+						referencedRelation: "posts";
+						referencedColumns: ["id"];
+					},
+					{
+						foreignKeyName: "posts_tags_tag_id_fkey";
+						columns: ["tag_id"];
+						isOneToOne: false;
+						referencedRelation: "tags";
+						referencedColumns: ["id"];
+					},
+				];
+			};
+			tags: {
+				Row: {
+					created_at: string;
+					id: number;
+					name: string | null;
+					user_id: string;
+				};
+				Insert: {
+					created_at?: string;
+					id?: number;
+					name?: string | null;
+					user_id: string;
+				};
+				Update: {
+					created_at?: string;
+					id?: number;
+					name?: string | null;
+					user_id?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: "tags_user_id_fkey";
+						columns: ["user_id"];
+						isOneToOne: false;
+						referencedRelation: "users";
+						referencedColumns: ["id"];
+					},
+				];
+			};
 			users: {
 				Row: {
 					avatar: string | null;
@@ -183,6 +255,7 @@ export interface Database {
 					birthday: string | null;
 					created_at: string;
 					email: string;
+					full_name: string | null;
 					id: string;
 					location: string | null;
 					username: string;
@@ -193,6 +266,7 @@ export interface Database {
 					birthday?: string | null;
 					created_at?: string;
 					email?: string;
+					full_name?: string | null;
 					id: string;
 					location?: string | null;
 					username?: string;
@@ -203,6 +277,7 @@ export interface Database {
 					birthday?: string | null;
 					created_at?: string;
 					email?: string;
+					full_name?: string | null;
 					id?: string;
 					location?: string | null;
 					username?: string;
@@ -497,3 +572,89 @@ export type Enums<
 	: PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
 		? Database["public"]["Enums"][PublicEnumNameOrOptions]
 		: never;
+
+// Schema: graphql_public
+// Functions
+export type ArgsGraphql =
+	Database["graphql_public"]["Functions"]["graphql"]["Args"];
+export type ReturnTypeGraphql =
+	Database["graphql_public"]["Functions"]["graphql"]["Returns"];
+
+// Schema: public
+// Tables
+export type Comment = Database["public"]["Tables"]["comments"]["Row"];
+export type InsertComment = Database["public"]["Tables"]["comments"]["Insert"];
+export type UpdateComment = Database["public"]["Tables"]["comments"]["Update"];
+
+export type Following = Database["public"]["Tables"]["following"]["Row"];
+export type InsertFollowing =
+	Database["public"]["Tables"]["following"]["Insert"];
+export type UpdateFollowing =
+	Database["public"]["Tables"]["following"]["Update"];
+
+export type Like = Database["public"]["Tables"]["likes"]["Row"];
+export type InsertLike = Database["public"]["Tables"]["likes"]["Insert"];
+export type UpdateLike = Database["public"]["Tables"]["likes"]["Update"];
+
+export type Post = Database["public"]["Tables"]["posts"]["Row"];
+export type InsertPost = Database["public"]["Tables"]["posts"]["Insert"];
+export type UpdatePost = Database["public"]["Tables"]["posts"]["Update"];
+
+export type PostTag = Database["public"]["Tables"]["posts_tags"]["Row"];
+export type InsertPostTag =
+	Database["public"]["Tables"]["posts_tags"]["Insert"];
+export type UpdatePostTag =
+	Database["public"]["Tables"]["posts_tags"]["Update"];
+
+export type Tag = Database["public"]["Tables"]["tags"]["Row"];
+export type InsertTag = Database["public"]["Tables"]["tags"]["Insert"];
+export type UpdateTag = Database["public"]["Tables"]["tags"]["Update"];
+
+export type User = Database["public"]["Tables"]["users"]["Row"];
+export type InsertUser = Database["public"]["Tables"]["users"]["Insert"];
+export type UpdateUser = Database["public"]["Tables"]["users"]["Update"];
+
+// Schema: storage
+// Tables
+export type Bucket = Database["storage"]["Tables"]["buckets"]["Row"];
+export type InsertBucket = Database["storage"]["Tables"]["buckets"]["Insert"];
+export type UpdateBucket = Database["storage"]["Tables"]["buckets"]["Update"];
+
+export type Migration = Database["storage"]["Tables"]["migrations"]["Row"];
+export type InsertMigration =
+	Database["storage"]["Tables"]["migrations"]["Insert"];
+export type UpdateMigration =
+	Database["storage"]["Tables"]["migrations"]["Update"];
+
+export type Object = Database["storage"]["Tables"]["objects"]["Row"];
+export type InsertObject = Database["storage"]["Tables"]["objects"]["Insert"];
+export type UpdateObject = Database["storage"]["Tables"]["objects"]["Update"];
+
+// Functions
+export type ArgsCanInsertObject =
+	Database["storage"]["Functions"]["can_insert_object"]["Args"];
+export type ReturnTypeCanInsertObject =
+	Database["storage"]["Functions"]["can_insert_object"]["Returns"];
+
+export type ArgsExtension =
+	Database["storage"]["Functions"]["extension"]["Args"];
+export type ReturnTypeExtension =
+	Database["storage"]["Functions"]["extension"]["Returns"];
+
+export type ArgsFilename = Database["storage"]["Functions"]["filename"]["Args"];
+export type ReturnTypeFilename =
+	Database["storage"]["Functions"]["filename"]["Returns"];
+
+export type ArgsFoldername =
+	Database["storage"]["Functions"]["foldername"]["Args"];
+export type ReturnTypeFoldername =
+	Database["storage"]["Functions"]["foldername"]["Returns"];
+
+export type ArgsGetSizeByBucket =
+	Database["storage"]["Functions"]["get_size_by_bucket"]["Args"];
+export type ReturnTypeGetSizeByBucket =
+	Database["storage"]["Functions"]["get_size_by_bucket"]["Returns"];
+
+export type ArgsSearch = Database["storage"]["Functions"]["search"]["Args"];
+export type ReturnTypeSearch =
+	Database["storage"]["Functions"]["search"]["Returns"];

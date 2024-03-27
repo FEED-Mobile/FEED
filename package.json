@@ -16,7 +16,7 @@
 		"db:reset": "supabase db reset",
 		"db:lint": "supabase db lint",
 		"db:test": "supabase test db",
-		"update-types": "supabase gen types typescript --project-id \"$PROJECT_REF\" > types/supabase.ts"
+		"gen-types": "supabase gen types typescript --local > src/types/supabase.ts && better-supabase-types -s -f -p .prettierrc -i ./src/types/supabase.ts -o ./src/types/supabase.ts"
 	},
 	"jest": {
 		"preset": "jest-expo"
@@ -56,6 +56,7 @@
 		"@typescript-eslint/eslint-plugin": "^7.3.1",
 		"@typescript-eslint/parser": "^7.0.2",
 		"babel-plugin-module-resolver": "^5.0.0",
+		"better-supabase-types": "^2.7.5",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-react": "^7.33.2",
