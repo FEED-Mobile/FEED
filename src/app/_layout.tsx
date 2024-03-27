@@ -3,6 +3,7 @@ import HeaderTitle from "@components/header/HeaderTitle";
 import Styles from "@constants/Styles";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { supabase } from "@lib/supabase";
+import { useCurrentUserActions } from "@stores/currentUserStore";
 // import {
 // 	DarkTheme,
 // 	DefaultTheme,
@@ -56,10 +57,12 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
 	// const colorScheme = useColorScheme();
+	const { updateCurrentUserById } = useCurrentUserActions();
 
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
 			if (session) {
+				updateCurrentUserById(session.user.id);
 				router.replace("/(app)/home");
 			}
 		});

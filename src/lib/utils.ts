@@ -1,3 +1,4 @@
+import { isAuthError, PostgrestError } from "@supabase/supabase-js";
 import { ImageVideo } from "@type/types";
 import { decode } from "base64-arraybuffer";
 import { CameraCapturedPicture } from "expo-camera";
@@ -17,6 +18,35 @@ export const isCameraCapturedPicture = (
 		return true;
 	}
 	return false;
+};
+
+/**
+ * Type guard to check if error is a PostgrestError from Supabase
+ * @param error
+ * @returns
+ */
+const isPostgrestError = (error: unknown): error is PostgrestError => {
+	return (
+		typeof error === "object" &&
+		error !== null &&
+		"code" in error &&
+		"details" in error &&
+		"hint" in error &&
+		"message" in error
+	);
+};
+
+/**
+ * Return appropriate error message depending on type of error
+ * @param error
+ * @returns
+ */
+export const handleError = (error: unknown) => {
+	if (isAuthError(error) || isPostgrestError(error)) {
+		return error.message;
+	}
+
+	return "An unknown error has occurred. Please try again.";
 };
 
 /**

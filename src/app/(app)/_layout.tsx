@@ -2,39 +2,11 @@ import HeaderSettings from "@components/header/HeaderSettings";
 import HeaderTitle from "@components/header/HeaderTitle";
 import Styles from "@constants/Styles";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
-import { supabase } from "@lib/supabase";
-import { Database } from "@type/supabase";
+import { useCurrentUser } from "@stores/currentUserStore";
 import { router, Tabs } from "expo-router";
-import { useEffect, useState } from "react";
 
 export default function MainLayout() {
-	const [user, setUser] = useState<
-		Database["public"]["Tables"]["users"]["Row"] | null
-	>(null);
-
-	useEffect(() => {
-		// Get user information
-		const getUser = async () => {
-			const {
-				data: { user: authUser },
-			} = await supabase.auth.getUser();
-
-			const { data: user, error } = await supabase
-				.from("users")
-				.select()
-				.eq("id", authUser?.id ?? "")
-				.limit(1)
-				.single();
-
-			if (!user || error) {
-				return;
-			}
-
-			setUser(user);
-		};
-
-		getUser();
-	}, []);
+	const currentUser = useCurrentUser();
 
 	return (
 		<Tabs
@@ -110,7 +82,7 @@ export default function MainLayout() {
 			<Tabs.Screen
 				name="profile/index"
 				options={{
-					title: user?.username,
+					title: currentUser?.username,
 					headerTitle: ({ children }) => (
 						<HeaderTitle
 							children={children}
