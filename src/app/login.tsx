@@ -1,6 +1,7 @@
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
-import { supabase } from "@lib/supabase";
+import { handleError } from "@lib/utils";
+import { useCurrentUserActions } from "@stores/currentUserStore";
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import { Alert, StyleSheet } from "react-native";
@@ -11,6 +12,7 @@ import { Text, TextInput, View } from "react-native";
  * @returns
  */
 export default function Login() {
+	const { signIn } = useCurrentUserActions();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -21,15 +23,14 @@ export default function Login() {
 	async function signInWithEmail() {
 		console.log("Trying to log in...");
 		setLoading(true);
-		const { error } = await supabase.auth.signInWithPassword({
-			email: email,
-			password: password,
-		});
 
-		if (error) {
-			Alert.alert(error.message);
+		try {
+			await signIn(email, password);
+			console.log("Login Successful");
+		} catch (e) {
+			Alert.alert(handleError(e));
 		}
-		console.log("Login Successful");
+
 		setLoading(false);
 	}
 
