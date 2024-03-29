@@ -50,6 +50,25 @@ export const handleError = (error: unknown) => {
 };
 
 /**
+ * Log in to Supabase with email and password
+ * @param email
+ * @param password
+ */
+export const signInToSupabase = async (email: string, password: string) => {
+	const {
+		data: { user: authUser },
+		error: authError,
+	} = await supabase.auth.signInWithPassword({
+		email: email,
+		password: password,
+	});
+
+	if (authError || !authUser) {
+		throw authError;
+	}
+};
+
+/**
  * Upload an image or video to Cloudinary through a POST request
  * @param fileName
  * @param fileExt

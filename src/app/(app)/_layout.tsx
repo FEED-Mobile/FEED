@@ -2,11 +2,15 @@ import HeaderSettings from "@components/header/HeaderSettings";
 import HeaderTitle from "@components/header/HeaderTitle";
 import Styles from "@constants/Styles";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
-import { useCurrentUser } from "@stores/currentUserStore";
+import useUserQuery from "@hooks/useUserQuery";
 import { router, Tabs } from "expo-router";
 
 export default function MainLayout() {
-	const currentUser = useCurrentUser();
+	const { data: user, isPending, error } = useUserQuery();
+
+	if (isPending || error) {
+		return <></>;
+	}
 
 	return (
 		<Tabs
@@ -82,7 +86,7 @@ export default function MainLayout() {
 			<Tabs.Screen
 				name="profile/index"
 				options={{
-					title: currentUser?.username,
+					title: user.username,
 					headerTitle: ({ children }) => (
 						<HeaderTitle
 							children={children}
