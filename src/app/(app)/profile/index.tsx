@@ -1,10 +1,17 @@
 import ProfileTabs from "@components/profile/ProfileTabs";
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
+import useUserQuery from "@hooks/useUserQuery";
 import { router } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
+	const { data: user, isPending, error } = useUserQuery();
+
+	if (isPending || error) {
+		return <></>;
+	}
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.headerContainer}>
@@ -44,11 +51,8 @@ export default function ProfilePage() {
 					</View>
 				</View>
 				<View style={styles.bioContainer}>
-					<Text style={styles.actualName}>Hanson Nguyen</Text>
-					<Text style={styles.bio}>
-						hi my names hanson and my last name is pronounced
-						N-Guy-En
-					</Text>
+					<Text style={styles.actualName}>{user.full_name}</Text>
+					<Text style={styles.bio}>{user.bio}</Text>
 				</View>
 				<View style={styles.buttonContainer}>
 					<Button

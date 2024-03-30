@@ -143,7 +143,7 @@ export const uploadToSupabase = async (
 		.upload(destinationPath, decode(base64), { contentType });
 
 	if (!uploadResponse || storageError) {
-		console.log(
+		console.error(
 			"An error occurred in uploading the media file: ",
 			storageError
 		);

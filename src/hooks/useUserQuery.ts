@@ -9,6 +9,7 @@ export default function useUserQuery() {
 	return useQuery({
 		queryKey: ["user"],
 		queryFn: async () => {
+			console.log("Getting user data...");
 			const { data, error: authError } = await supabase.auth.getSession();
 
 			if (authError) {
@@ -27,7 +28,9 @@ export default function useUserQuery() {
 				throw error;
 			}
 
+			console.log("Received user data.");
 			return user;
 		},
+		staleTime: 120000,
 	});
 }

@@ -78,7 +78,7 @@ export default function PostPage() {
 				Alert.alert("Failed to take picture", "Please try again", [
 					{ text: "OK" },
 				]);
-				console.log(e);
+				console.error(e);
 			}
 		}
 	};
@@ -102,7 +102,7 @@ export default function PostPage() {
 				Alert.alert("Failed to take video", "Please try again", [
 					{ text: "OK" },
 				]);
-				console.log(e);
+				console.error(e);
 			}
 		}
 	};

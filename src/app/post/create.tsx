@@ -41,7 +41,7 @@ export default function CreatePostPage() {
 			error: getUserError,
 		} = await supabase.auth.getUser();
 		if (!user || getUserError) {
-			console.log(
+			console.error(
 				"An error occurred in getting the user: ",
 				getUserError
 			);
@@ -78,7 +78,9 @@ export default function CreatePostPage() {
 				);
 			}
 			if (!publicUrl) {
-				console.log("An error occurred in uploading the media file. ");
+				console.error(
+					"An error occurred in uploading the media file. "
+				);
 				return;
 			}
 			mediaUrls.push(publicUrl);

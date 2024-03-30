@@ -1,6 +1,8 @@
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
+import useUserMutation from "@hooks/useUserMutation";
 import useUserQuery from "@hooks/useUserQuery";
+import { User } from "@type/supabase";
 import { useEffect, useState } from "react";
 import {
 	Image,
@@ -14,6 +16,7 @@ import {
 
 export default function EditProfilePage() {
 	const { data: user, isPending, error } = useUserQuery();
+	const userMutation = useUserMutation();
 	const [name, setName] = useState("");
 	const [username, setUsername] = useState("");
 	const [bio, setBio] = useState("");
@@ -27,6 +30,39 @@ export default function EditProfilePage() {
 		setUsername(user.username ?? "");
 		setBio(user.bio ?? "");
 	}, [user]);
+
+	/**
+	 * Save user profile data to Supabase
+	 * @returns
+	 */
+	const handleSave = async () => {
+		console.log("Saving profile data...");
+
+		// Ensure nonempty values
+		if (!name || !username || !bio) {
+			console.error("Profile values cannot be empty.");
+			return;
+		}
+
+		// Do not update if nothing has changed
+		if (
+			name === user.full_name &&
+			username === user.username &&
+			bio === user.bio
+		) {
+			console.log("No values changed.");
+			return;
+		}
+
+		const updates: Partial<User> = {
+			full_name: name,
+			username,
+			bio,
+		};
+
+		userMutation.mutate({ userId: user.id, updates });
+		console.log("Profile data saved.");
+	};
 
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -65,10 +101,7 @@ export default function EditProfilePage() {
 						numberOfLines={3}
 					/>
 				</View>
-				<Button
-					style={styles.saveButton}
-					onPress={() => console.log("Save pressed...")}
-				>
+				<Button style={styles.saveButton} onPress={handleSave}>
 					<Text style={styles.buttonText}>Save</Text>
 				</Button>
 			</View>
