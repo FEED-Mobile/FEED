@@ -1,6 +1,7 @@
 import ProfileTabs from "@components/profile/ProfileTabs";
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
+import { router } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
@@ -52,7 +53,7 @@ export default function ProfilePage() {
 				<View style={styles.buttonContainer}>
 					<Button
 						style={[styles.button, styles.editButton]}
-						onPress={() => console.log("Edit profile pressed...")}
+						onPress={() => router.push("/editProfile/")}
 					>
 						<Text style={styles.buttonText}>Edit Profile</Text>
 					</Button>

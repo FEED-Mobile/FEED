@@ -112,7 +112,10 @@ export default function CreatePostPage() {
 
 	return (
 		<KeyboardAvoidingView behavior="position" style={styles.container}>
-			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+			<TouchableWithoutFeedback
+				onPress={Keyboard.dismiss}
+				accessible={false}
+			>
 				<>
 					<FlatList
 						horizontal
