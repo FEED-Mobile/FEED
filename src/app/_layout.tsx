@@ -102,7 +102,36 @@ function RootLayoutNav() {
 						animation: "slide_from_bottom",
 					}}
 				/>
-				<Stack.Screen name="settings/index" />
+				<Stack.Screen
+					name="settings/index"
+					options={{
+						headerTitle: () => (
+							<HeaderTitle
+								children="Settings"
+								style={{
+									fontFamily: Styles.fonts.text.regular,
+									fontSize: 16,
+									textTransform: "uppercase",
+								}}
+							/>
+						),
+					}}
+				/>
+				<Stack.Screen
+					name="editProfile/index"
+					options={{
+						headerTitle: () => (
+							<HeaderTitle
+								children="Edit Profile"
+								style={{
+									fontFamily: Styles.fonts.text.regular,
+									fontSize: 16,
+									textTransform: "uppercase",
+								}}
+							/>
+						),
+					}}
+				/>
 			</Stack>
 		</QueryClientProvider>
 		// {/* </ThemeProvider> */}

@@ -1,19 +1,38 @@
 import ProfileTabs from "@components/profile/ProfileTabs";
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
+import { Ionicons } from "@expo/vector-icons";
+import useUserQuery from "@hooks/useUserQuery";
+import { router } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
+	const { data: user, isPending, error } = useUserQuery();
+
+	if (isPending || error) {
+		return <></>;
+	}
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.headerContainer}>
 				<View style={styles.content}>
-					<Image
-						source={{
-							uri: "https://hansonn.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fprofile_pic.6b4f19f1.jpg&w=1920&q=75",
-						}}
-						style={styles.profilePic}
-					/>
+					{user.avatar ? (
+						<Image
+							source={{
+								uri: user.avatar,
+							}}
+							style={styles.profilePic}
+						/>
+					) : (
+						<View style={styles.profilePic}>
+							<Ionicons
+								name="fast-food"
+								size={64}
+								color={Styles.colors.green.primary}
+							/>
+						</View>
+					)}
 
 					<View style={styles.statsContainer}>
 						<TouchableOpacity
@@ -43,16 +62,13 @@ export default function ProfilePage() {
 					</View>
 				</View>
 				<View style={styles.bioContainer}>
-					<Text style={styles.actualName}>Hanson Nguyen</Text>
-					<Text style={styles.bio}>
-						hi my names hanson and my last name is pronounced
-						N-Guy-En
-					</Text>
+					<Text style={styles.actualName}>{user.full_name}</Text>
+					<Text style={styles.bio}>{user.bio}</Text>
 				</View>
 				<View style={styles.buttonContainer}>
 					<Button
 						style={[styles.button, styles.editButton]}
-						onPress={() => console.log("Edit profile pressed...")}
+						onPress={() => router.push("/editProfile/")}
 					>
 						<Text style={styles.buttonText}>Edit Profile</Text>
 					</Button>
@@ -87,6 +103,10 @@ const styles = StyleSheet.create({
 		borderWidth: 5,
 		borderColor: "purple",
 		marginRight: 30,
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: Styles.colors.brown.primary,
 	},
 	statsContainer: {
 		flex: 1,

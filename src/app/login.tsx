@@ -3,7 +3,12 @@ import Styles from "@constants/Styles";
 import { handleError, signInToSupabase } from "@lib/utils";
 import { Link } from "expo-router";
 import React, { useState } from "react";
-import { Alert, StyleSheet } from "react-native";
+import {
+	Alert,
+	Keyboard,
+	StyleSheet,
+	TouchableWithoutFeedback,
+} from "react-native";
 import { Text, TextInput, View } from "react-native";
 
 /**
@@ -33,47 +38,51 @@ export default function Login() {
 	}
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.titleText}>Welcome back!</Text>
-			<TextInput
-				onChangeText={(text) => setEmail(text)}
-				value={email}
-				placeholder="Email"
-				placeholderTextColor={Styles.colors.gray.primary}
-				autoCapitalize={"none"}
-				style={styles.textInput}
-			/>
-			<TextInput
-				onChangeText={(text) => setPassword(text)}
-				value={password}
-				secureTextEntry={true}
-				placeholder="Password"
-				placeholderTextColor={Styles.colors.gray.primary}
-				autoCapitalize={"none"}
-				style={[styles.textInput, { marginBottom: "10%" }]}
-			/>
-			<Button
-				disabled={loading}
-				onPress={() => signInWithEmail()}
-				style={[styles.loginButton]}
-			>
-				<Text style={styles.buttonText}>Login</Text>
-			</Button>
+		<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+			<View style={styles.container}>
+				<Text style={styles.titleText}>Welcome back!</Text>
 
-			{/* TODO: Handle forgot password flow */}
-			<Text style={styles.forgotPasswordText}>Forgot password?</Text>
+				<TextInput
+					onChangeText={(text) => setEmail(text)}
+					value={email}
+					placeholder="Email"
+					placeholderTextColor={Styles.colors.gray.primary}
+					autoCapitalize={"none"}
+					style={styles.textInput}
+				/>
+				<TextInput
+					onChangeText={(text) => setPassword(text)}
+					value={password}
+					secureTextEntry={true}
+					placeholder="Password"
+					placeholderTextColor={Styles.colors.gray.primary}
+					autoCapitalize={"none"}
+					style={[styles.textInput, { marginBottom: "10%" }]}
+				/>
 
-			<Text style={styles.bottomText}>
-				Don&apos;t have an account?{" "}
-				<Link
-					href="/signup"
-					replace={true}
-					style={styles.loginRedirectText}
+				<Button
+					disabled={loading}
+					onPress={() => signInWithEmail()}
+					style={[styles.loginButton]}
 				>
-					Sign Up
-				</Link>
-			</Text>
-		</View>
+					<Text style={styles.buttonText}>Login</Text>
+				</Button>
+
+				{/* TODO: Handle forgot password flow */}
+				<Text style={styles.forgotPasswordText}>Forgot password?</Text>
+
+				<Text style={styles.bottomText}>
+					Don&apos;t have an account?{" "}
+					<Link
+						href="/signup"
+						replace={true}
+						style={styles.loginRedirectText}
+					>
+						Sign Up
+					</Link>
+				</Text>
+			</View>
+		</TouchableWithoutFeedback>
 	);
 }
 

@@ -1,11 +1,7 @@
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
-import {
-	isCameraCapturedPicture,
-	uploadToCloudinary,
-	uploadToSupabase,
-} from "@lib/utils";
+import { isCameraCapturedPicture, uploadMedia } from "@lib/utils";
 import { useMedia, useMediaActions } from "@stores/mediaStore";
 import { ResizeMode, Video } from "expo-av";
 import { router } from "expo-router";
@@ -41,7 +37,7 @@ export default function CreatePostPage() {
 			error: getUserError,
 		} = await supabase.auth.getUser();
 		if (!user || getUserError) {
-			console.log(
+			console.error(
 				"An error occurred in getting the user: ",
 				getUserError
 			);
@@ -50,35 +46,21 @@ export default function CreatePostPage() {
 
 		// Upload each picture and get its public URL
 		for (const mediaFile of media) {
-			const fileName = mediaFile.uri.split("/").pop() ?? "";
-			const fileExt = mediaFile.uri.split(".").pop() ?? "";
 			const mediaType = isCameraCapturedPicture(mediaFile)
 				? "image"
 				: "video";
 
-			/**
-			 * Uploading images to Cloudinary when running development.
-			 * In production, images will be uploaded to Supabase Storage.
-			 */
-			let publicUrl;
-			if (__DEV__) {
-				publicUrl = await uploadToCloudinary(
-					fileName,
-					fileExt,
-					mediaType,
-					mediaFile
-				);
-			} else {
-				publicUrl = await uploadToSupabase(
-					user.id,
-					fileName,
-					fileExt,
-					mediaType,
-					mediaFile
-				);
-			}
+			const publicUrl = await uploadMedia(
+				user.id,
+				mediaFile.uri,
+				mediaType,
+				"posts"
+			);
+
 			if (!publicUrl) {
-				console.log("An error occurred in uploading the media file. ");
+				console.error(
+					"An error occurred in uploading the media file. "
+				);
 				return;
 			}
 			mediaUrls.push(publicUrl);
@@ -86,16 +68,16 @@ export default function CreatePostPage() {
 
 		// Insert new post
 		const { error: postCreationError } = await supabase
-			.from("postings")
+			.from("posts")
 			.insert({
 				user_id: user.id,
 				title: title,
 				description: title,
 				location: location,
-				images: mediaUrls,
+				media: mediaUrls,
 			});
 		if (postCreationError) {
-			console.log(
+			console.error(
 				"An error occurred in creating the post: ",
 				postCreationError
 			);
@@ -112,7 +94,10 @@ export default function CreatePostPage() {
 
 	return (
 		<KeyboardAvoidingView behavior="position" style={styles.container}>
-			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+			<TouchableWithoutFeedback
+				onPress={Keyboard.dismiss}
+				accessible={false}
+			>
 				<>
 					<FlatList
 						horizontal

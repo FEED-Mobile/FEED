@@ -3,7 +3,12 @@ import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
 import { Link, router } from "expo-router";
 import React, { useState } from "react";
-import { Alert, StyleSheet } from "react-native";
+import {
+	Alert,
+	Keyboard,
+	StyleSheet,
+	TouchableWithoutFeedback,
+} from "react-native";
 import { Text, TextInput, View } from "react-native";
 
 /**
@@ -57,63 +62,67 @@ export default function Signup() {
 	}
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.titleText}>Let&apos;s get you signed up!</Text>
-			<TextInput
-				onChangeText={(text) => setUsername(text)}
-				value={username}
-				placeholder="User"
-				placeholderTextColor={Styles.colors.gray.primary}
-				autoCapitalize={"none"}
-				style={styles.textInput}
-			/>
-			<TextInput
-				onChangeText={(text) => setEmail(text)}
-				value={email}
-				placeholder="Email"
-				placeholderTextColor={Styles.colors.gray.primary}
-				autoCapitalize={"none"}
-				style={styles.textInput}
-			/>
-			<TextInput
-				onChangeText={(text) => setPassword(text)}
-				value={password}
-				secureTextEntry={true}
-				placeholder="Password"
-				placeholderTextColor={Styles.colors.gray.primary}
-				autoCapitalize={"none"}
-				style={styles.textInput}
-			/>
-			<TextInput
-				onChangeText={(text) => setConfirmPassword(text)}
-				value={confirmPassword}
-				secureTextEntry={true}
-				placeholder="Confirm Password"
-				placeholderTextColor={Styles.colors.gray.primary}
-				autoCapitalize={"none"}
-				style={[styles.textInput, { marginBottom: "10%" }]}
-			/>
-			<Button
-				disabled={loading}
-				onPress={() => signUpWithEmail()}
-				style={[styles.signUpButton]}
-			>
-				<Text style={styles.signUpButtonText}>Sign Up</Text>
-			</Button>
-
-			{/* TODO: OAUTH PROVIDERS SIGN IN */}
-
-			<Text style={styles.bottomText}>
-				Already have an account?{" "}
-				<Link
-					href="/login"
-					replace={true}
-					style={styles.loginRedirectText}
+		<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+			<View style={styles.container}>
+				<Text style={styles.titleText}>
+					Let&apos;s get you signed up!
+				</Text>
+				<TextInput
+					onChangeText={(text) => setUsername(text)}
+					value={username}
+					placeholder="User"
+					placeholderTextColor={Styles.colors.gray.primary}
+					autoCapitalize={"none"}
+					style={styles.textInput}
+				/>
+				<TextInput
+					onChangeText={(text) => setEmail(text)}
+					value={email}
+					placeholder="Email"
+					placeholderTextColor={Styles.colors.gray.primary}
+					autoCapitalize={"none"}
+					style={styles.textInput}
+				/>
+				<TextInput
+					onChangeText={(text) => setPassword(text)}
+					value={password}
+					secureTextEntry={true}
+					placeholder="Password"
+					placeholderTextColor={Styles.colors.gray.primary}
+					autoCapitalize={"none"}
+					style={styles.textInput}
+				/>
+				<TextInput
+					onChangeText={(text) => setConfirmPassword(text)}
+					value={confirmPassword}
+					secureTextEntry={true}
+					placeholder="Confirm Password"
+					placeholderTextColor={Styles.colors.gray.primary}
+					autoCapitalize={"none"}
+					style={[styles.textInput, { marginBottom: "10%" }]}
+				/>
+				<Button
+					disabled={loading}
+					onPress={() => signUpWithEmail()}
+					style={[styles.signUpButton]}
 				>
-					Login
-				</Link>
-			</Text>
-		</View>
+					<Text style={styles.signUpButtonText}>Sign Up</Text>
+				</Button>
+
+				{/* TODO: OAUTH PROVIDERS SIGN IN */}
+
+				<Text style={styles.bottomText}>
+					Already have an account?{" "}
+					<Link
+						href="/login"
+						replace={true}
+						style={styles.loginRedirectText}
+					>
+						Login
+					</Link>
+				</Text>
+			</View>
+		</TouchableWithoutFeedback>
 	);
 }
 
