@@ -1,8 +1,11 @@
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
+import { Ionicons } from "@expo/vector-icons";
 import useUserMutation from "@hooks/useUserMutation";
 import useUserQuery from "@hooks/useUserQuery";
+import { uploadMediaToCloudinary, uploadMediaToSupabase } from "@lib/utils";
 import { User } from "@type/supabase";
+import * as ImagePicker from "expo-image-picker";
 import { useEffect, useState } from "react";
 import {
 	Image,
@@ -17,6 +20,7 @@ import {
 export default function EditProfilePage() {
 	const { data: user, isPending, error } = useUserQuery();
 	const userMutation = useUserMutation();
+	const [avatar, setAvatar] = useState("");
 	const [name, setName] = useState("");
 	const [username, setUsername] = useState("");
 	const [bio, setBio] = useState("");
@@ -26,10 +30,58 @@ export default function EditProfilePage() {
 	}
 
 	useEffect(() => {
+		setAvatar(user.avatar ?? "");
 		setName(user.full_name ?? "");
 		setUsername(user.username ?? "");
 		setBio(user.bio ?? "");
 	}, [user]);
+
+	/**
+	 * Pick photo from camera roll
+	 */
+	const pickAvatar = async () => {
+		const result = await ImagePicker.launchImageLibraryAsync({
+			allowsEditing: true,
+		});
+
+		if (!result.canceled) {
+			setAvatar(result.assets[0].uri);
+		}
+	};
+
+	/**
+	 * Upload avatar to respective location (Cloudinary)
+	 * @returns Public URL for image if successful, null otherwise
+	 */
+	const uploadAvatar = async () => {
+		console.log("Uploading avatar...");
+		if (!avatar) {
+			return null;
+		}
+
+		/**
+		 * Uploading images to Cloudinary when running development.
+		 * In production, images will be uploaded to Supabase Storage.
+		 */
+		let publicUrl;
+		if (__DEV__) {
+			publicUrl = await uploadMediaToCloudinary(avatar, "image");
+		} else {
+			publicUrl = await uploadMediaToSupabase(
+				user.id,
+				avatar,
+				"image",
+				"posts"
+			);
+		}
+		if (!publicUrl) {
+			console.error("An error occurred in uploading the media file. ");
+			return null;
+		}
+
+		console.log("Avatar uploaded.");
+		return publicUrl;
+	};
 
 	/**
 	 * Save user profile data to Supabase
@@ -46,6 +98,7 @@ export default function EditProfilePage() {
 
 		// Do not update if nothing has changed
 		if (
+			avatar === user.avatar &&
 			name === user.full_name &&
 			username === user.username &&
 			bio === user.bio
@@ -54,7 +107,14 @@ export default function EditProfilePage() {
 			return;
 		}
 
+		// Uplaod avatar image if changed
+		let avatarUrl: string | null = null;
+		if (avatar && avatar !== user.avatar) {
+			avatarUrl = await uploadAvatar();
+		}
+
 		const updates: Partial<User> = {
+			avatar: avatarUrl,
 			full_name: name,
 			username,
 			bio,
@@ -67,13 +127,23 @@ export default function EditProfilePage() {
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
 			<View style={styles.container}>
-				<Button onPress={() => console.log("Clicked avatar...")}>
-					<Image
-						source={{
-							uri: "https://hansonn.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fprofile_pic.6b4f19f1.jpg&w=1920&q=75",
-						}}
-						style={styles.avatar}
-					/>
+				<Button onPress={pickAvatar}>
+					{avatar ? (
+						<Image
+							source={{
+								uri: avatar,
+							}}
+							style={styles.avatar}
+						/>
+					) : (
+						<View style={styles.avatar}>
+							<Ionicons
+								name="fast-food"
+								size={60}
+								color={Styles.colors.green.primary}
+							/>
+						</View>
+					)}
 				</Button>
 				<View style={styles.textInputContainer}>
 					<Text style={styles.label}>Name</Text>
@@ -119,7 +189,13 @@ const styles = StyleSheet.create({
 		height: 96,
 		width: 96,
 		borderRadius: 48,
+		borderWidth: 5,
+		borderColor: "purple",
 		margin: 24,
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: Styles.colors.brown.primary,
 	},
 	textInputContainer: {
 		width: "72.5%",

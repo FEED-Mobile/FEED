@@ -69,26 +69,41 @@ export const signInToSupabase = async (email: string, password: string) => {
 };
 
 /**
+ * Retrieve the filename and extension from a URI
+ * @param uri
+ * @returns
+ */
+const getFileInfoFromUri = (uri: string) => {
+	const fileName = uri.split("/").pop() ?? "";
+	const fileExt = uri.split(".").pop() ?? "";
+
+	return {
+		fileName,
+		fileExt,
+	};
+};
+
+/**
  * Upload an image or video to Cloudinary through a POST request
- * @param fileName
- * @param fileExt
+ * @param uri
  * @param mediaType
- * @param mediaFile
  * @returns null if error, otherwise public URL to media file
  */
-export const uploadToCloudinary = async (
-	fileName: string,
-	fileExt: string,
-	mediaType: string,
-	mediaFile: ImageVideo
+export const uploadMediaToCloudinary = async (
+	uri: string,
+	mediaType: "image" | "video"
 ): Promise<string | null> => {
-	if (!fileName || !fileExt || !mediaType || !mediaFile) {
+	if (!uri || !mediaType) {
+		console.error("URI/Media Type cannot be empty.");
 		return null;
 	}
 
+	// Extract file name and extension from URI
+	const { fileName, fileExt } = getFileInfoFromUri(uri);
+
 	// Build Formdata to send in request
 	const filedata = {
-		uri: mediaFile.uri,
+		uri: uri,
 		type: `${mediaType}/${fileExt}`,
 		name: fileName ?? "",
 	};
@@ -118,28 +133,32 @@ export const uploadToCloudinary = async (
 };
 
 /**
- * Upload and image or video to Supabase
+ * Upload an image or video to Supabase
  * @param userId
- * @param fileName
- * @param fileExt
+ * @param uri
  * @param mediaType
- * @param mediaFile
  * @returns null if error, otherwise public URL to media file
  */
-export const uploadToSupabase = async (
+export const uploadMediaToSupabase = async (
 	userId: string,
-	fileName: string,
-	fileExt: string,
-	mediaType: string,
-	mediaFile: ImageVideo
+	uri: string,
+	mediaType: "image" | "video",
+	bucket: "posts" | "avatars"
 ): Promise<string | null> => {
-	const base64 = await FileSystem.readAsStringAsync(mediaFile.uri, {
+	if (!userId || !uri || !mediaType || !bucket) {
+		return null;
+	}
+
+	// Extract file name and extension from URI
+	const { fileName, fileExt } = getFileInfoFromUri(uri);
+
+	const base64 = await FileSystem.readAsStringAsync(uri, {
 		encoding: "base64",
 	});
 	const destinationPath = `${userId}/${fileName}`;
 	const contentType = `${mediaType}/${fileExt}`;
 	const { data: uploadResponse, error: storageError } = await supabase.storage
-		.from("posts")
+		.from(bucket)
 		.upload(destinationPath, decode(base64), { contentType });
 
 	if (!uploadResponse || storageError) {
@@ -153,7 +172,7 @@ export const uploadToSupabase = async (
 	// Get URL for image
 	const {
 		data: { publicUrl },
-	} = supabase.storage.from("posts").getPublicUrl(uploadResponse.path);
+	} = supabase.storage.from(bucket).getPublicUrl(uploadResponse.path);
 
 	return publicUrl;
 };

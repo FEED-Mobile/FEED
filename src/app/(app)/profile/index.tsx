@@ -1,6 +1,7 @@
 import ProfileTabs from "@components/profile/ProfileTabs";
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
+import { Ionicons } from "@expo/vector-icons";
 import useUserQuery from "@hooks/useUserQuery";
 import { router } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -16,12 +17,22 @@ export default function ProfilePage() {
 		<View style={styles.container}>
 			<View style={styles.headerContainer}>
 				<View style={styles.content}>
-					<Image
-						source={{
-							uri: "https://hansonn.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fprofile_pic.6b4f19f1.jpg&w=1920&q=75",
-						}}
-						style={styles.profilePic}
-					/>
+					{user.avatar ? (
+						<Image
+							source={{
+								uri: user.avatar,
+							}}
+							style={styles.profilePic}
+						/>
+					) : (
+						<View style={styles.profilePic}>
+							<Ionicons
+								name="fast-food"
+								size={64}
+								color={Styles.colors.green.primary}
+							/>
+						</View>
+					)}
 
 					<View style={styles.statsContainer}>
 						<TouchableOpacity
@@ -92,6 +103,10 @@ const styles = StyleSheet.create({
 		borderWidth: 5,
 		borderColor: "purple",
 		marginRight: 30,
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: Styles.colors.brown.primary,
 	},
 	statsContainer: {
 		flex: 1,

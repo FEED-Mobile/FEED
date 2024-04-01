@@ -3,8 +3,8 @@ import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
 import {
 	isCameraCapturedPicture,
-	uploadToCloudinary,
-	uploadToSupabase,
+	uploadMediaToCloudinary,
+	uploadMediaToSupabase,
 } from "@lib/utils";
 import { useMedia, useMediaActions } from "@stores/mediaStore";
 import { ResizeMode, Video } from "expo-av";
@@ -50,8 +50,6 @@ export default function CreatePostPage() {
 
 		// Upload each picture and get its public URL
 		for (const mediaFile of media) {
-			const fileName = mediaFile.uri.split("/").pop() ?? "";
-			const fileExt = mediaFile.uri.split(".").pop() ?? "";
 			const mediaType = isCameraCapturedPicture(mediaFile)
 				? "image"
 				: "video";
@@ -62,19 +60,16 @@ export default function CreatePostPage() {
 			 */
 			let publicUrl;
 			if (__DEV__) {
-				publicUrl = await uploadToCloudinary(
-					fileName,
-					fileExt,
-					mediaType,
-					mediaFile
+				publicUrl = await uploadMediaToCloudinary(
+					mediaFile.uri,
+					mediaType
 				);
 			} else {
-				publicUrl = await uploadToSupabase(
+				publicUrl = await uploadMediaToSupabase(
 					user.id,
-					fileName,
-					fileExt,
+					mediaFile.uri,
 					mediaType,
-					mediaFile
+					"posts"
 				);
 			}
 			if (!publicUrl) {
