@@ -84,12 +84,37 @@ const getFileInfoFromUri = (uri: string) => {
 };
 
 /**
+ * Uploading images to Cloudinary when running development.
+ * In production, images will be uploaded to Supabase Storage.
+ * @param userId
+ * @param uri
+ * @param mediaType
+ * @param bucket
+ * @returns null if error, otherwise public URL to media file
+ */
+export const uploadMedia = async (
+	userId: string,
+	uri: string,
+	mediaType: "image" | "video",
+	bucket: "posts" | "avatars"
+) => {
+	let publicUrl;
+	if (__DEV__) {
+		publicUrl = await uploadMediaToCloudinary(uri, mediaType);
+	} else {
+		publicUrl = await uploadMediaToSupabase(userId, uri, mediaType, bucket);
+	}
+
+	return publicUrl;
+};
+
+/**
  * Upload an image or video to Cloudinary through a POST request
  * @param uri
  * @param mediaType
  * @returns null if error, otherwise public URL to media file
  */
-export const uploadMediaToCloudinary = async (
+const uploadMediaToCloudinary = async (
 	uri: string,
 	mediaType: "image" | "video"
 ): Promise<string | null> => {
@@ -139,7 +164,7 @@ export const uploadMediaToCloudinary = async (
  * @param mediaType
  * @returns null if error, otherwise public URL to media file
  */
-export const uploadMediaToSupabase = async (
+const uploadMediaToSupabase = async (
 	userId: string,
 	uri: string,
 	mediaType: "image" | "video",

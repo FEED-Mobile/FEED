@@ -3,7 +3,7 @@ import Styles from "@constants/Styles";
 import { Ionicons } from "@expo/vector-icons";
 import useUserMutation from "@hooks/useUserMutation";
 import useUserQuery from "@hooks/useUserQuery";
-import { uploadMediaToCloudinary, uploadMediaToSupabase } from "@lib/utils";
+import { uploadMedia } from "@lib/utils";
 import { User } from "@type/supabase";
 import * as ImagePicker from "expo-image-picker";
 import { useEffect, useState } from "react";
@@ -59,21 +59,8 @@ export default function EditProfilePage() {
 			return null;
 		}
 
-		/**
-		 * Uploading images to Cloudinary when running development.
-		 * In production, images will be uploaded to Supabase Storage.
-		 */
-		let publicUrl;
-		if (__DEV__) {
-			publicUrl = await uploadMediaToCloudinary(avatar, "image");
-		} else {
-			publicUrl = await uploadMediaToSupabase(
-				user.id,
-				avatar,
-				"image",
-				"posts"
-			);
-		}
+		const publicUrl = await uploadMedia(user.id, avatar, "image", "posts");
+
 		if (!publicUrl) {
 			console.error("An error occurred in uploading the media file. ");
 			return null;

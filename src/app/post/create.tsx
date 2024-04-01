@@ -1,11 +1,7 @@
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
-import {
-	isCameraCapturedPicture,
-	uploadMediaToCloudinary,
-	uploadMediaToSupabase,
-} from "@lib/utils";
+import { isCameraCapturedPicture, uploadMedia } from "@lib/utils";
 import { useMedia, useMediaActions } from "@stores/mediaStore";
 import { ResizeMode, Video } from "expo-av";
 import { router } from "expo-router";
@@ -54,24 +50,13 @@ export default function CreatePostPage() {
 				? "image"
 				: "video";
 
-			/**
-			 * Uploading images to Cloudinary when running development.
-			 * In production, images will be uploaded to Supabase Storage.
-			 */
-			let publicUrl;
-			if (__DEV__) {
-				publicUrl = await uploadMediaToCloudinary(
-					mediaFile.uri,
-					mediaType
-				);
-			} else {
-				publicUrl = await uploadMediaToSupabase(
-					user.id,
-					mediaFile.uri,
-					mediaType,
-					"posts"
-				);
-			}
+			const publicUrl = await uploadMedia(
+				user.id,
+				mediaFile.uri,
+				mediaType,
+				"posts"
+			);
+
 			if (!publicUrl) {
 				console.error(
 					"An error occurred in uploading the media file. "
@@ -83,16 +68,16 @@ export default function CreatePostPage() {
 
 		// Insert new post
 		const { error: postCreationError } = await supabase
-			.from("postings")
+			.from("posts")
 			.insert({
 				user_id: user.id,
 				title: title,
 				description: title,
 				location: location,
-				images: mediaUrls,
+				media: mediaUrls,
 			});
 		if (postCreationError) {
-			console.log(
+			console.error(
 				"An error occurred in creating the post: ",
 				postCreationError
 			);
