@@ -19,7 +19,6 @@ import {
 
 export default function EditProfilePage() {
 	const { data: user, isPending, error } = useUserQuery();
-	const userMutation = useUserMutation();
 	const [avatar, setAvatar] = useState("");
 	const [name, setName] = useState("");
 	const [username, setUsername] = useState("");
@@ -28,6 +27,8 @@ export default function EditProfilePage() {
 	if (isPending || error) {
 		return <></>;
 	}
+
+	const { updateUser } = useUserMutation(user.id);
 
 	useEffect(() => {
 		setAvatar(user.avatar ?? "");
@@ -95,7 +96,7 @@ export default function EditProfilePage() {
 		}
 
 		// Uplaod avatar image if changed
-		let avatarUrl: string | null = null;
+		let avatarUrl = user.avatar;
 		if (avatar && avatar !== user.avatar) {
 			avatarUrl = await uploadAvatar();
 		}
@@ -107,7 +108,7 @@ export default function EditProfilePage() {
 			bio,
 		};
 
-		userMutation.mutate({ userId: user.id, updates });
+		updateUser.mutate(updates);
 		console.log("Profile data saved.");
 	};
 
