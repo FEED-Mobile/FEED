@@ -16,7 +16,7 @@ export default function MainLayout() {
 		<Tabs
 			screenOptions={{
 				tabBarStyle: { height: 110 },
-				tabBarActiveTintColor: Styles.colors.green.primary,
+				tabBarActiveTintColor: Styles.colors.lightgreen.primary,
 				tabBarInactiveTintColor: Styles.colors.gray.primary,
 				tabBarShowLabel: false,
 			}}
@@ -79,7 +79,7 @@ export default function MainLayout() {
 						marginTop: 16,
 						marginRight: 4,
 						color: Styles.colors.white.primary,
-						backgroundColor: Styles.colors.green.primary,
+						backgroundColor: Styles.colors.lightgreen.primary,
 					},
 				}}
 			/>

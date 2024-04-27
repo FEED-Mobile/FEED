@@ -31,7 +31,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 	const [loaded, error] = useFonts({
-		Katibeh: require("../assets/fonts/Katibeh/Katibeh-Regular.ttf"),
+		AoboshiOne: require("../assets/fonts/AoboshiOne/AoboshiOne-Regular.ttf"),
+		Mako: require("../assets/fonts/Mako/Mako-Regular.ttf"),
 		"IBMPlexSans-Regular": require("../assets/fonts/IBMPlexSans/IBMPlexSans-Regular.ttf"),
 		"IBMPlexSans-Light": require("../assets/fonts/IBMPlexSans/IBMPlexSans-Light.ttf"),
 		"IBMPlexSans-SemiBold": require("../assets/fonts/IBMPlexSans/IBMPlexSans-SemiBold.ttf"),

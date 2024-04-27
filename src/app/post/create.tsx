@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 12,
 		paddingVertical: 12,
 		borderRadius: 20,
-		backgroundColor: Styles.colors.brown.primary,
+		backgroundColor: Styles.colors.darkgreen.primary,
 		marginLeft: "auto",
 	},
 	createButtonText: {

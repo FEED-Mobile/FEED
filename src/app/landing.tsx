@@ -48,14 +48,14 @@ const styles = StyleSheet.create({
 	},
 	titleText: {
 		fontSize: 128,
-		fontFamily: Styles.fonts.title.regular,
-		color: Styles.colors.green.primary,
+		fontFamily: Styles.fonts.heading.regular,
+		color: Styles.colors.lightgreen.primary,
 	},
 	button: {
 		width: "72.5%",
 		borderRadius: 5,
 		padding: 10,
-		backgroundColor: Styles.colors.brown.primary,
+		backgroundColor: Styles.colors.darkgreen.primary,
 		shadowColor: "#000",
 		shadowOffset: {
 			width: 0,
@@ -85,6 +85,6 @@ const styles = StyleSheet.create({
 	},
 	descriptionText: {
 		fontSize: 20,
-		fontFamily: Styles.fonts.title.regular,
+		fontFamily: Styles.fonts.heading.regular,
 	},
 });

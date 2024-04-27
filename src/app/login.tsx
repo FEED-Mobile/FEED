@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
 		fontSize: 48,
 		width: "72.5%",
 		marginBottom: "10%",
-		fontFamily: Styles.fonts.title.regular,
+		fontFamily: Styles.fonts.heading.regular,
 	},
 	textInput: {
 		width: "72.5%",
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		padding: 10,
 		marginBottom: "10%",
-		backgroundColor: Styles.colors.brown.primary,
+		backgroundColor: Styles.colors.darkgreen.primary,
 	},
 	buttonText: {
 		textAlign: "center",
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		bottom: "10%",
 		fontSize: 20,
-		fontFamily: Styles.fonts.title.regular,
+		fontFamily: Styles.fonts.heading.regular,
 	},
 	loginRedirectText: {
 		textDecorationLine: "underline",

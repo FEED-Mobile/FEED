@@ -1,13 +1,15 @@
 export default {
 	colors: {
-		white: { primary: "#F5F5F5" },
-		black: { primary: "#2F2F2F" },
+		white: { primary: "#FFFFFF" },
+		black: { primary: "#000000" },
 		gray: { primary: "#6F6F6F" },
-		brown: { primary: "#37371F" },
-		green: { primary: "#91BE6D" },
+		orange: { primary: "#E99010" },
+		darkgreen: { primary: "#37371F" },
+		lightgreen: { primary: "#91BE6D" },
 	},
 	fonts: {
-		title: { regular: "Katibeh" },
+		heading: { regular: "AoboshiOne" },
+		subheading: { regular: "Mako" },
 		text: {
 			light: "IBMPlexSans-Light",
 			regular: "IBMPlexSans-Regular",
