@@ -4,16 +4,11 @@ import { User } from "@type/supabase";
 import { router } from "expo-router";
 import { Alert } from "react-native";
 
-type UserMutationArgs = {
-	userId: string;
-	updates: Partial<User>;
-};
-
-export default function useUserMutation() {
+export default function useUserMutation(userId: string) {
 	const queryClient = useQueryClient();
 
-	return useMutation({
-		mutationFn: async ({ userId, updates }: UserMutationArgs) => {
+	const updateUser = useMutation({
+		mutationFn: async (updates: Partial<User>) => {
 			const { error } = await supabase
 				.from("users")
 				.update(updates)
@@ -40,4 +35,6 @@ export default function useUserMutation() {
 			queryClient.invalidateQueries({ queryKey: ["user"] });
 		},
 	});
+
+	return { updateUser };
 }
