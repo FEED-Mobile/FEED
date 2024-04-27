@@ -28,11 +28,16 @@ type PostItemProps = {
 };
 
 const PostItem = ({ post }: PostItemProps) => {
-	const mediaWidth = 100,
-		mediaHeight = 150;
+	// Assign random height to image
+	const possibleHeights = [110, 150, 180];
+	const mediaHeight =
+		possibleHeights[Math.floor(Math.random() * possibleHeights.length)];
+	const mediaWidth = 110;
+
 	return (
 		<View style={postItemStyles.container}>
 			<Image
+				style={postItemStyles.image}
 				source={{
 					uri: post.media[0],
 				}}
@@ -45,15 +50,24 @@ const PostItem = ({ post }: PostItemProps) => {
 
 type PostGridProps = {
 	posts: Post[];
+	onRefresh: () => void
 };
 
-const PostsGrid = ({ posts }: PostGridProps) => {
+const PostsGrid = ({ posts, onRefresh }: PostGridProps) => {
 	return (
 		<MasonryList
 			data={posts}
-			renderItem={(item) => <PostItem post={item.item} />}
+			renderItem={(item) => {
+				const post = item.item as Post;
+				return <PostItem post={post} />;
+			}}
 			numColumns={3}
-			// keyExtractor={(item) => item.}
+			contentContainerStyle={{
+				paddingHorizontal: 32,
+				paddingTop: 24,
+			}}
+			onRefresh={onRefresh}
+			keyExtractor={(item: Post) => item.id.toString()}
 		/>
 	);
 };
@@ -73,6 +87,7 @@ const YourPostsGrid = () => {
 		data: posts,
 		isPending: isPostsPending,
 		error: postsError,
+		refetch
 	} = useUserPostsQuery(user.id ?? "");
 
 	if (isPostsPending || postsError) {
@@ -80,7 +95,7 @@ const YourPostsGrid = () => {
 	}
 
 	if (posts.length) {
-		return <PostsGrid posts={posts} />;
+		return <PostsGrid posts={posts} onRefresh={refetch}/>;
 	}
 };
 
@@ -152,7 +167,11 @@ const noPostsStyles = StyleSheet.create({
 
 const postItemStyles = StyleSheet.create({
 	container: {
-		borderWidth: 1,
-		borderColor: Styles.colors.black.primary,
+		marginLeft: "auto",
+		marginRight: "auto",
+	},
+	image: {
+		borderRadius: 5,
+		resizeMode: "cover"
 	},
 });
