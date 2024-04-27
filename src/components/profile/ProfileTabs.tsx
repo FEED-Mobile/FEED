@@ -50,7 +50,7 @@ const PostItem = ({ post }: PostItemProps) => {
 
 type PostGridProps = {
 	posts: Post[];
-	onRefresh: () => void
+	onRefresh: () => void;
 };
 
 const PostsGrid = ({ posts, onRefresh }: PostGridProps) => {
@@ -87,7 +87,7 @@ const YourPostsGrid = () => {
 		data: posts,
 		isPending: isPostsPending,
 		error: postsError,
-		refetch
+		refetch,
 	} = useUserPostsQuery(user.id ?? "");
 
 	if (isPostsPending || postsError) {
@@ -95,7 +95,7 @@ const YourPostsGrid = () => {
 	}
 
 	if (posts.length) {
-		return <PostsGrid posts={posts} onRefresh={refetch}/>;
+		return <PostsGrid posts={posts} onRefresh={refetch} />;
 	}
 };
 
@@ -172,6 +172,6 @@ const postItemStyles = StyleSheet.create({
 	},
 	image: {
 		borderRadius: 5,
-		resizeMode: "cover"
+		resizeMode: "cover",
 	},
 });
