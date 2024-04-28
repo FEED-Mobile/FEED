@@ -31,7 +31,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 	const [loaded, error] = useFonts({
-		Katibeh: require("../assets/fonts/Katibeh/Katibeh-Regular.ttf"),
+		AoboshiOne: require("../assets/fonts/AoboshiOne/AoboshiOne-Regular.ttf"),
+		Mako: require("../assets/fonts/Mako/Mako-Regular.ttf"),
 		"IBMPlexSans-Regular": require("../assets/fonts/IBMPlexSans/IBMPlexSans-Regular.ttf"),
 		"IBMPlexSans-Light": require("../assets/fonts/IBMPlexSans/IBMPlexSans-Light.ttf"),
 		"IBMPlexSans-SemiBold": require("../assets/fonts/IBMPlexSans/IBMPlexSans-SemiBold.ttf"),
@@ -91,8 +92,8 @@ function RootLayoutNav() {
 				}}
 			>
 				<Stack.Screen name="landing" options={{ headerShown: false }} />
-				<Stack.Screen name="login" />
-				<Stack.Screen name="signup" />
+				<Stack.Screen name="login" options={{ headerShown: false }} />
+				<Stack.Screen name="signup" options={{ headerShown: false }} />
 				<Stack.Screen name="(app)" options={{ headerShown: false }} />
 				<Stack.Screen
 					name="post"

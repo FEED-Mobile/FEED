@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
 		width: 20,
 		height: 20,
 		borderRadius: 10,
-		backgroundColor: Styles.colors.green.primary,
+		backgroundColor: Styles.colors.lightgreen.primary,
 	},
 	imageCountText: {
 		textAlign: "center",

@@ -1,7 +1,11 @@
 import HeaderSettings from "@components/header/HeaderSettings";
 import HeaderTitle from "@components/header/HeaderTitle";
+import AvatarIcon from "@components/icons/AvatarIcon";
+import CreatePostIcon from "@components/icons/CreatePostIcon";
+import ExploreIcon from "@components/icons/ExploreIcon";
+import HomeIcon from "@components/icons/HomeIcon";
+import NotificationsIcon from "@components/icons/NotificationsIcon";
 import Styles from "@constants/Styles";
-import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import useUserQuery from "@hooks/useUserQuery";
 import { router, Tabs } from "expo-router";
 
@@ -15,9 +19,25 @@ export default function MainLayout() {
 	return (
 		<Tabs
 			screenOptions={{
-				tabBarStyle: { height: 110 },
-				tabBarActiveTintColor: Styles.colors.green.primary,
-				tabBarInactiveTintColor: Styles.colors.gray.primary,
+				tabBarStyle: {
+					position: "absolute",
+					bottom: 25,
+					left: 20,
+					right: 20,
+					height: 80,
+					borderRadius: 35,
+					shadowColor: "#000",
+					shadowOffset: {
+						width: 0,
+						height: 4,
+					},
+					shadowOpacity: 0.25,
+					shadowRadius: 2,
+					elevation: 5,
+					paddingBottom: 0,
+				},
+				tabBarActiveTintColor: Styles.colors.lightgreen.primary,
+				tabBarInactiveTintColor: Styles.colors.black.primary,
 				tabBarShowLabel: false,
 			}}
 		>
@@ -26,13 +46,7 @@ export default function MainLayout() {
 				options={{
 					title: "Home",
 					headerTitle: "Home",
-					tabBarIcon: ({ color, size }) => (
-						<FontAwesome5
-							name="utensils"
-							size={size}
-							color={color}
-						/>
-					),
+					tabBarIcon: ({ color }) => <HomeIcon color={color} />,
 				}}
 			/>
 			<Tabs.Screen
@@ -40,9 +54,7 @@ export default function MainLayout() {
 				options={{
 					title: "Explore",
 					headerTitle: "Explore",
-					tabBarIcon: ({ color, size }) => (
-						<FontAwesome5 name="search" size={size} color={color} />
-					),
+					tabBarIcon: ({ color }) => <ExploreIcon color={color} />,
 				}}
 			/>
 			<Tabs.Screen
@@ -50,9 +62,7 @@ export default function MainLayout() {
 				options={{
 					title: "Post",
 					headerTitle: "Post",
-					tabBarIcon: ({ color, size }) => (
-						<FontAwesome5 name="plus" size={size} color={color} />
-					),
+					tabBarIcon: ({ color }) => <CreatePostIcon color={color} />,
 				}}
 				listeners={() => ({
 					tabPress: (e) => {
@@ -67,19 +77,15 @@ export default function MainLayout() {
 				options={{
 					title: "Notifications",
 					headerTitle: "Notifications",
-					tabBarIcon: ({ color, size }) => (
-						<Ionicons
-							name="notifications"
-							size={size}
-							color={color}
-						/>
+					tabBarIcon: ({ color }) => (
+						<NotificationsIcon color={color} />
 					),
 					tabBarBadge: 5,
 					tabBarBadgeStyle: {
 						marginTop: 16,
 						marginRight: 4,
 						color: Styles.colors.white.primary,
-						backgroundColor: Styles.colors.green.primary,
+						backgroundColor: Styles.colors.lightgreen.primary,
 					},
 				}}
 			/>
@@ -96,9 +102,7 @@ export default function MainLayout() {
 							}}
 						/>
 					),
-					tabBarIcon: ({ color, size }) => (
-						<FontAwesome5 name="user" size={size} color={color} />
-					),
+					tabBarIcon: ({ color }) => <AvatarIcon color={color} />,
 					headerRight: () => <HeaderSettings />,
 				}}
 			/>

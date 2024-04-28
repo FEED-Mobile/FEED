@@ -1,3 +1,5 @@
+import homeImage from "@assets/images/home-image.jpg";
+import HeaderBack from "@components/header/HeaderBack";
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
@@ -5,6 +7,7 @@ import { Link, router } from "expo-router";
 import React, { useState } from "react";
 import {
 	Alert,
+	Image,
 	Keyboard,
 	StyleSheet,
 	TouchableWithoutFeedback,
@@ -63,65 +66,67 @@ export default function Signup() {
 
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-			<View style={styles.container}>
-				<Text style={styles.titleText}>
-					Let&apos;s get you signed up!
-				</Text>
-				<TextInput
-					onChangeText={(text) => setUsername(text)}
-					value={username}
-					placeholder="User"
-					placeholderTextColor={Styles.colors.gray.primary}
-					autoCapitalize={"none"}
-					style={styles.textInput}
-				/>
-				<TextInput
-					onChangeText={(text) => setEmail(text)}
-					value={email}
-					placeholder="Email"
-					placeholderTextColor={Styles.colors.gray.primary}
-					autoCapitalize={"none"}
-					style={styles.textInput}
-				/>
-				<TextInput
-					onChangeText={(text) => setPassword(text)}
-					value={password}
-					secureTextEntry={true}
-					placeholder="Password"
-					placeholderTextColor={Styles.colors.gray.primary}
-					autoCapitalize={"none"}
-					style={styles.textInput}
-				/>
-				<TextInput
-					onChangeText={(text) => setConfirmPassword(text)}
-					value={confirmPassword}
-					secureTextEntry={true}
-					placeholder="Confirm Password"
-					placeholderTextColor={Styles.colors.gray.primary}
-					autoCapitalize={"none"}
-					style={[styles.textInput, { marginBottom: "10%" }]}
-				/>
-				<Button
-					disabled={loading}
-					onPress={() => signUpWithEmail()}
-					style={[styles.signUpButton]}
-				>
-					<Text style={styles.signUpButtonText}>Sign Up</Text>
-				</Button>
-
-				{/* TODO: OAUTH PROVIDERS SIGN IN */}
-
-				<Text style={styles.bottomText}>
-					Already have an account?{" "}
-					<Link
-						href="/login"
-						replace={true}
-						style={styles.loginRedirectText}
+			<>
+				<HeaderBack style={styles.backButton} />
+				<Image source={homeImage} style={styles.homeImage} />
+				<View style={styles.container}>
+					<Text style={styles.titleText}>Sign Up</Text>
+					<TextInput
+						onChangeText={(text) => setUsername(text)}
+						value={username}
+						placeholder="User"
+						placeholderTextColor={Styles.colors.gray.primary}
+						autoCapitalize={"none"}
+						style={styles.textInput}
+					/>
+					<TextInput
+						onChangeText={(text) => setEmail(text)}
+						value={email}
+						placeholder="Email"
+						placeholderTextColor={Styles.colors.gray.primary}
+						autoCapitalize={"none"}
+						style={styles.textInput}
+					/>
+					<TextInput
+						onChangeText={(text) => setPassword(text)}
+						value={password}
+						secureTextEntry={true}
+						placeholder="Password"
+						placeholderTextColor={Styles.colors.gray.primary}
+						autoCapitalize={"none"}
+						style={styles.textInput}
+					/>
+					<TextInput
+						onChangeText={(text) => setConfirmPassword(text)}
+						value={confirmPassword}
+						secureTextEntry={true}
+						placeholder="Confirm Password"
+						placeholderTextColor={Styles.colors.gray.primary}
+						autoCapitalize={"none"}
+						style={[styles.textInput, { marginBottom: "10%" }]}
+					/>
+					<Button
+						disabled={loading}
+						onPress={() => signUpWithEmail()}
+						style={[styles.signUpButton]}
 					>
-						Login
-					</Link>
-				</Text>
-			</View>
+						<Text style={styles.signUpButtonText}>Sign Up</Text>
+					</Button>
+
+					{/* TODO: OAUTH PROVIDERS SIGN IN */}
+
+					<Text style={styles.bottomText}>
+						Already have an account?{" "}
+						<Link
+							href="/login"
+							replace={true}
+							style={styles.loginRedirectText}
+						>
+							Login
+						</Link>
+					</Text>
+				</View>
+			</>
 		</TouchableWithoutFeedback>
 	);
 }
@@ -131,13 +136,23 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: Styles.colors.white.primary,
 		alignItems: "center",
-		paddingTop: "20%",
+	},
+	backButton: {
+		position: "absolute",
+		top: "8%",
+		left: "5%",
+		zIndex: 10,
+	},
+	homeImage: {
+		resizeMode: "cover",
+		width: "100%",
+		height: "33%",
 	},
 	titleText: {
-		fontSize: 43,
+		fontSize: 40,
 		textAlign: "center",
-		marginBottom: "10%",
-		fontFamily: Styles.fonts.title.regular,
+		fontFamily: Styles.fonts.heading.regular,
+		marginVertical: 16,
 	},
 	textInput: {
 		width: "72.5%",
@@ -150,9 +165,9 @@ const styles = StyleSheet.create({
 	},
 	signUpButton: {
 		width: "72.5%",
-		borderRadius: 5,
+		borderRadius: 16,
 		padding: 10,
-		backgroundColor: Styles.colors.brown.primary,
+		backgroundColor: Styles.colors.darkgreen.primary,
 	},
 	signUpButtonText: {
 		textAlign: "center",
@@ -162,7 +177,7 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		bottom: "10%",
 		fontSize: 20,
-		fontFamily: Styles.fonts.title.regular,
+		fontFamily: Styles.fonts.heading.regular,
 	},
 	loginRedirectText: {
 		textDecorationLine: "underline",

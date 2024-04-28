@@ -128,7 +128,7 @@ export default function EditProfilePage() {
 							<Ionicons
 								name="fast-food"
 								size={60}
-								color={Styles.colors.green.primary}
+								color={Styles.colors.lightgreen.primary}
 							/>
 						</View>
 					)}
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",
-		backgroundColor: Styles.colors.brown.primary,
+		backgroundColor: Styles.colors.darkgreen.primary,
 	},
 	textInputContainer: {
 		width: "72.5%",

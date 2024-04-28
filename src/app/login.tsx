@@ -1,3 +1,5 @@
+import homeImage from "@assets/images/home-image.jpg";
+import HeaderBack from "@components/header/HeaderBack";
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { handleError, signInToSupabase } from "@lib/utils";
@@ -5,6 +7,7 @@ import { Link } from "expo-router";
 import React, { useState } from "react";
 import {
 	Alert,
+	Image,
 	Keyboard,
 	StyleSheet,
 	TouchableWithoutFeedback,
@@ -39,49 +42,55 @@ export default function Login() {
 
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-			<View style={styles.container}>
-				<Text style={styles.titleText}>Welcome back!</Text>
+			<>
+				<HeaderBack style={styles.backButton} />
+				<Image source={homeImage} style={styles.homeImage} />
+				<View style={styles.container}>
+					<Text style={styles.titleText}>Login</Text>
 
-				<TextInput
-					onChangeText={(text) => setEmail(text)}
-					value={email}
-					placeholder="Email"
-					placeholderTextColor={Styles.colors.gray.primary}
-					autoCapitalize={"none"}
-					style={styles.textInput}
-				/>
-				<TextInput
-					onChangeText={(text) => setPassword(text)}
-					value={password}
-					secureTextEntry={true}
-					placeholder="Password"
-					placeholderTextColor={Styles.colors.gray.primary}
-					autoCapitalize={"none"}
-					style={[styles.textInput, { marginBottom: "10%" }]}
-				/>
+					<TextInput
+						onChangeText={(text) => setEmail(text)}
+						value={email}
+						placeholder="Email"
+						placeholderTextColor={Styles.colors.gray.primary}
+						autoCapitalize={"none"}
+						style={styles.textInput}
+					/>
+					<TextInput
+						onChangeText={(text) => setPassword(text)}
+						value={password}
+						secureTextEntry={true}
+						placeholder="Password"
+						placeholderTextColor={Styles.colors.gray.primary}
+						autoCapitalize={"none"}
+						style={[styles.textInput, { marginBottom: "10%" }]}
+					/>
 
-				<Button
-					disabled={loading}
-					onPress={() => signInWithEmail()}
-					style={[styles.loginButton]}
-				>
-					<Text style={styles.buttonText}>Login</Text>
-				</Button>
-
-				{/* TODO: Handle forgot password flow */}
-				<Text style={styles.forgotPasswordText}>Forgot password?</Text>
-
-				<Text style={styles.bottomText}>
-					Don&apos;t have an account?{" "}
-					<Link
-						href="/signup"
-						replace={true}
-						style={styles.loginRedirectText}
+					<Button
+						disabled={loading}
+						onPress={() => signInWithEmail()}
+						style={[styles.loginButton]}
 					>
-						Sign Up
-					</Link>
-				</Text>
-			</View>
+						<Text style={styles.buttonText}>Login</Text>
+					</Button>
+
+					{/* TODO: Handle forgot password flow */}
+					<Text style={styles.forgotPasswordText}>
+						Forgot password?
+					</Text>
+
+					<Text style={styles.bottomText}>
+						Don&apos;t have an account?{" "}
+						<Link
+							href="/signup"
+							replace={true}
+							style={styles.loginRedirectText}
+						>
+							Sign up now!
+						</Link>
+					</Text>
+				</View>
+			</>
 		</TouchableWithoutFeedback>
 	);
 }
@@ -91,13 +100,23 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: Styles.colors.white.primary,
 		alignItems: "center",
-		justifyContent: "center",
+	},
+	backButton: {
+		position: "absolute",
+		top: "8%",
+		left: "5%",
+		zIndex: 10,
+	},
+	homeImage: {
+		resizeMode: "cover",
+		width: "100%",
+		height: "33%",
 	},
 	titleText: {
-		fontSize: 48,
-		width: "72.5%",
-		marginBottom: "10%",
-		fontFamily: Styles.fonts.title.regular,
+		fontSize: 40,
+		textAlign: "center",
+		fontFamily: Styles.fonts.heading.regular,
+		marginVertical: 16,
 	},
 	textInput: {
 		width: "72.5%",
@@ -110,10 +129,10 @@ const styles = StyleSheet.create({
 	},
 	loginButton: {
 		width: "72.5%",
-		borderRadius: 5,
+		borderRadius: 16,
 		padding: 10,
 		marginBottom: "10%",
-		backgroundColor: Styles.colors.brown.primary,
+		backgroundColor: Styles.colors.darkgreen.primary,
 	},
 	buttonText: {
 		textAlign: "center",
@@ -128,7 +147,7 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		bottom: "10%",
 		fontSize: 20,
-		fontFamily: Styles.fonts.title.regular,
+		fontFamily: Styles.fonts.heading.regular,
 	},
 	loginRedirectText: {
 		textDecorationLine: "underline",
