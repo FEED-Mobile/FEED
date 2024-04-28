@@ -1,5 +1,3 @@
-import "react-native-svg";
-
 // FormData
 interface FormDataValue {
 	uri: string;
@@ -14,10 +12,3 @@ interface FormData {
 
 // Images in assets file
 declare module "*.jpg";
-
-// React Native SVG
-declare module "react-native-svg" {
-	export interface SvgProps {
-		xmlns?: string;
-	}
-}
