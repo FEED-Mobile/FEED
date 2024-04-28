@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
  * Query for likes from a post from Supabase
  * @returns
  */
-export default function useLikesQuery(postId: string) {
+export default function useLikesQuery(postId: number) {
 	return useQuery({
 		queryKey: ["likes", postId],
 		queryFn: async () => {
@@ -45,6 +45,6 @@ export default function useLikesQuery(postId: string) {
 			console.log(`Received likes for ID ${postId}.`);
 			return { likeCount: likes ?? 0, userLiked: Boolean(userLiked) };
 		},
-		// staleTime: 120000,
+		staleTime: 120000,
 	});
 }

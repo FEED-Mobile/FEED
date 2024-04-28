@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
  * Query for a post object from Supabase
  * @returns
  */
-export default function usePostQuery(postId: string) {
+export default function usePostQuery(postId: number) {
 	return useQuery({
 		queryKey: ["post", postId],
 		queryFn: async () => {

@@ -1,12 +1,12 @@
 import Svg, { Path } from "react-native-svg";
 
-export default function LikeIcon() {
+export default function LikeIcon({ liked }: { liked: boolean }) {
 	return (
 		<Svg
 			xmlns="http://www.w3.org/2000/svg"
 			width={24}
 			height={21}
-			fill="none"
+			fill={liked ? "#FF4033" : "none"}
 		>
 			<Path
 				stroke="#000"
