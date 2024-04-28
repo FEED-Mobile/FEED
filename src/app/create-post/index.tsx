@@ -15,7 +15,7 @@ import { Text, View } from "react-native";
 import { Alert, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function PostPage() {
+export default function CreatePostPage() {
 	const [, setCameraPermissionStatus] = useState(
 		PermissionStatus.UNDETERMINED
 	);
@@ -159,7 +159,9 @@ export default function PostPage() {
 								color={Styles.colors.white.primary}
 							/>
 						</Button>
-						<Button onPress={() => router.push("/post/create")}>
+						<Button
+							onPress={() => router.push("/create-post/create")}
+						>
 							<Ionicons
 								name="chevron-forward"
 								size={32}
@@ -199,7 +201,7 @@ export default function PostPage() {
 					</Button>
 				</Camera>
 				<View style={styles.bottomContainer}>
-					<Link href="/post/media" asChild>
+					<Link href="/create-post/media" asChild>
 						<Button style={styles.viewMediaContainer}>
 							<MaterialCommunityIcons
 								name="cards-outline"

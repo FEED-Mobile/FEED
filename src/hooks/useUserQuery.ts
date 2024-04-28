@@ -12,7 +12,7 @@ export default function useUserQuery() {
 			console.log("Getting user data...");
 			const { data, error: authError } = await supabase.auth.getSession();
 
-			if (authError) {
+			if (authError || !data.session?.user.id) {
 				throw authError;
 			}
 
@@ -20,7 +20,7 @@ export default function useUserQuery() {
 			const { data: user, error } = await supabase
 				.from("users")
 				.select()
-				.eq("id", data.session?.user.id ?? "")
+				.eq("id", data.session.user.id)
 				.limit(1)
 				.single();
 

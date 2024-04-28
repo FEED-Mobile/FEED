@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
  */
 export default function useUserPostsQuery(userId: string) {
 	return useQuery({
-		queryKey: ["posts", userId],
+		queryKey: ["userPosts", userId],
 		queryFn: async () => {
 			console.log(`Getting posts for ${userId}...`);
 

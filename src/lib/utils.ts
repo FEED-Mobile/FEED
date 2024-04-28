@@ -7,16 +7,35 @@ import * as FileSystem from "expo-file-system";
 import { supabase } from "./supabase";
 
 /**
- * Type guard to check if media is image or video
- * @param media
+ * Type guard to check if media item is image or video
+ * @param mediaItem
  * @returns
  */
 export const isCameraCapturedPicture = (
-	media: ImageVideo
-): media is CameraCapturedPicture => {
-	if ("width" in media && "height" in media) {
+	mediaItem: ImageVideo
+): mediaItem is CameraCapturedPicture => {
+	if ("width" in mediaItem && "height" in mediaItem) {
 		return true;
 	}
+
+	return false;
+};
+
+/**
+ * Type guard to check if media array is an array of URI strings or array of ImageVideo objects
+ * @param media
+ * @returns
+ */
+export const isStringArray = (
+	media: string[] | ImageVideo[]
+): media is string[] => {
+	if (
+		Array.isArray(media) &&
+		media.every((item) => typeof item === "string")
+	) {
+		return true;
+	}
+
 	return false;
 };
 

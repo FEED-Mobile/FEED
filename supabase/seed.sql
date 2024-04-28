@@ -44,7 +44,18 @@ INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created
 	('00000000-0000-0000-0000-000000000000', '305baa40-72e3-492a-89a1-8a0ed584f285', '{"action":"user_signedup","actor_id":"3f716c7c-9df6-4586-846f-18f230dd6c8c","actor_username":"leluens25@gmail.com","actor_via_sso":false,"log_type":"team","traits":{"provider":"email"}}', '2024-02-24 05:49:53.528817+00', ''),
 	('00000000-0000-0000-0000-000000000000', '76222034-e760-4352-9705-f95925d3e9d2', '{"action":"login","actor_id":"3f716c7c-9df6-4586-846f-18f230dd6c8c","actor_username":"leluens25@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-02-24 05:49:53.540328+00', ''),
 	('00000000-0000-0000-0000-000000000000', '84462a85-1a38-4b7a-978d-0c31c3b17389', '{"action":"login","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-03-27 00:23:30.996646+00', ''),
-	('00000000-0000-0000-0000-000000000000', '450d2211-a88a-4a2f-b847-a9d8ac0d730c', '{"action":"login","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-04-01 16:29:53.27201+00', '');
+	('00000000-0000-0000-0000-000000000000', '450d2211-a88a-4a2f-b847-a9d8ac0d730c', '{"action":"login","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-04-01 16:29:53.27201+00', ''),
+	('00000000-0000-0000-0000-000000000000', '6be69768-c7d5-4ce6-8576-0e048c004fe0', '{"action":"login","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-04-28 03:56:42.076697+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'c7fa99ad-d90b-48b3-831a-5ae8d7bc6f1d', '{"action":"token_refreshed","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-04-28 15:56:54.791017+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'f32808e7-f344-4a08-82e2-bfaaa82a2d53', '{"action":"token_revoked","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-04-28 15:56:54.792315+00', ''),
+	('00000000-0000-0000-0000-000000000000', '07e72c40-16bd-4a41-83f7-12dd029864ce', '{"action":"token_refreshed","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-04-28 16:55:20.786718+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'e3ad1937-5047-45ea-8011-e3fb1740c010', '{"action":"token_revoked","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-04-28 16:55:20.787084+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'a20e9b9d-c801-4c33-9422-97c0fa4c80ac', '{"action":"token_refreshed","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-04-28 17:53:41.276681+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'da50b024-c176-41d7-a69c-d9ae6282ca98', '{"action":"token_revoked","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-04-28 17:53:41.277287+00', ''),
+	('00000000-0000-0000-0000-000000000000', '39bbc2db-017b-4877-bf98-e416f36d3130', '{"action":"token_refreshed","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-04-28 18:52:01.055355+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'f1ec2cb5-376d-4af2-a38e-703a75971bc5', '{"action":"token_revoked","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-04-28 18:52:01.056746+00', ''),
+	('00000000-0000-0000-0000-000000000000', '909cb915-25cc-4ba5-bc67-323d51a7c07e', '{"action":"token_refreshed","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-04-28 19:53:42.550783+00', ''),
+	('00000000-0000-0000-0000-000000000000', '17bc9c3c-f8c3-4b5a-844b-0e788853dbd2', '{"action":"token_revoked","actor_id":"0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc","actor_username":"hansonhn369@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-04-28 19:53:42.551515+00', '');
 
 
 --
@@ -59,7 +70,7 @@ INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created
 
 INSERT INTO "auth"."users" ("instance_id", "id", "aud", "role", "email", "encrypted_password", "email_confirmed_at", "invited_at", "confirmation_token", "confirmation_sent_at", "recovery_token", "recovery_sent_at", "email_change_token_new", "email_change", "email_change_sent_at", "last_sign_in_at", "raw_app_meta_data", "raw_user_meta_data", "is_super_admin", "created_at", "updated_at", "phone", "phone_confirmed_at", "phone_change", "phone_change_token", "phone_change_sent_at", "email_change_token_current", "email_change_confirm_status", "banned_until", "reauthentication_token", "reauthentication_sent_at", "is_sso_user", "deleted_at") VALUES
 	('00000000-0000-0000-0000-000000000000', '3f716c7c-9df6-4586-846f-18f230dd6c8c', 'authenticated', 'authenticated', 'leluens25@gmail.com', '$2a$10$CM6JJBRyiIFs6WBeXR/1suFKIqm7eAdYozE7iFu095hyrPhO//rrW', '2024-02-24 05:49:53.529475+00', NULL, '', NULL, '', NULL, '', '', NULL, '2024-02-24 05:49:53.540789+00', '{"provider": "email", "providers": ["email"]}', '{"username": "lawrence"}', NULL, '2024-02-24 05:49:53.523346+00', '2024-02-24 05:49:53.543483+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL),
-	('00000000-0000-0000-0000-000000000000', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', 'authenticated', 'authenticated', 'hansonhn369@gmail.com', '$2a$10$UKtzvGU5sV3Ai.lz//eCG.iklNPnrUuGP9qGfCcnbVnTRMc6wOmZG', '2024-01-22 07:14:48.02853+00', NULL, '', NULL, '', NULL, '', '', NULL, '2024-04-01 16:29:53.274454+00', '{"provider": "email", "providers": ["email"]}', '{"username": "hanson"}', NULL, '2024-01-22 07:14:48.023579+00', '2024-04-01 16:29:53.27792+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL);
+	('00000000-0000-0000-0000-000000000000', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', 'authenticated', 'authenticated', 'hansonhn369@gmail.com', '$2a$10$UKtzvGU5sV3Ai.lz//eCG.iklNPnrUuGP9qGfCcnbVnTRMc6wOmZG', '2024-01-22 07:14:48.02853+00', NULL, '', NULL, '', NULL, '', '', NULL, '2024-04-28 03:56:42.077646+00', '{"provider": "email", "providers": ["email"]}', '{"username": "hanson"}', NULL, '2024-01-22 07:14:48.023579+00', '2024-04-28 19:53:42.552987+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL);
 
 
 --
@@ -88,7 +99,8 @@ INSERT INTO "auth"."sessions" ("id", "user_id", "created_at", "updated_at", "fac
 	('c9367da0-720e-4872-8e21-c70b5d48230e', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-01-31 07:04:40.258568+00', '2024-01-31 07:04:40.258568+00', NULL, 'aal1', NULL, NULL, 'Expo/1017597 CFNetwork/1410.0.3 Darwin/22.6.0', '172.18.0.1', NULL),
 	('1357857b-b4c6-4bb1-a397-16c6c8367ba6', '3f716c7c-9df6-4586-846f-18f230dd6c8c', '2024-02-24 05:49:53.54088+00', '2024-02-24 05:49:53.54088+00', NULL, 'aal1', NULL, NULL, 'Expo/1017599 CFNetwork/1490.0.4 Darwin/23.2.0', '10.240.4.161', NULL),
 	('272bec62-fa89-46d9-a39f-b99cdb4e9c9f', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-03-27 00:23:30.997954+00', '2024-03-27 00:23:30.997954+00', NULL, 'aal1', NULL, NULL, 'Expo/1017599 CFNetwork/1410.0.3 Darwin/22.6.0', '172.19.0.1', NULL),
-	('5d3e5ad4-a722-4998-9d41-c3064f7e64ad', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-04-01 16:29:53.274513+00', '2024-04-01 16:29:53.274513+00', NULL, 'aal1', NULL, NULL, 'Expo/1017599 CFNetwork/1410.0.3 Darwin/22.6.0', '172.18.0.1', NULL);
+	('5d3e5ad4-a722-4998-9d41-c3064f7e64ad', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-04-01 16:29:53.274513+00', '2024-04-01 16:29:53.274513+00', NULL, 'aal1', NULL, NULL, 'Expo/1017599 CFNetwork/1410.0.3 Darwin/22.6.0', '172.18.0.1', NULL),
+	('e9b2b721-9700-43c6-b0ac-a656d1dc1b5d', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-04-28 03:56:42.07769+00', '2024-04-28 19:53:42.553729+00', NULL, 'aal1', NULL, '2024-04-28 19:53:42.553695', 'Expo/1017599 CFNetwork/1410.0.3 Darwin/22.6.0', '172.18.0.1', NULL);
 
 
 --
@@ -102,7 +114,8 @@ INSERT INTO "auth"."mfa_amr_claims" ("session_id", "created_at", "updated_at", "
 	('c9367da0-720e-4872-8e21-c70b5d48230e', '2024-01-31 07:04:40.26128+00', '2024-01-31 07:04:40.26128+00', 'password', 'ea7455cc-d66d-4110-8e29-c788121fa635'),
 	('1357857b-b4c6-4bb1-a397-16c6c8367ba6', '2024-02-24 05:49:53.543892+00', '2024-02-24 05:49:53.543892+00', 'password', '940ba319-553c-4627-bd25-84e61c9a277d'),
 	('272bec62-fa89-46d9-a39f-b99cdb4e9c9f', '2024-03-27 00:23:31.003272+00', '2024-03-27 00:23:31.003272+00', 'password', 'be2ec13d-139a-4bfe-9565-b3944e2d21f2'),
-	('5d3e5ad4-a722-4998-9d41-c3064f7e64ad', '2024-04-01 16:29:53.278359+00', '2024-04-01 16:29:53.278359+00', 'password', 'f6fbf13b-c205-4da7-85bd-307deed4de22');
+	('5d3e5ad4-a722-4998-9d41-c3064f7e64ad', '2024-04-01 16:29:53.278359+00', '2024-04-01 16:29:53.278359+00', 'password', 'f6fbf13b-c205-4da7-85bd-307deed4de22'),
+	('e9b2b721-9700-43c6-b0ac-a656d1dc1b5d', '2024-04-28 03:56:42.080508+00', '2024-04-28 03:56:42.080508+00', 'password', 'cfb9deaf-f9eb-49bd-ac70-901b17e3b91e');
 
 
 --
@@ -128,7 +141,13 @@ INSERT INTO "auth"."refresh_tokens" ("instance_id", "id", "token", "user_id", "r
 	('00000000-0000-0000-0000-000000000000', 11, 'wA63qrl1nku9k7A_FWkrMw', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', false, '2024-01-31 07:04:40.259648+00', '2024-01-31 07:04:40.259648+00', NULL, 'c9367da0-720e-4872-8e21-c70b5d48230e'),
 	('00000000-0000-0000-0000-000000000000', 12, '_RmLEyi7bpkOn-AE3p36Bg', '3f716c7c-9df6-4586-846f-18f230dd6c8c', false, '2024-02-24 05:49:53.542103+00', '2024-02-24 05:49:53.542103+00', NULL, '1357857b-b4c6-4bb1-a397-16c6c8367ba6'),
 	('00000000-0000-0000-0000-000000000000', 13, 'Mmk2sK06t9WDy1Eu9rixAw', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', false, '2024-03-27 00:23:30.999259+00', '2024-03-27 00:23:30.999259+00', NULL, '272bec62-fa89-46d9-a39f-b99cdb4e9c9f'),
-	('00000000-0000-0000-0000-000000000000', 14, 'pxzrrvZXQ8Fl0cmadT2CZg', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', false, '2024-04-01 16:29:53.27668+00', '2024-04-01 16:29:53.27668+00', NULL, '5d3e5ad4-a722-4998-9d41-c3064f7e64ad');
+	('00000000-0000-0000-0000-000000000000', 14, 'pxzrrvZXQ8Fl0cmadT2CZg', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', false, '2024-04-01 16:29:53.27668+00', '2024-04-01 16:29:53.27668+00', NULL, '5d3e5ad4-a722-4998-9d41-c3064f7e64ad'),
+	('00000000-0000-0000-0000-000000000000', 15, 'LMYWRwZSdhz3uIHDDxLmQQ', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', true, '2024-04-28 03:56:42.07879+00', '2024-04-28 15:56:54.792674+00', NULL, 'e9b2b721-9700-43c6-b0ac-a656d1dc1b5d'),
+	('00000000-0000-0000-0000-000000000000', 16, 'LmbsRmIjbbanby_guNeMJA', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', true, '2024-04-28 15:56:54.793107+00', '2024-04-28 16:55:20.787439+00', 'LMYWRwZSdhz3uIHDDxLmQQ', 'e9b2b721-9700-43c6-b0ac-a656d1dc1b5d'),
+	('00000000-0000-0000-0000-000000000000', 17, '-4PpA-M7YDQqJ5nTmJjsXQ', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', true, '2024-04-28 16:55:20.787697+00', '2024-04-28 17:53:41.278113+00', 'LmbsRmIjbbanby_guNeMJA', 'e9b2b721-9700-43c6-b0ac-a656d1dc1b5d'),
+	('00000000-0000-0000-0000-000000000000', 18, 'Ue9OOgvxb1Csy257c9u7uw', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', true, '2024-04-28 17:53:41.278778+00', '2024-04-28 18:52:01.057625+00', '-4PpA-M7YDQqJ5nTmJjsXQ', 'e9b2b721-9700-43c6-b0ac-a656d1dc1b5d'),
+	('00000000-0000-0000-0000-000000000000', 19, 'jn7dkiJbvB0xHx322CXS4Q', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', true, '2024-04-28 18:52:01.058099+00', '2024-04-28 19:53:42.552029+00', 'Ue9OOgvxb1Csy257c9u7uw', 'e9b2b721-9700-43c6-b0ac-a656d1dc1b5d'),
+	('00000000-0000-0000-0000-000000000000', 20, 'IKsYXmS64rTT8qGSuKMS6Q', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', false, '2024-04-28 19:53:42.552304+00', '2024-04-28 19:53:42.552304+00', 'jn7dkiJbvB0xHx322CXS4Q', 'e9b2b721-9700-43c6-b0ac-a656d1dc1b5d');
 
 
 --
@@ -167,7 +186,7 @@ INSERT INTO "auth"."refresh_tokens" ("instance_id", "id", "token", "user_id", "r
 
 INSERT INTO "public"."users" ("id", "created_at", "email", "username", "avatar", "bio", "birthday", "location", "full_name") VALUES
 	('3f716c7c-9df6-4586-846f-18f230dd6c8c', '2024-04-01 04:44:30.773257+00', 'leluens25@gmail.com', 'lawrence', NULL, NULL, NULL, NULL, NULL),
-	('0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-04-01 04:44:30.773257+00', 'hansonhn369@gmail.com', 'hanson', 'https://res.cloudinary.com/dgqxfulav/image/upload/v1711990125/sljsvusnshbq2wfinq42.jpg', 'yum yum in my tum tum', NULL, NULL, 'Hanson');
+	('0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', '2024-04-01 04:44:30.773257+00', 'hansonhn369@gmail.com', 'hanson', 'https://res.cloudinary.com/dgqxfulav/image/upload/v1714274434/hmqx0pesn31gtckq4ehq.jpg', 'yum yum in my tum tum', NULL, NULL, 'Hanson');
 
 
 --
@@ -175,13 +194,19 @@ INSERT INTO "public"."users" ("id", "created_at", "email", "username", "avatar",
 --
 
 INSERT INTO "public"."posts" ("id", "created_at", "media", "title", "description", "location", "rating", "user_id") VALUES
-	(2, '2024-02-02 06:11:04.602129+00', '{https://res.cloudinary.com/dgqxfulav/image/upload/v1706854257/txc1nbywym3vkwgbjci9.jpg,https://res.cloudinary.com/dgqxfulav/image/upload/v1706854263/yggbvckzpwo2kgacgg0j.jpg}', 'Good eats right here', 'Good eats right here', 'Davis, CA', NULL, '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc');
+	(2, '2024-02-02 06:11:04.602129+00', '{https://res.cloudinary.com/dgqxfulav/image/upload/v1706854257/txc1nbywym3vkwgbjci9.jpg,https://res.cloudinary.com/dgqxfulav/image/upload/v1706854263/yggbvckzpwo2kgacgg0j.jpg}', 'Good eats right here', 'so yummy you have to try', 'Davis, CA', NULL, '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc'),
+	(3, '2024-04-28 16:04:45.176213+00', '{https://res.cloudinary.com/dgqxfulav/image/upload/v1714320281/axnfs1fziaivgmygvsak.jpg,https://res.cloudinary.com/dgqxfulav/video/upload/v1714320284/u4fj1tshyf6jbxdishxk.mov}', 'Fake zyns', 'i think im addicted now', 'Davis, CA', NULL, '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc');
 
 
 --
 -- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO "public"."comments" ("id", "created_at", "content", "user_id", "post_id") VALUES
+	(1, '2024-04-28 18:16:09.511827+00', 'such a cool post ik', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', 3),
+	(2, '2024-04-28 18:37:35.02895+00', 'i love this', '3f716c7c-9df6-4586-846f-18f230dd6c8c', 3),
+	(3, '2024-04-28 20:09:04.463993+00', 'i agree', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', 3),
+	(4, '2024-04-28 20:09:22.598159+00', 'top 3 post oat', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', 2);
 
 
 --
@@ -194,6 +219,10 @@ INSERT INTO "public"."posts" ("id", "created_at", "media", "title", "description
 -- Data for Name: likes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO "public"."likes" ("id", "created_at", "user_id", "post_id") VALUES
+	(4, '2024-04-28 17:59:53.820968+00', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', 2),
+	(5, '2024-04-28 18:03:14.718638+00', '3f716c7c-9df6-4586-846f-18f230dd6c8c', 3),
+	(7, '2024-04-28 20:22:08.422337+00', '0fdb7f10-c7c8-4fbf-8130-bbc3f5fc9ecc', 3);
 
 
 --
@@ -239,7 +268,7 @@ INSERT INTO "storage"."buckets" ("id", "name", "owner", "created_at", "updated_a
 -- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: supabase_auth_admin
 --
 
-SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 14, true);
+SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 20, true);
 
 
 --
@@ -253,7 +282,7 @@ SELECT pg_catalog.setval('"pgsodium"."key_key_id_seq"', 1, false);
 -- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"public"."comments_id_seq"', 1, false);
+SELECT pg_catalog.setval('"public"."comments_id_seq"', 4, true);
 
 
 --
@@ -267,14 +296,14 @@ SELECT pg_catalog.setval('"public"."following_id_seq"', 1, false);
 -- Name: likes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"public"."likes_id_seq"', 1, false);
+SELECT pg_catalog.setval('"public"."likes_id_seq"', 7, true);
 
 
 --
 -- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"public"."posts_id_seq"', 2, true);
+SELECT pg_catalog.setval('"public"."posts_id_seq"', 3, true);
 
 
 --

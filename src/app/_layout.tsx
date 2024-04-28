@@ -87,7 +87,7 @@ function RootLayoutNav() {
 					headerStyle: {
 						backgroundColor: Styles.colors.white.primary,
 					},
-					headerTitle: () => <HeaderTitle style={{ marginTop: 4 }} />,
+					headerTitle: () => <HeaderTitle />,
 					headerLeft: () => <HeaderBack />,
 				}}
 			>
@@ -96,11 +96,18 @@ function RootLayoutNav() {
 				<Stack.Screen name="signup" options={{ headerShown: false }} />
 				<Stack.Screen name="(app)" options={{ headerShown: false }} />
 				<Stack.Screen
-					name="post"
+					name="create-post"
 					options={{
 						headerShown: false,
 						presentation: "fullScreenModal",
 						animation: "slide_from_bottom",
+					}}
+				/>
+				<Stack.Screen
+					name="comments/[postId]"
+					options={{
+						headerShown: false,
+						presentation: "modal",
 					}}
 				/>
 				<Stack.Screen

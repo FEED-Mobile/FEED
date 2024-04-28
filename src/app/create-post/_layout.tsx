@@ -3,7 +3,7 @@ import HeaderTitle from "@components/header/HeaderTitle";
 import Styles from "@constants/Styles";
 import { Stack } from "expo-router";
 
-export default function PostLayout() {
+export default function CreatePostLayout() {
 	return (
 		<Stack
 			screenOptions={{

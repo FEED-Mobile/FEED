@@ -1,15 +1,13 @@
+import MediaFlatlist from "@components/MediaFlatlist";
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
 import { isCameraCapturedPicture, uploadMedia } from "@lib/utils";
 import { useMedia, useMediaActions } from "@stores/mediaStore";
-import { ResizeMode, Video } from "expo-av";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Text, TextInput, View } from "react-native";
 import {
-	FlatList,
-	Image,
 	Keyboard,
 	KeyboardAvoidingView,
 	StyleSheet,
@@ -72,7 +70,7 @@ export default function CreatePostPage() {
 			.insert({
 				user_id: user.id,
 				title: title,
-				description: title,
+				description: description,
 				location: location,
 				media: mediaUrls,
 			});
@@ -99,37 +97,7 @@ export default function CreatePostPage() {
 				accessible={false}
 			>
 				<>
-					<FlatList
-						horizontal
-						data={media}
-						renderItem={(item) => {
-							const mediaWidth = 350,
-								mediaHeight = 450;
-							if (isCameraCapturedPicture(item.item)) {
-								return (
-									<Image
-										source={{ uri: item.item.uri }}
-										width={mediaWidth}
-										height={mediaHeight}
-										style={{ marginHorizontal: 4 }}
-									/>
-								);
-							}
-							return (
-								<Video
-									source={{ uri: item.item.uri }}
-									useNativeControls
-									resizeMode={ResizeMode.COVER}
-									style={{
-										marginHorizontal: 4,
-										width: mediaWidth,
-										height: mediaHeight,
-									}}
-								/>
-							);
-						}}
-						keyExtractor={(item) => item.uri}
-					/>
+					<MediaFlatlist media={media} />
 					<View style={styles.contentContainer}>
 						<Text style={styles.labelText}>Title</Text>
 						<TextInput

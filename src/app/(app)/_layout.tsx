@@ -1,10 +1,11 @@
+import HeaderBack from "@components/header/HeaderBack";
 import HeaderSettings from "@components/header/HeaderSettings";
 import HeaderTitle from "@components/header/HeaderTitle";
-import AvatarIcon from "@components/icons/AvatarIcon";
 import CreatePostIcon from "@components/icons/CreatePostIcon";
 import ExploreIcon from "@components/icons/ExploreIcon";
 import HomeIcon from "@components/icons/HomeIcon";
 import NotificationsIcon from "@components/icons/NotificationsIcon";
+import Avatar from "@components/ui/Avatar";
 import Styles from "@constants/Styles";
 import useUserQuery from "@hooks/useUserQuery";
 import { router, Tabs } from "expo-router";
@@ -60,15 +61,15 @@ export default function MainLayout() {
 			<Tabs.Screen
 				name="create/index"
 				options={{
-					title: "Post",
-					headerTitle: "Post",
+					title: "Create",
+					headerTitle: "Create",
 					tabBarIcon: ({ color }) => <CreatePostIcon color={color} />,
 				}}
 				listeners={() => ({
 					tabPress: (e) => {
 						// Navigate to post modal
 						e.preventDefault();
-						router.push("/post/");
+						router.push("/create-post/");
 					},
 				})}
 			/>
@@ -102,8 +103,30 @@ export default function MainLayout() {
 							}}
 						/>
 					),
-					tabBarIcon: ({ color }) => <AvatarIcon color={color} />,
+					tabBarIcon: ({ color }) => (
+						<Avatar
+							uri={user.avatar}
+							style={{
+								width: 30,
+								height: 30,
+								borderRadius: 15,
+								borderWidth: 1,
+								borderColor: color,
+								backgroundColor:
+									Styles.colors.darkgreen.primary,
+							}}
+						/>
+					),
 					headerRight: () => <HeaderSettings />,
+				}}
+			/>
+			<Tabs.Screen
+				name="post/[id]"
+				options={{
+					title: "Post",
+					headerTitle: () => <HeaderTitle />,
+					headerLeft: () => <HeaderBack />,
+					href: null,
 				}}
 			/>
 		</Tabs>
