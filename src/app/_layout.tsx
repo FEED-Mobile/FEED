@@ -96,7 +96,7 @@ function RootLayoutNav() {
 				<Stack.Screen name="signup" options={{ headerShown: false }} />
 				<Stack.Screen name="(app)" options={{ headerShown: false }} />
 				<Stack.Screen
-					name="post"
+					name="create-post"
 					options={{
 						headerShown: false,
 						presentation: "fullScreenModal",

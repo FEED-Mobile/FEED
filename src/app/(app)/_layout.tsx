@@ -60,15 +60,15 @@ export default function MainLayout() {
 			<Tabs.Screen
 				name="create/index"
 				options={{
-					title: "Post",
-					headerTitle: "Post",
+					title: "Create",
+					headerTitle: "Create",
 					tabBarIcon: ({ color }) => <CreatePostIcon color={color} />,
 				}}
 				listeners={() => ({
 					tabPress: (e) => {
 						// Navigate to post modal
 						e.preventDefault();
-						router.push("/post/");
+						router.push("/create-post/");
 					},
 				})}
 			/>

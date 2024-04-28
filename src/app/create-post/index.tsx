@@ -159,7 +159,9 @@ export default function PostPage() {
 								color={Styles.colors.white.primary}
 							/>
 						</Button>
-						<Button onPress={() => router.push("/post/create")}>
+						<Button
+							onPress={() => router.push("/create-post/create")}
+						>
 							<Ionicons
 								name="chevron-forward"
 								size={32}
