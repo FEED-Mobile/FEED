@@ -2,6 +2,7 @@ import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { supabase } from "@lib/supabase";
 import { useQueryClient } from "@tanstack/react-query";
+import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function SettingsPage() {
@@ -21,6 +22,14 @@ export default function SettingsPage() {
 		<View style={styles.container}>
 			<Button style={styles.button} onPress={signOutOfSupabase}>
 				<Text style={styles.buttonText}>Logout</Text>
+			</Button>
+
+			<Text>Development</Text>
+			<Button
+				style={styles.button}
+				onPress={() => router.push("/_sitemap/")}
+			>
+				<Text style={styles.buttonText}>Sitemap</Text>
 			</Button>
 		</View>
 	);

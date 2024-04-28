@@ -4,6 +4,7 @@ import useUserPostsQuery from "@hooks/useUserPostsQuery";
 import useUserQuery from "@hooks/useUserQuery";
 import MasonryList from "@react-native-seoul/masonry-list";
 import { Post } from "@type/supabase";
+import { Link } from "expo-router";
 import { useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
@@ -35,16 +36,18 @@ const PostItem = ({ post }: PostItemProps) => {
 	const mediaWidth = 110;
 
 	return (
-		<View style={postItemStyles.container}>
-			<Image
-				style={postItemStyles.image}
-				source={{
-					uri: post.media[0],
-				}}
-				width={mediaWidth}
-				height={mediaHeight}
-			/>
-		</View>
+		<Link href={`/(app)/post/${post.id}`}>
+			<View style={postItemStyles.container}>
+				<Image
+					style={postItemStyles.image}
+					source={{
+						uri: post.media[0],
+					}}
+					width={mediaWidth}
+					height={mediaHeight}
+				/>
+			</View>
+		</Link>
 	);
 };
 

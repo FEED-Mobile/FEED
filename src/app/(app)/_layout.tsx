@@ -1,3 +1,4 @@
+import HeaderBack from "@components/header/HeaderBack";
 import HeaderSettings from "@components/header/HeaderSettings";
 import HeaderTitle from "@components/header/HeaderTitle";
 import AvatarIcon from "@components/icons/AvatarIcon";
@@ -104,6 +105,15 @@ export default function MainLayout() {
 					),
 					tabBarIcon: ({ color }) => <AvatarIcon color={color} />,
 					headerRight: () => <HeaderSettings />,
+				}}
+			/>
+			<Tabs.Screen
+				name="post/[id]"
+				options={{
+					title: "Post",
+					headerTitle: () => <HeaderTitle />,
+					headerLeft: () => <HeaderBack />,
+					href: null,
 				}}
 			/>
 		</Tabs>

@@ -33,7 +33,7 @@ export default function useUserPostsMutation(userId: string) {
 			console.error("An error occurred when adding your post: ", error);
 		},
 		onSettled: () => {
-			queryClient.invalidateQueries({ queryKey: ["posts", userId] });
+			queryClient.invalidateQueries({ queryKey: ["userPosts", userId] });
 		},
 	});
 

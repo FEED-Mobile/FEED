@@ -15,7 +15,7 @@ import { Text, View } from "react-native";
 import { Alert, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function PostPage() {
+export default function CreatePostPage() {
 	const [, setCameraPermissionStatus] = useState(
 		PermissionStatus.UNDETERMINED
 	);

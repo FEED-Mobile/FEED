@@ -87,7 +87,7 @@ function RootLayoutNav() {
 					headerStyle: {
 						backgroundColor: Styles.colors.white.primary,
 					},
-					headerTitle: () => <HeaderTitle style={{ marginTop: 4 }} />,
+					headerTitle: () => <HeaderTitle />,
 					headerLeft: () => <HeaderBack />,
 				}}
 			>
