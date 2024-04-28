@@ -70,13 +70,17 @@ export default function ProfilePage() {
 						style={[styles.button, styles.editButton]}
 						onPress={() => router.push("/editProfile/")}
 					>
-						<Text style={styles.buttonText}>Edit Profile</Text>
+						<Text style={styles.buttonText}>Edit</Text>
 					</Button>
 					<Button
 						style={[styles.button, styles.shareButton]}
 						onPress={() => console.log("Share pressed...")}
 					>
-						<Text style={styles.buttonText}>Share</Text>
+						<Text
+							style={[styles.buttonText, styles.shareButtonText]}
+						>
+							Share
+						</Text>
 					</Button>
 				</View>
 			</View>
@@ -118,7 +122,7 @@ const styles = StyleSheet.create({
 		marginRight: 20,
 	},
 	statNum: {
-		fontSize: 22,
+		fontSize: 16,
 		fontFamily: Styles.fonts.text.semibold,
 	},
 	statTitle: {
@@ -129,6 +133,7 @@ const styles = StyleSheet.create({
 		marginVertical: 10,
 	},
 	actualName: {
+		fontSize: 18,
 		fontFamily: Styles.fonts.text.semibold,
 	},
 	bio: {
@@ -142,8 +147,8 @@ const styles = StyleSheet.create({
 		marginVertical: 12,
 	},
 	button: {
-		borderRadius: 5,
-		padding: 8,
+		borderRadius: 12,
+		paddingVertical: 8,
 		width: 180,
 		height: 36,
 	},
@@ -152,10 +157,14 @@ const styles = StyleSheet.create({
 		fontFamily: Styles.fonts.text.regular,
 		textAlign: "center",
 	},
+	shareButtonText: {
+		color: Styles.colors.black.primary,
+	},
 	editButton: {
 		backgroundColor: Styles.colors.black.primary,
 	},
 	shareButton: {
-		backgroundColor: Styles.colors.gray.primary,
+		borderColor: Styles.colors.black.primary,
+		borderWidth: 1,
 	},
 });
