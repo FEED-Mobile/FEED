@@ -92,8 +92,8 @@ function RootLayoutNav() {
 				}}
 			>
 				<Stack.Screen name="landing" options={{ headerShown: false }} />
-				<Stack.Screen name="login" />
-				<Stack.Screen name="signup" />
+				<Stack.Screen name="login" options={{ headerShown: false }} />
+				<Stack.Screen name="signup" options={{ headerShown: false }} />
 				<Stack.Screen name="(app)" options={{ headerShown: false }} />
 				<Stack.Screen
 					name="post"

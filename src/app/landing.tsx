@@ -1,7 +1,9 @@
+import homeImage from "@assets/images/home-image.jpg";
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import { router } from "expo-router";
-import { Text, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { Image, Text, View } from "react-native";
 import { StyleSheet } from "react-native";
 
 /**
@@ -18,24 +20,32 @@ export default function LandingPage() {
 	};
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.titleText}>Feed.</Text>
-			<Button
-				onPress={() => onLoginPress()}
-				style={[styles.button, styles.loginButton]}
-			>
-				<Text style={styles.loginButtonText}>Login</Text>
-			</Button>
-			<Button
-				onPress={() => onSignUpPress()}
-				style={[styles.button, styles.signUpButton]}
-			>
-				<Text style={styles.signUpButtonText}>Sign Up</Text>
-			</Button>
-			<Text style={styles.descriptionText}>
-				Food for your phone begins here.
-			</Text>
-		</View>
+		<>
+			<Image source={homeImage} style={styles.homeImage} />
+			<View style={styles.container}>
+				<StatusBar style="light" />
+				<Text style={styles.titleText}>Feed.</Text>
+				<Text style={styles.descriptionText}>
+					Food for your phone begins here.
+				</Text>
+				<Button
+					onPress={() => onLoginPress()}
+					style={[styles.button, styles.loginButton]}
+				>
+					<Text style={[styles.buttonText, styles.loginButtonText]}>
+						Login
+					</Text>
+				</Button>
+				<Button
+					onPress={() => onSignUpPress()}
+					style={[styles.button, styles.signUpButton]}
+				>
+					<Text style={[styles.buttonText, styles.signUpButtonText]}>
+						Sign Up
+					</Text>
+				</Button>
+			</View>
+		</>
 	);
 }
 
@@ -44,17 +54,27 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: Styles.colors.white.primary,
 		alignItems: "center",
-		justifyContent: "center",
+	},
+	homeImage: {
+		resizeMode: "cover",
+		width: "100%",
+		height: "50%",
 	},
 	titleText: {
-		fontSize: 128,
+		fontSize: 70,
 		fontFamily: Styles.fonts.heading.regular,
-		color: Styles.colors.lightgreen.primary,
+		color: Styles.colors.darkgreen.primary,
+	},
+	descriptionText: {
+		fontSize: 20,
+		fontFamily: Styles.fonts.heading.regular,
+		marginTop: 16,
+		marginBottom: 32,
 	},
 	button: {
-		width: "72.5%",
-		borderRadius: 5,
-		padding: 10,
+		width: 180,
+		borderRadius: 20,
+		paddingVertical: 12,
 		backgroundColor: Styles.colors.darkgreen.primary,
 		shadowColor: "#000",
 		shadowOffset: {
@@ -63,28 +83,23 @@ const styles = StyleSheet.create({
 		},
 		shadowOpacity: 0.27,
 		shadowRadius: 4.65,
-
 		elevation: 6,
 	},
-	loginButtonText: {
+	buttonText: {
+		fontSize: 20,
 		textAlign: "center",
 		fontFamily: Styles.fonts.text.regular,
+	},
+	loginButtonText: {
 		color: Styles.colors.white.primary,
 	},
 	loginButton: {
-		marginBottom: 30,
+		marginBottom: 40,
 	},
 	signUpButtonText: {
-		textAlign: "center",
-		fontFamily: Styles.fonts.text.regular,
 		color: Styles.colors.black.primary,
 	},
 	signUpButton: {
 		backgroundColor: Styles.colors.white.primary,
-		marginBottom: 60,
-	},
-	descriptionText: {
-		fontSize: 20,
-		fontFamily: Styles.fonts.heading.regular,
 	},
 });
