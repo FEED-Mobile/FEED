@@ -1,3 +1,4 @@
+import Styles from "@constants/Styles";
 import useUserQuery from "@hooks/useUserQuery";
 import { Image } from "react-native";
 
@@ -13,7 +14,12 @@ export default function AvatarIcon({ color }: { color: string }) {
 			source={{ uri: user.avatar ?? "" }}
 			width={30}
 			height={30}
-			style={{ borderRadius: 15, borderWidth: 1, borderColor: color }}
+			style={{
+				borderRadius: 15,
+				borderWidth: 1,
+				borderColor: color,
+				backgroundColor: Styles.colors.darkgreen.primary,
+			}}
 		/>
 	);
 }

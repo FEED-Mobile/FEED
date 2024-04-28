@@ -9,12 +9,16 @@ export default function usePostQuery(postId: string) {
 	return useQuery({
 		queryKey: ["post", postId],
 		queryFn: async () => {
+			if (!postId) {
+				throw Error("No post ID provided.");
+			}
+
 			console.log(`Getting post data for ID ${postId}...`);
-			// Retrieve user row from public.users table
+			// Retrieve post row from public.posts table
 			const { data: post, error } = await supabase
 				.from("posts")
 				.select()
-				.eq("id", postId ?? "")
+				.eq("id", postId)
 				.limit(1)
 				.single();
 

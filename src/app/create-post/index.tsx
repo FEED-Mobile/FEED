@@ -201,7 +201,7 @@ export default function CreatePostPage() {
 					</Button>
 				</Camera>
 				<View style={styles.bottomContainer}>
-					<Link href="/post/media" asChild>
+					<Link href="/create-post/media" asChild>
 						<Button style={styles.viewMediaContainer}>
 							<MaterialCommunityIcons
 								name="cards-outline"
