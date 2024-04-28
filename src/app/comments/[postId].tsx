@@ -1,9 +1,19 @@
 import Avatar from "@components/ui/Avatar";
+import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
+import useCommentsMutation from "@hooks/useCommentsMutation";
 import useCommentsQuery from "@hooks/useCommentsQuery";
 import { Comment } from "@type/supabase";
 import { useLocalSearchParams } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import {
+	Keyboard,
+	StyleSheet,
+	Text,
+	TextInput,
+	TouchableWithoutFeedback,
+	View,
+} from "react-native";
 
 type CommentProps = {
 	comment: Comment & {
@@ -41,26 +51,62 @@ function CommentComponent({ comment }: CommentProps) {
 
 export default function CommentsModal() {
 	const { postId } = useLocalSearchParams();
+	const [commentDraft, setCommentDraft] = useState("");
+
 	if (Array.isArray(postId)) {
 		return <></>;
 	}
 	const parsedPostId = parseInt(postId);
 
 	const { data: comments, isPending, error } = useCommentsQuery(parsedPostId);
+	const { uploadComment } = useCommentsMutation(parsedPostId);
 
 	if (isPending || error) {
 		return <></>;
 	}
 
+	/**
+	 * Upload comment to Supabase
+	 */
+	const sendComment = () => {
+		if (!commentDraft) {
+			return;
+		}
+
+		uploadComment.mutate(commentDraft);
+		setCommentDraft("");
+	};
+
 	return (
-		<View style={commentsModalStyles.container}>
-			<View style={commentsModalStyles.header}>
-				<Text style={commentsModalStyles.headerText}>Comments</Text>
+		<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+			<View style={commentsModalStyles.container}>
+				<View>
+					<View style={commentsModalStyles.header}>
+						<Text style={commentsModalStyles.headerText}>
+							Comments
+						</Text>
+					</View>
+					{comments.map((comment) => (
+						<CommentComponent key={comment.id} comment={comment} />
+					))}
+				</View>
+				<View style={commentsModalStyles.sendCommentContainer}>
+					<TextInput
+						onChangeText={(text) => setCommentDraft(text)}
+						value={commentDraft}
+						placeholder="Add a comment"
+						style={commentsModalStyles.textInput}
+					></TextInput>
+					<Button
+						style={commentsModalStyles.sendButton}
+						onPress={sendComment}
+						disabled={commentDraft.length === 0}
+					>
+						<Text>Send</Text>
+					</Button>
+				</View>
 			</View>
-			{comments.map((comment) => (
-				<CommentComponent key={comment.id} comment={comment} />
-			))}
-		</View>
+		</TouchableWithoutFeedback>
 	);
 }
 
@@ -100,5 +146,25 @@ const commentsModalStyles = StyleSheet.create({
 		fontFamily: Styles.fonts.text.semibold,
 		fontSize: 18,
 		textAlign: "center",
+	},
+	sendCommentContainer: {
+		flexDirection: "row",
+		justifyContent: "center",
+		alignItems: "center",
+		gap: 16,
+	},
+	textInput: {
+		width: "75%",
+		padding: 16,
+		borderWidth: 1,
+		borderColor: Styles.colors.gray.primary,
+		borderRadius: 32,
+		fontFamily: Styles.fonts.text.regular,
+	},
+	sendButton: {
+		borderWidth: 1,
+		borderColor: Styles.colors.black.primary,
+		padding: 8,
+		borderRadius: 16,
 	},
 });
