@@ -1,10 +1,10 @@
 import ProfileTabs from "@components/profile/ProfileTabs";
+import Avatar from "@components/ui/Avatar";
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
-import { Ionicons } from "@expo/vector-icons";
 import useUserQuery from "@hooks/useUserQuery";
 import { router } from "expo-router";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
 	const { data: user, isPending, error } = useUserQuery();
@@ -17,23 +17,7 @@ export default function ProfilePage() {
 		<View style={styles.container}>
 			<View style={styles.headerContainer}>
 				<View style={styles.content}>
-					{user.avatar ? (
-						<Image
-							source={{
-								uri: user.avatar,
-							}}
-							style={styles.profilePic}
-						/>
-					) : (
-						<View style={styles.profilePic}>
-							<Ionicons
-								name="fast-food"
-								size={64}
-								color={Styles.colors.lightgreen.primary}
-							/>
-						</View>
-					)}
-
+					<Avatar uri={user.avatar} style={styles.profilePic} />
 					<View style={styles.statsContainer}>
 						<TouchableOpacity
 							onPress={() => console.log("Num posts pressed...")}

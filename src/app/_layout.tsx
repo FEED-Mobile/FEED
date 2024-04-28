@@ -104,6 +104,13 @@ function RootLayoutNav() {
 					}}
 				/>
 				<Stack.Screen
+					name="comments/[postId]"
+					options={{
+						headerShown: false,
+						presentation: "modal",
+					}}
+				/>
+				<Stack.Screen
 					name="settings/index"
 					options={{
 						headerTitle: () => (

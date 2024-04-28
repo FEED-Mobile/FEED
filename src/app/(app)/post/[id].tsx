@@ -6,7 +6,7 @@ import Button from "@components/ui/Button";
 import useLikesMutation from "@hooks/useLikesMutation";
 import useLikesQuery from "@hooks/useLikesQuery";
 import usePostQuery from "@hooks/usePostQuery";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function PostPage() {
@@ -45,7 +45,10 @@ export default function PostPage() {
 					<LikeIcon liked={likesData.userLiked} />
 					<Text>{likesData.likeCount}</Text>
 				</Button>
-				<Button style={styles.button}>
+				<Button
+					style={styles.button}
+					onPress={() => router.push(`/comments/${postId}`)}
+				>
 					<CommentIcon />
 					<Text>Comment</Text>
 				</Button>
