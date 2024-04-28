@@ -17,7 +17,15 @@ export default function usePostQuery(postId: number) {
 			// Retrieve post row from public.posts table
 			const { data: post, error } = await supabase
 				.from("posts")
-				.select()
+				.select(
+					`*,
+					users (
+						id,
+						username,
+						avatar
+					)
+				`
+				)
 				.eq("id", postId)
 				.limit(1)
 				.single();

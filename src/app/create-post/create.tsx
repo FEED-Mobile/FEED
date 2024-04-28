@@ -70,7 +70,7 @@ export default function CreatePostPage() {
 			.insert({
 				user_id: user.id,
 				title: title,
-				description: title,
+				description: description,
 				location: location,
 				media: mediaUrls,
 			});
