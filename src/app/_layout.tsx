@@ -64,13 +64,13 @@ function RootLayoutNav() {
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
 			if (session) {
-				router.replace("/(app)/home");
+				router.replace("/(tabs)/home");
 			}
 		});
 
 		supabase.auth.onAuthStateChange((_event, session) => {
 			if (session) {
-				router.replace("/(app)/home");
+				router.replace("/(tabs)/home");
 			} else {
 				router.replace("/landing");
 			}
@@ -94,7 +94,7 @@ function RootLayoutNav() {
 				<Stack.Screen name="landing" options={{ headerShown: false }} />
 				<Stack.Screen name="login" options={{ headerShown: false }} />
 				<Stack.Screen name="signup" options={{ headerShown: false }} />
-				<Stack.Screen name="(app)" options={{ headerShown: false }} />
+				<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 				<Stack.Screen
 					name="create-post"
 					options={{

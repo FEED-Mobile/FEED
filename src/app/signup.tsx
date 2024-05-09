@@ -59,7 +59,7 @@ export default function Signup() {
 			setLoading(false);
 			return;
 		}
-		router.replace("/(app)/home");
+		router.replace("/(tabs)/home");
 		console.log("Sign Up Successful");
 		setLoading(false);
 	}
