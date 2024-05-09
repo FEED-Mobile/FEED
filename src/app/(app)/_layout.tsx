@@ -1,6 +1,3 @@
-import HeaderBack from "@components/header/HeaderBack";
-import HeaderSettings from "@components/header/HeaderSettings";
-import HeaderTitle from "@components/header/HeaderTitle";
 import CreatePostIcon from "@components/icons/CreatePostIcon";
 import ExploreIcon from "@components/icons/ExploreIcon";
 import HomeIcon from "@components/icons/HomeIcon";
@@ -43,26 +40,22 @@ export default function MainLayout() {
 			}}
 		>
 			<Tabs.Screen
-				name="home/index"
+				name="home"
 				options={{
-					title: "Home",
-					headerTitle: "Home",
+					headerShown: false,
 					tabBarIcon: ({ color }) => <HomeIcon color={color} />,
 				}}
 			/>
 			<Tabs.Screen
-				name="explore/index"
+				name="explore"
 				options={{
-					title: "Explore",
-					headerTitle: "Explore",
+					headerShown: false,
 					tabBarIcon: ({ color }) => <ExploreIcon color={color} />,
 				}}
 			/>
 			<Tabs.Screen
-				name="create/index"
+				name="create"
 				options={{
-					title: "Create",
-					headerTitle: "Create",
 					tabBarIcon: ({ color }) => <CreatePostIcon color={color} />,
 				}}
 				listeners={() => ({
@@ -74,10 +67,9 @@ export default function MainLayout() {
 				})}
 			/>
 			<Tabs.Screen
-				name="notifications/index"
+				name="notifications"
 				options={{
-					title: "Notifications",
-					headerTitle: "Notifications",
+					headerShown: false,
 					tabBarIcon: ({ color }) => (
 						<NotificationsIcon color={color} />
 					),
@@ -91,18 +83,9 @@ export default function MainLayout() {
 				}}
 			/>
 			<Tabs.Screen
-				name="profile/index"
+				name="profile"
 				options={{
-					title: user.username,
-					headerTitle: ({ children }) => (
-						<HeaderTitle
-							children={children}
-							style={{
-								fontFamily: Styles.fonts.text.semibold,
-								fontSize: 24,
-							}}
-						/>
-					),
+					headerShown: false,
 					tabBarIcon: ({ color }) => (
 						<Avatar
 							uri={user.avatar}
@@ -117,16 +100,6 @@ export default function MainLayout() {
 							}}
 						/>
 					),
-					headerRight: () => <HeaderSettings />,
-				}}
-			/>
-			<Tabs.Screen
-				name="post/[id]"
-				options={{
-					title: "Post",
-					headerTitle: () => <HeaderTitle />,
-					headerLeft: () => <HeaderBack />,
-					href: null,
 				}}
 			/>
 		</Tabs>
