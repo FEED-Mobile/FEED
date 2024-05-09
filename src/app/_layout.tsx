@@ -64,13 +64,13 @@ function RootLayoutNav() {
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
 			if (session) {
-				router.replace("/(tabs)/home");
+				router.replace("/home");
 			}
 		});
 
 		supabase.auth.onAuthStateChange((_event, session) => {
 			if (session) {
-				router.replace("/(tabs)/home");
+				router.replace("/home");
 			} else {
 				router.replace("/landing");
 			}
