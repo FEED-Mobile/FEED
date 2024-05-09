@@ -64,15 +64,15 @@ function RootLayoutNav() {
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
 			if (session) {
-				router.replace("/(app)/home");
+				router.replace("/home/");
 			}
 		});
 
 		supabase.auth.onAuthStateChange((_event, session) => {
 			if (session) {
-				router.replace("/(app)/home");
+				router.replace("/home");
 			} else {
-				router.replace("/landing");
+				router.replace("/");
 			}
 		});
 	}, []);
@@ -91,55 +91,9 @@ function RootLayoutNav() {
 					headerLeft: () => <HeaderBack />,
 				}}
 			>
-				<Stack.Screen name="landing" options={{ headerShown: false }} />
-				<Stack.Screen name="login" options={{ headerShown: false }} />
-				<Stack.Screen name="signup" options={{ headerShown: false }} />
+				<Stack.Screen name="index" options={{ headerShown: false }} />
+				<Stack.Screen name="(auth)" options={{ headerShown: false }} />
 				<Stack.Screen name="(app)" options={{ headerShown: false }} />
-				<Stack.Screen
-					name="create-post"
-					options={{
-						headerShown: false,
-						presentation: "fullScreenModal",
-						animation: "slide_from_bottom",
-					}}
-				/>
-				<Stack.Screen
-					name="comments/[postId]"
-					options={{
-						headerShown: false,
-						presentation: "modal",
-					}}
-				/>
-				<Stack.Screen
-					name="settings/index"
-					options={{
-						headerTitle: () => (
-							<HeaderTitle
-								children="Settings"
-								style={{
-									fontFamily: Styles.fonts.text.regular,
-									fontSize: 16,
-									textTransform: "uppercase",
-								}}
-							/>
-						),
-					}}
-				/>
-				<Stack.Screen
-					name="editProfile/index"
-					options={{
-						headerTitle: () => (
-							<HeaderTitle
-								children="Edit Profile"
-								style={{
-									fontFamily: Styles.fonts.text.regular,
-									fontSize: 16,
-									textTransform: "uppercase",
-								}}
-							/>
-						),
-					}}
-				/>
 			</Stack>
 		</QueryClientProvider>
 		// {/* </ThemeProvider> */}

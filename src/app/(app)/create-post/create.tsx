@@ -86,7 +86,7 @@ export default function CreatePostPage() {
 		resetMedia();
 
 		// Navigate back to home page
-		router.replace("/(app)/home");
+		router.replace("/home");
 		console.log("Post successfully created!");
 	};
 

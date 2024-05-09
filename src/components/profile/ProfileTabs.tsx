@@ -36,7 +36,7 @@ const PostItem = ({ post }: PostItemProps) => {
 	const mediaWidth = 110;
 
 	return (
-		<Link href={`/(app)/post/${post.id}`}>
+		<Link href={`/profile/post/${post.id}`}>
 			<View style={postItemStyles.container}>
 				<Image
 					style={postItemStyles.image}
