@@ -65,7 +65,7 @@ function RootLayoutNav() {
 		supabase.auth.getSession().then(({ data: { session } }) => {
 			if (session) {
 				while (router.canGoBack()) {
-					router.back()
+					router.back();
 				}
 				router.replace("/home/");
 			}
@@ -74,12 +74,12 @@ function RootLayoutNav() {
 		supabase.auth.onAuthStateChange((_event, session) => {
 			if (session) {
 				while (router.canGoBack()) {
-					router.back()
+					router.back();
 				}
 				router.replace("/home");
 			} else {
 				while (router.canGoBack()) {
-					router.back()
+					router.back();
 				}
 				router.replace("/");
 			}
