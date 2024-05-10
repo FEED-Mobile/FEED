@@ -3,11 +3,13 @@ import Styles from "@constants/Styles";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useMedia, useMediaActions } from "@stores/mediaStore";
 import {
-	Camera,
+	CameraPictureOptions,
 	CameraRecordingOptions,
 	CameraType,
+	CameraView,
 	FlashMode,
-	PermissionStatus,
+	useCameraPermissions,
+	useMicrophonePermissions,
 } from "expo-camera";
 import { Link, router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
@@ -16,55 +18,50 @@ import { Alert, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CreatePostPage() {
-	const [, setCameraPermissionStatus] = useState(
-		PermissionStatus.UNDETERMINED
-	);
-	const [, setMicrophonePermissionStatus] = useState(
-		PermissionStatus.UNDETERMINED
-	);
 	const media = useMedia();
 	const { addMedia } = useMediaActions();
-	const [type, setType] = useState(CameraType.back);
-	const [flash, setFlash] = useState(FlashMode.off);
-	const [captureMode, setCaptureMode] = useState<"camera" | "video">(
-		"camera"
-	);
+	const [facing, setFacing] = useState<CameraType>("front");
+	const [flash, setFlash] = useState<FlashMode>("off");
+	const [mode, setMode] = useState<"picture" | "video">("picture");
 	const [isRecording, setIsRecording] = useState(false);
-	const cameraRef = useRef<Camera | null>(null);
+	const [cameraPermission, requestCameraPermission] = useCameraPermissions();
+	const [microphonePermission, requestMicrophonePermission] =
+		useMicrophonePermissions();
+	const cameraRef = useRef<CameraView>(null);
+
+	const getPermissions = async () => {
+		if (!cameraPermission || !cameraPermission.granted) {
+			await requestCameraPermission();
+		}
+
+		if (!microphonePermission || !microphonePermission.granted) {
+			await requestMicrophonePermission();
+		}
+	};
+
+	useEffect(() => {
+		getPermissions();
+	}, []);
 
 	/**
 	 * Ask user for permission to use camera and microphone
 	 */
-	useEffect(() => {
-		const askPermissions = async () => {
-			// Camera permissions
-			const cameraStatus = await Camera.requestCameraPermissionsAsync();
-			if (cameraStatus.status !== PermissionStatus.GRANTED) {
-				Alert.alert(
-					"No Permission",
-					"You need camera permissions to continue.",
-					[{ text: "OK", onPress: () => router.back() }]
-				);
-				return <></>;
-			}
+	if (!cameraPermission || !microphonePermission) {
+		return <View />;
+	}
 
-			// Microphone permissions
-			const microphoneStatus =
-				await Camera.requestMicrophonePermissionsAsync();
-			if (microphoneStatus.status !== PermissionStatus.GRANTED) {
-				Alert.alert(
-					"No Permission",
-					"You need microphone permissions to continue.",
-					[{ text: "OK", onPress: () => router.back() }]
-				);
-				return <></>;
-			}
-
-			setCameraPermissionStatus(cameraStatus.status);
-			setMicrophonePermissionStatus(microphoneStatus.status);
-		};
-		askPermissions();
-	}, []);
+	if (!cameraPermission.granted || !microphonePermission.granted) {
+		return (
+			<View style={styles.container}>
+				<Text style={{ textAlign: "center" }}>
+					We need your permissions to show the camera
+				</Text>
+				<Button onPress={getPermissions}>
+					<Text>Ask for Permission</Text>
+				</Button>
+			</View>
+		);
+	}
 
 	/**
 	 * Capture picture function
@@ -72,8 +69,14 @@ export default function CreatePostPage() {
 	const takePicture = async () => {
 		if (cameraRef.current) {
 			try {
-				const image = await cameraRef.current.takePictureAsync();
-				addMedia(image);
+				const options: CameraPictureOptions = {
+					base64: false,
+					exif: false,
+				};
+				const image = await cameraRef.current.takePictureAsync(options);
+				if (image) {
+					addMedia(image);
+				}
 			} catch (e) {
 				Alert.alert("Failed to take picture", "Please try again", [
 					{ text: "OK" },
@@ -91,13 +94,12 @@ export default function CreatePostPage() {
 		if (cameraRef.current) {
 			try {
 				const options: CameraRecordingOptions = {
-					quality: "1080p",
 					maxDuration: 5,
-					mute: false,
 				};
 				const video = await cameraRef.current.recordAsync(options);
-				addMedia(video);
-				setIsRecording(false);
+				if (video) {
+					addMedia(video);
+				}
 			} catch (e) {
 				Alert.alert("Failed to take video", "Please try again", [
 					{ text: "OK" },
@@ -105,6 +107,7 @@ export default function CreatePostPage() {
 				console.error(e);
 			}
 		}
+		setIsRecording(false);
 	};
 
 	/**
@@ -121,28 +124,26 @@ export default function CreatePostPage() {
 	 * Toggle flash mode (on/off)
 	 */
 	const toggleFlashMode = () => {
-		setFlash((current) =>
-			current === FlashMode.off ? FlashMode.on : FlashMode.off
-		);
+		setFlash((current) => (current === "off" ? "on" : "off"));
 	};
 
 	/**
 	 * Toggle camera type (front/back)
 	 */
 	const toggleCameraType = () => {
-		setType((current) =>
-			current === CameraType.back ? CameraType.front : CameraType.back
-		);
+		setFacing((current) => (current === "back" ? "front" : "back"));
 	};
 
 	return (
 		<SafeAreaView style={styles.container}>
 			<>
-				<Camera
-					style={styles.camera}
+				<CameraView
 					ref={cameraRef}
-					type={type}
-					flashMode={flash}
+					style={styles.camera}
+					facing={facing}
+					flash={flash}
+					videoQuality="1080p"
+					mode={mode}
 				>
 					<View style={styles.captureSettingsContainer}>
 						<Button onPress={() => router.back()}>
@@ -172,7 +173,7 @@ export default function CreatePostPage() {
 					<Button
 						style={styles.takePictureButton}
 						onPress={
-							captureMode === "camera"
+							mode === "picture"
 								? takePicture
 								: isRecording
 									? stopRecording
@@ -186,7 +187,7 @@ export default function CreatePostPage() {
 										styles.circle3,
 										{
 											backgroundColor:
-												captureMode === "camera"
+												mode === "picture"
 													? Styles.colors.white
 															.primary
 													: "red",
@@ -199,7 +200,7 @@ export default function CreatePostPage() {
 							</View>
 						</View>
 					</Button>
-				</Camera>
+				</CameraView>
 				<View style={styles.bottomContainer}>
 					<Link href="/create-post/media" asChild>
 						<Button style={styles.viewMediaContainer}>
@@ -220,13 +221,13 @@ export default function CreatePostPage() {
 
 					{/* TODO: VIDEO RECORDING FUNCTIONALITY */}
 					<View style={styles.captureTypeContainer}>
-						<Button onPress={() => setCaptureMode("camera")}>
+						<Button onPress={() => setMode("picture")}>
 							<Text
 								style={[
 									styles.captureTypeText,
 									{
 										fontWeight:
-											captureMode === "camera"
+											mode === "picture"
 												? "bold"
 												: "normal",
 									},
@@ -235,13 +236,13 @@ export default function CreatePostPage() {
 								Normal
 							</Text>
 						</Button>
-						<Button onPress={() => setCaptureMode("video")}>
+						<Button onPress={() => setMode("video")}>
 							<Text
 								style={[
 									styles.captureTypeText,
 									{
 										fontWeight:
-											captureMode === "video"
+											mode === "video"
 												? "bold"
 												: "normal",
 									},

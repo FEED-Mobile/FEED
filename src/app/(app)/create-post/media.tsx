@@ -4,9 +4,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { isCameraCapturedPicture } from "@lib/utils";
 import { useMedia, useMediaActions } from "@stores/mediaStore";
 import { ResizeMode, Video } from "expo-av";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Image, SafeAreaView, StyleSheet } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 
 export default function MediaPage() {
 	const media = useMedia();

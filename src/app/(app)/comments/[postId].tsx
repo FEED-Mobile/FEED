@@ -53,7 +53,7 @@ export default function CommentsModal() {
 	const { postId } = useLocalSearchParams();
 	const [commentDraft, setCommentDraft] = useState("");
 
-	if (Array.isArray(postId)) {
+	if (!postId || Array.isArray(postId)) {
 		return <></>;
 	}
 	const parsedPostId = parseInt(postId);

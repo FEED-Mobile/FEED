@@ -14,7 +14,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 export default function PostPage() {
 	const { id } = useLocalSearchParams();
-	if (Array.isArray(id)) {
+	if (!id || Array.isArray(id)) {
 		return <></>;
 	}
 	const postId = parseInt(id);
