@@ -23,7 +23,7 @@ export {
 
 export const unstable_settings = {
 	// Ensure that reloading on `/modal` keeps a back button present.
-	initialRouteName: "(tabs)",
+	initialRouteName: "/",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -64,14 +64,23 @@ function RootLayoutNav() {
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
 			if (session) {
+				while (router.canGoBack()) {
+					router.back()
+				}
 				router.replace("/home/");
 			}
 		});
 
 		supabase.auth.onAuthStateChange((_event, session) => {
 			if (session) {
+				while (router.canGoBack()) {
+					router.back()
+				}
 				router.replace("/home");
 			} else {
+				while (router.canGoBack()) {
+					router.back()
+				}
 				router.replace("/");
 			}
 		});
