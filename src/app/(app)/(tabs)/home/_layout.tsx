@@ -1,3 +1,4 @@
+import HeaderTitle from "@components/header/HeaderTitle";
 import { Stack } from "expo-router";
 
 export default function HomeLayout() {
@@ -6,7 +7,7 @@ export default function HomeLayout() {
 			<Stack.Screen
 				name="index"
 				options={{
-					title: "Home",
+					headerTitle: () => <HeaderTitle />,
 				}}
 			/>
 		</Stack>
