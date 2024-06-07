@@ -1,3 +1,4 @@
+import UserSearch from "@components/explore/UserSearch";
 import SearchFriendsIcon from "@components/icons/SearchFriendsIcon";
 import SearchPostsIcon from "@components/icons/SearchPostsIcon";
 import Styles from "@constants/Styles";
@@ -5,14 +6,6 @@ import Constants from "expo-constants";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
-
-const UserSearch = () => {
-	return (
-		<View>
-			<Text>User Search</Text>
-		</View>
-	);
-};
 
 const PostSearch = () => {
 	return (
