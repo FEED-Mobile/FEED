@@ -6,6 +6,7 @@ export default function ExploreLayout() {
 			<Stack.Screen
 				name="index"
 				options={{
+					headerShown: false,
 					title: "Explore",
 				}}
 			/>
