@@ -1,3 +1,5 @@
+import HeaderBack from "@components/header/HeaderBack";
+import HeaderTitle from "@components/header/HeaderTitle";
 import { Stack } from "expo-router";
 
 export default function ExploreLayout() {
@@ -8,6 +10,14 @@ export default function ExploreLayout() {
 				options={{
 					headerShown: false,
 					title: "Explore",
+				}}
+			/>
+			<Stack.Screen
+				name="[userId]"
+				options={{
+					headerShown: true,
+					headerLeft: () => <HeaderBack />,
+					headerTitle: () => <HeaderTitle />,
 				}}
 			/>
 		</Stack>

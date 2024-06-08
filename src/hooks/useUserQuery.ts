@@ -5,9 +5,9 @@ import { useQuery } from "@tanstack/react-query";
  * Query for user object from Supabase
  * @returns
  */
-export default function useUserQuery() {
+export default function useUserQuery(id?: string) {
 	return useQuery({
-		queryKey: ["user"],
+		queryKey: ["user", id],
 		queryFn: async () => {
 			console.log("Getting user data...");
 			const { data, error: authError } = await supabase.auth.getSession();
@@ -20,7 +20,7 @@ export default function useUserQuery() {
 			const { data: user, error } = await supabase
 				.from("users")
 				.select()
-				.eq("id", data.session.user.id)
+				.eq("id", id ? id : data.session.user.id) // If no ID, return logged in user
 				.limit(1)
 				.single();
 

@@ -1,6 +1,8 @@
 import Avatar from "@components/ui/Avatar";
+import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import useSearchUserQuery from "@hooks/useSearchUserQuery";
+import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
 type UserListProps = {
@@ -20,12 +22,13 @@ export default function UserList({ searchQuery }: UserListProps) {
 				<View style={styles.listContainer}>
 					<Text style={styles.peopleText}>People</Text>
 					{users.map((user, index) => (
-						<View
+						<Button
 							key={user.id}
 							style={[
 								styles.userContainer,
 								index === 0 ? { paddingTop: 32 } : null,
 							]}
+							onPress={() => router.push(`/explore/${user.id}`)}
 						>
 							<Avatar
 								uri={user.avatar}
@@ -39,7 +42,7 @@ export default function UserList({ searchQuery }: UserListProps) {
 								}}
 							/>
 							<Text style={styles.username}>{user.username}</Text>
-						</View>
+						</Button>
 					))}
 				</View>
 			) : (

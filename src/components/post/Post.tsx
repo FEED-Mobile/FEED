@@ -96,6 +96,8 @@ const styles = StyleSheet.create({
 		width: 30,
 		height: 30,
 		borderRadius: 15,
+		borderWidth: 1,
+		backgroundColor: Styles.colors.darkgreen.primary,
 	},
 	userInfoText: {
 		fontFamily: Styles.fonts.text.regular,
