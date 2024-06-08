@@ -6,7 +6,7 @@
 		"orientation": "portrait",
 		"icon": "./src/assets/images/icon.png",
 		"scheme": "myapp",
-		"userInterfaceStyle": "automatic",
+		"userInterfaceStyle": "light",
 		"splash": {
 			"image": "./src/assets/images/splash.png",
 			"resizeMode": "contain",
@@ -33,7 +33,9 @@
 				"expo-camera",
 				{
 					"cameraPermission": "Allow $(PRODUCT_NAME) to access your camera.",
-					"microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
+					"microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone.",
+					"photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+					"recordAudioAndroid": true
 				}
 			]
 		],

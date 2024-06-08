@@ -3,8 +3,6 @@ module.exports = function (api) {
 	return {
 		presets: ["babel-preset-expo"],
 		plugins: [
-			// Required for expo-router
-			["expo-router/babel"],
 			[
 				"module-resolver",
 				{
@@ -14,11 +12,13 @@ module.exports = function (api) {
 						"@components": "./src/components",
 						"@constants": "./src/constants",
 						"@lib": "./src/lib",
+						"@hooks": "./src/hooks",
 						"@stores": "./src/stores",
 						"@type": "./src/types",
 					},
 				},
 			],
+			"react-native-reanimated/plugin",
 		],
 	};
 };

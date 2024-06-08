@@ -13,14 +13,18 @@ jobs:
 
         steps:
             - uses: actions/checkout@v3
+            - name: Run ESLint
+              run: |
+                  npm ci
+                  npm run lint
 
             - uses: supabase/setup-cli@v1
               with:
                   version: latest
 
-            - run: supabase db start
-            # - run: supabase db lint
-            # - run: supabase test db
+            - run: npm run db:start
+            - run: npm run db:lint
+            - run: npm run db:test
 
             - name: Verify generated types are checked in
               run: |

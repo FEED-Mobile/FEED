@@ -1,15 +1,20 @@
-import Fonts from "@constants/Fonts";
+import HeaderBack from "@components/header/HeaderBack";
+import HeaderTitle from "@components/header/HeaderTitle";
+import Styles from "@constants/Styles";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { supabase } from "@lib/supabase";
-import {
-	DarkTheme,
-	DefaultTheme,
-	ThemeProvider,
-} from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import {
+// 	DarkTheme,
+// 	DefaultTheme,
+// 	ThemeProvider,
+// } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack, router } from "expo-router";
+import { router, SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
+// import { useColorScheme } from "react-native";
+
+const queryClient = new QueryClient();
 
 export {
 	// Catch any errors thrown by the Layout component.
@@ -18,7 +23,7 @@ export {
 
 export const unstable_settings = {
 	// Ensure that reloading on `/modal` keeps a back button present.
-	initialRouteName: "(tabs)",
+	initialRouteName: "/",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -26,8 +31,12 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 	const [loaded, error] = useFonts({
-		Katibeh: require("../assets/fonts/Katibeh-Regular.ttf"),
-		Mako: require("../assets/fonts/Mako-Regular.ttf"),
+		AoboshiOne: require("../assets/fonts/AoboshiOne/AoboshiOne-Regular.ttf"),
+		Mako: require("../assets/fonts/Mako/Mako-Regular.ttf"),
+		"IBMPlexSans-Regular": require("../assets/fonts/IBMPlexSans/IBMPlexSans-Regular.ttf"),
+		"IBMPlexSans-Light": require("../assets/fonts/IBMPlexSans/IBMPlexSans-Light.ttf"),
+		"IBMPlexSans-SemiBold": require("../assets/fonts/IBMPlexSans/IBMPlexSans-SemiBold.ttf"),
+		"IBMPlexSans-Bold": require("../assets/fonts/IBMPlexSans/IBMPlexSans-Bold.ttf"),
 		...FontAwesome.font,
 	});
 
@@ -50,50 +59,52 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-	const colorScheme = useColorScheme();
+	// const colorScheme = useColorScheme();
 
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
 			if (session) {
-				router.replace("/(app)/home");
+				while (router.canGoBack()) {
+					router.back();
+				}
+				router.replace("/home/");
 			}
 		});
 
 		supabase.auth.onAuthStateChange((_event, session) => {
 			if (session) {
-				router.replace("/(app)/home");
+				while (router.canGoBack()) {
+					router.back();
+				}
+				router.replace("/home");
 			} else {
-				router.replace("/landing");
+				while (router.canGoBack()) {
+					router.back();
+				}
+				router.replace("/");
 			}
 		});
 	}, []);
 
 	return (
-		<ThemeProvider
-			value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-		>
+		// <ThemeProvider
+		// 	value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+		// >
+		<QueryClientProvider client={queryClient}>
 			<Stack
 				screenOptions={{
-					headerTitle: "Feed",
-					headerTitleStyle: {
-						fontFamily: Fonts.title,
-						fontSize: 48,
+					headerStyle: {
+						backgroundColor: Styles.colors.white.primary,
 					},
+					headerTitle: () => <HeaderTitle />,
+					headerLeft: () => <HeaderBack />,
 				}}
 			>
-				<Stack.Screen name="landing" options={{ headerShown: false }} />
-				<Stack.Screen name="login" />
-				<Stack.Screen name="signup" />
+				<Stack.Screen name="index" options={{ headerShown: false }} />
+				<Stack.Screen name="(auth)" options={{ headerShown: false }} />
 				<Stack.Screen name="(app)" options={{ headerShown: false }} />
-				<Stack.Screen
-					name="post"
-					options={{
-						headerShown: false,
-						presentation: "fullScreenModal",
-						animation: "slide_from_bottom",
-					}}
-				/>
 			</Stack>
-		</ThemeProvider>
+		</QueryClientProvider>
+		// {/* </ThemeProvider> */}
 	);
 }

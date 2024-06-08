@@ -1,50 +1,36 @@
-import { Tabs, router } from "expo-router";
+import { Stack } from "expo-router";
 
-export default function MainLayout() {
+export default function AppLayout() {
 	return (
-		<Tabs>
-			<Tabs.Screen
-				name="home/index"
+		<Stack>
+			<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+			<Stack.Screen
+				name="create-post"
 				options={{
-					title: "Home",
-					headerTitle: "Home",
+					headerShown: false,
+					presentation: "fullScreenModal",
+					animation: "slide_from_bottom",
 				}}
 			/>
-			<Tabs.Screen
-				name="explore/index"
+			<Stack.Screen
+				name="comments/[postId]"
 				options={{
-					title: "Explore",
-					headerTitle: "Explore",
+					headerShown: false,
+					presentation: "modal",
 				}}
 			/>
-			<Tabs.Screen
-				name="create/index"
+			<Stack.Screen
+				name="settings"
 				options={{
-					title: "Post",
-					headerTitle: "Post",
-				}}
-				listeners={() => ({
-					tabPress: (e) => {
-						// Navigate to post modal
-						e.preventDefault();
-						router.push("/post/");
-					},
-				})}
-			/>
-			<Tabs.Screen
-				name="notifications/index"
-				options={{
-					title: "Notifications",
-					headerTitle: "Notifications",
+					headerShown: false,
 				}}
 			/>
-			<Tabs.Screen
-				name="profile/index"
+			<Stack.Screen
+				name="editProfile"
 				options={{
-					title: "Profile",
-					headerTitle: "Profile",
+					headerShown: false,
 				}}
 			/>
-		</Tabs>
+		</Stack>
 	);
 }
