@@ -297,7 +297,22 @@ export interface Database {
 			[_ in never]: never;
 		};
 		Functions: {
-			[_ in never]: never;
+			search_users_by_username_prefix: {
+				Args: {
+					prefix: string;
+				};
+				Returns: {
+					avatar: string | null;
+					bio: string | null;
+					birthday: string | null;
+					created_at: string;
+					email: string;
+					full_name: string | null;
+					id: string;
+					location: string | null;
+					username: string;
+				}[];
+			};
 		};
 		Enums: {
 			[_ in never]: never;
@@ -613,6 +628,12 @@ export type UpdateTag = Database["public"]["Tables"]["tags"]["Update"];
 export type User = Database["public"]["Tables"]["users"]["Row"];
 export type InsertUser = Database["public"]["Tables"]["users"]["Insert"];
 export type UpdateUser = Database["public"]["Tables"]["users"]["Update"];
+
+// Functions
+export type ArgsSearchUserByUsernamePrefix =
+	Database["public"]["Functions"]["search_users_by_username_prefix"]["Args"];
+export type ReturnTypeSearchUserByUsernamePrefix =
+	Database["public"]["Functions"]["search_users_by_username_prefix"]["Returns"];
 
 // Schema: storage
 // Tables

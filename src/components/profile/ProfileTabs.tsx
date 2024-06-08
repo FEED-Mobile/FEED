@@ -1,7 +1,6 @@
 import Styles from "@constants/Styles";
 import { AntDesign } from "@expo/vector-icons";
 import useUserPostsQuery from "@hooks/useUserPostsQuery";
-import useUserQuery from "@hooks/useUserQuery";
 import MasonryList from "@react-native-seoul/masonry-list";
 import { Post } from "@type/supabase";
 import { Link } from "expo-router";
@@ -75,23 +74,13 @@ const PostsGrid = ({ posts, onRefresh }: PostGridProps) => {
 	);
 };
 
-const YourPostsGrid = () => {
-	const {
-		data: user,
-		isPending: isUserPending,
-		error: userError,
-	} = useUserQuery();
-
-	if (isUserPending || userError) {
-		return <></>;
-	}
-
+const UserPostsGrid = ({ userId }: { userId: string }) => {
 	const {
 		data: posts,
 		isPending: isPostsPending,
 		error: postsError,
 		refetch,
-	} = useUserPostsQuery(user.id ?? "");
+	} = useUserPostsQuery(userId);
 
 	if (isPostsPending || postsError) {
 		return <></>;
@@ -100,21 +89,30 @@ const YourPostsGrid = () => {
 	if (posts.length) {
 		return <PostsGrid posts={posts} onRefresh={refetch} />;
 	}
+
+	return <NoPosts />;
 };
 
 const SavedPostsGrid = () => <NoPosts />;
 
-const renderScene = SceneMap({
-	posts: YourPostsGrid,
-	saved: SavedPostsGrid,
-});
+type ProfileTabsProps = {
+	isLoggedInUser: boolean;
+	userId: string;
+};
 
-export default function ProfileTabs() {
+export default function ProfileTabs({
+	isLoggedInUser = true,
+	userId,
+}: ProfileTabsProps) {
 	const [index, setIndex] = useState(0);
-	const [routes] = useState([
-		{ key: "posts", title: "Your Posts" },
-		{ key: "saved", title: "Saved" },
-	]);
+	const [routes] = useState(
+		isLoggedInUser
+			? [
+					{ key: "posts", title: "Your Posts" },
+					{ key: "saved", title: "Saved" },
+				]
+			: [{ key: "posts", title: "Posts" }]
+	);
 	return (
 		<TabView
 			renderTabBar={(props) => (
@@ -139,7 +137,10 @@ export default function ProfileTabs() {
 				/>
 			)}
 			navigationState={{ index, routes }}
-			renderScene={renderScene}
+			renderScene={SceneMap({
+				posts: () => <UserPostsGrid userId={userId} />,
+				saved: SavedPostsGrid,
+			})}
 			onIndexChange={setIndex}
 		/>
 	);

@@ -31,7 +31,7 @@ export default function useLikesQuery(postId: number) {
 				throw likesError;
 			}
 
-			// Retrieve number of likes from public.users table
+			// Retrieve if logged in user liked post from public.likes table
 			const { count: userLiked, error: userLikedError } = await supabase
 				.from("likes")
 				.select("*", { count: "exact", head: true })

@@ -1,5 +1,5 @@
 /*
-Test that public.postings table should have correct RLS policies
+Test that public.comments table should have correct RLS policies
 */
 begin;
 
