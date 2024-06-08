@@ -1,9 +1,11 @@
+import HeaderTitle from "@components/header/HeaderTitle";
 import ProfileTabs from "@components/profile/ProfileTabs";
 import Avatar from "@components/ui/Avatar";
 import Button from "@components/ui/Button";
 import Styles from "@constants/Styles";
 import useUserQuery from "@hooks/useUserQuery";
-import { router } from "expo-router";
+import { router, useNavigation } from "expo-router";
+import { useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 type UserProfileProps = {
@@ -21,6 +23,22 @@ export default function UserProfile({ userId }: UserProfileProps) {
 		isPending: isUserBasedOnIdPending,
 		error: userBasedOnIdError,
 	} = useUserQuery(userId);
+	const navigation = useNavigation();
+
+	useEffect(() => {
+		navigation.setOptions({
+			title: userBasedOnId?.username,
+			headerTitle: ({ children }: { children: string }) => (
+				<HeaderTitle
+					children={children}
+					style={{
+						fontFamily: Styles.fonts.text.semibold,
+						fontSize: 24,
+					}}
+				/>
+			),
+		});
+	}, [navigation, userBasedOnId]);
 
 	if (
 		isLoggedInUserPending ||

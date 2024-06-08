@@ -47,7 +47,10 @@ export default function IndividualPost({ id }: { id: number }) {
 
 	return (
 		<View>
-			<View style={styles.userInfoContainer}>
+			<Button
+				onPress={() => router.push(`/home/${post.users?.id}`)}
+				style={styles.userInfoContainer}
+			>
 				<Avatar uri={post.users?.avatar ?? ""} style={styles.avatar} />
 				<View>
 					<Text style={[styles.userInfoText, styles.username]}>
@@ -57,7 +60,7 @@ export default function IndividualPost({ id }: { id: number }) {
 						{post.location}
 					</Text>
 				</View>
-			</View>
+			</Button>
 			<MediaFlatlist media={post.media} />
 
 			<View style={styles.buttonContainer}>

@@ -1,5 +1,4 @@
 import HeaderBack from "@components/header/HeaderBack";
-import HeaderTitle from "@components/header/HeaderTitle";
 import { Stack } from "expo-router";
 
 export default function ExploreLayout() {
@@ -17,7 +16,6 @@ export default function ExploreLayout() {
 				options={{
 					headerShown: true,
 					headerLeft: () => <HeaderBack />,
-					headerTitle: () => <HeaderTitle />,
 				}}
 			/>
 		</Stack>
