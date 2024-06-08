@@ -1,12 +1,11 @@
 import HeaderTitle from "@components/header/HeaderTitle";
 import ProfileTabs from "@components/profile/ProfileTabs";
-import Avatar from "@components/ui/Avatar";
-import Button from "@components/ui/Button";
+import UserInfo from "@components/profile/UserInfo";
 import Styles from "@constants/Styles";
 import useUserQuery from "@hooks/useUserQuery";
-import { router, useNavigation } from "expo-router";
+import { useNavigation } from "expo-router";
 import { useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 type UserProfileProps = {
 	userId: string;
@@ -55,68 +54,7 @@ export default function UserProfile({ userId }: UserProfileProps) {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.headerContainer}>
-				<View style={styles.content}>
-					<Avatar uri={user.avatar} style={styles.profilePic} />
-					<View style={styles.statsContainer}>
-						<TouchableOpacity
-							onPress={() => console.log("Num posts pressed...")}
-						>
-							<View style={styles.statContainer}>
-								<Text style={styles.statNum}>90</Text>
-								<Text style={styles.statTitle}>Posts</Text>
-							</View>
-						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => console.log("Followers pressed...")}
-						>
-							<View style={styles.statContainer}>
-								<Text style={styles.statNum}>987</Text>
-								<Text style={styles.statTitle}>Followers</Text>
-							</View>
-						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => console.log("Following pressed...")}
-						>
-							<View style={styles.statContainer}>
-								<Text style={styles.statNum}>560</Text>
-								<Text style={styles.statTitle}>Following</Text>
-							</View>
-						</TouchableOpacity>
-					</View>
-				</View>
-				<View style={styles.bioContainer}>
-					<Text style={styles.actualName}>{user.full_name}</Text>
-					<Text style={styles.bio}>{user.bio}</Text>
-				</View>
-				<View style={styles.buttonContainer}>
-					{isLoggedInUser ? (
-						<Button
-							style={[styles.button, styles.editButton]}
-							onPress={() => router.push("/editProfile/")}
-						>
-							<Text style={styles.buttonText}>Edit</Text>
-						</Button>
-					) : (
-						<Button
-							style={[styles.button, styles.editButton]}
-							onPress={() => console.log("Following")}
-						>
-							<Text style={styles.buttonText}>Follow</Text>
-						</Button>
-					)}
-					<Button
-						style={[styles.button, styles.shareButton]}
-						onPress={() => console.log("Share pressed...")}
-					>
-						<Text
-							style={[styles.buttonText, styles.shareButtonText]}
-						>
-							Share
-						</Text>
-					</Button>
-				</View>
-			</View>
+			<UserInfo user={user} isLoggedInUser={isLoggedInUser} />
 			<ProfileTabs isLoggedInUser={isLoggedInUser} userId={user.id} />
 		</View>
 	);
