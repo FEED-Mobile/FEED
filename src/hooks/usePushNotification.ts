@@ -1,15 +1,13 @@
-import { Text, View } from "@components/Themed";
-import { useState, useEffect, useRef } from "react";
+import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import { Button } from "react-native";
-import Constants from "expo-constants";
+import { useEffect, useRef, useState } from "react";
 import { Platform } from "react-native";
 
-export interface PushNotificationState {
+export type PushNotificationState = {
 	pushToken?: Notifications.ExpoPushToken;
 	notification?: Notifications.Notification;
-}
+};
 
 export const usePushNotifications = (): PushNotificationState => {
 	Notifications.setNotificationHandler({
@@ -28,23 +26,35 @@ export const usePushNotifications = (): PushNotificationState => {
 		Notifications.Notification | undefined
 	>();
 
-	const notificationListener = useRef<Notifications.Subscription>();
 	const responseListener = useRef<Notifications.Subscription>();
+	const notificationListener = useRef<Notifications.Subscription>();
 
 	async function registerForPushNotification() {
 		let token;
 		if (Device.isDevice) {
-			const { status: currStatus } =
+			const { status: existingStatus } =
 				await Notifications.getPermissionsAsync();
-			let finalStatus = currStatus;
+			let finalStatus = existingStatus;
 
-			if (currStatus !== "granted") {
+			if (existingStatus !== "granted") {
 				const { status } =
 					await Notifications.requestPermissionsAsync();
 				finalStatus = status;
 			}
+
+			if (finalStatus !== "granted") {
+				alert("Failed to get push token.");
+				return;
+			}
+			console.log(
+				"Project ID:",
+				Constants?.expoConfig?.extra?.eas?.projectId ??
+					Constants?.easConfig?.projectId
+			);
 			token = await Notifications.getExpoPushTokenAsync({
-				projectId: Constants.expoConfig?.extra?.eas.projectId,
+				projectId:
+					Constants?.expoConfig?.extra?.eas?.projectId ??
+					Constants?.easConfig?.projectId,
 			});
 		} else {
 			alert("Must be using a physical device for Push Notifications");
@@ -68,16 +78,15 @@ export const usePushNotifications = (): PushNotificationState => {
 		});
 
 		notificationListener.current =
+			Notifications.addNotificationReceivedListener((notification) => {
+				setNotification(notification);
+			});
+		responseListener.current =
 			Notifications.addNotificationResponseReceivedListener(
-				(notification) => {
-					setNotification(notification);
+				(response) => {
+					console.log(response);
 				}
 			);
-		responseListener.current =
-			Notifications.addNotificationReceivedListener((response) => {
-				//do something
-			});
-
 		return () => {
 			Notifications.removeNotificationSubscription(
 				notificationListener.current!
@@ -87,7 +96,7 @@ export const usePushNotifications = (): PushNotificationState => {
 				responseListener.current!
 			);
 		};
-	});
+	}, []);
 
 	return {
 		pushToken,
